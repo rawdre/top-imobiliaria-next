@@ -43,3 +43,5 @@ next-env.d.ts
 # Stale handoff/backup snapshots — old copies of the project that shouldn't
 # be type-checked or committed (they reference pre-migration schemas).
 handoff-package-*/
+
+.vercel
