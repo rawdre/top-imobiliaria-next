@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase, type Property } from "@/lib/supabase";
 import Image from "next/image";
-
-const WA_NUMBER = "556130424344"; // Top Imobiliária — matches live site
+import { waLink } from "@/lib/contact";
 
 // Gallery entries are mixed-shape in Supabase: legacy rows store strings,
 // newer rows store {url, name, path}. Pull the first usable URL out.
@@ -23,6 +22,14 @@ function PropertyCard({ property, index }: { property: Property; index: number }
   const imgSrc = galleryFirstUrl(property.gallery);
   const isRent = property.listing_type === "aluguel";
   const price = property.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0 });
+
+  // Single source of truth for opening the property modal. The legacy
+  // /legacy/index.html bundle injects a global `verDetalhes(id)` that owns the
+  // modal — we just delegate to it.
+  const openDetails = () => {
+    const w = window as unknown as { verDetalhes?: (id: string) => void };
+    if (typeof w.verDetalhes === "function") w.verDetalhes(property.id);
+  };
 
   return (
     <motion.div
@@ -46,11 +53,28 @@ function PropertyCard({ property, index }: { property: Property; index: number }
         position: "relative",
         transformStyle: "preserve-3d",
         perspective: 1000,
-        cursor: "pointer",
       }}
     >
-      {/* Image */}
-      <div style={{ height: 220, position: "relative", overflow: "hidden", background: "#EEF1F6" }}>
+      {/* Image — entire image area is the click target for "Ver Detalhes".
+          The fav button (zIndex 3) and tag still take their own clicks. */}
+      <button
+        type="button"
+        onClick={openDetails}
+        aria-label={`Ver detalhes do imóvel ${property.title || ""}`}
+        style={{
+          height: 220,
+          position: "relative",
+          overflow: "hidden",
+          background: "#EEF1F6",
+          width: "100%",
+          padding: 0,
+          margin: 0,
+          border: "none",
+          cursor: "pointer",
+          display: "block",
+        }}
+        className="topimob-property-image-btn"
+      >
         {imgSrc ? (
           <Image
             src={imgSrc}
@@ -63,6 +87,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
             // flagged as a slow LCP.
             priority={index === 0}
             style={{ objectFit: "cover", transition: "transform 0.6s ease" }}
+            className="topimob-property-image"
           />
         ) : (
           <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg,#1B2A4A,#243656)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 48 }}>
@@ -80,22 +105,30 @@ function PropertyCard({ property, index }: { property: Property; index: number }
           {isRent ? "🔑 Aluguel" : "🏡 Venda"}
         </span>
 
-        {/* Fav button */}
-        <motion.button
-          whileHover={{ scale: 1.1, background: "#D32F2F", color: "#fff" }}
-          whileTap={{ scale: 0.9 }}
+        {/* Subtle "Ver detalhes" hint that fades in on hover */}
+        <span
+          aria-hidden="true"
+          className="topimob-property-image-hint"
           style={{
-            position: "absolute", top: 16, right: 16, zIndex: 3,
-            width: 36, height: 36, background: "rgba(255,255,255,0.9)",
-            borderRadius: "50%", border: "none", cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 18, boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            position: "absolute",
+            top: 16,
+            right: 60,
+            zIndex: 2,
+            padding: "6px 12px",
+            borderRadius: 50,
+            background: "rgba(15,26,46,0.85)",
+            color: "#fff",
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: "0.3px",
+            opacity: 0,
+            transition: "opacity 0.25s ease",
+            pointerEvents: "none",
             backdropFilter: "blur(8px)",
           }}
-          aria-label="Favoritar"
         >
-          🤍
-        </motion.button>
+          Ver detalhes →
+        </span>
 
         {/* Price overlay */}
         <div style={{
@@ -107,15 +140,54 @@ function PropertyCard({ property, index }: { property: Property; index: number }
             {isRent && <small style={{ fontSize: 13, fontWeight: 400, opacity: 0.8 }}>/mês</small>}
           </div>
         </div>
-      </div>
+      </button>
+
+      {/* Fav button — sibling of the image button so it doesn't nest a button.
+          Positioned over the image area. */}
+      <motion.button
+        type="button"
+        whileHover={{ scale: 1.1, background: "#D32F2F", color: "#fff" }}
+        whileTap={{ scale: 0.9 }}
+        style={{
+          position: "absolute", top: 16, right: 16, zIndex: 3,
+          width: 36, height: 36, background: "rgba(255,255,255,0.9)",
+          borderRadius: "50%", border: "none", cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 18, boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          backdropFilter: "blur(8px)",
+        }}
+        aria-label="Favoritar"
+      >
+        🤍
+      </motion.button>
 
       {/* Body */}
       <div style={{ padding: 20 }}>
-        {/* Title — matches live card prominence */}
+        {/* Title — also a click target for details */}
         {property.title ? (
-          <div style={{ fontSize: 15, fontWeight: 700, color: "#1B2A4A", marginBottom: 8, lineHeight: 1.3, fontFamily: "var(--font-jakarta)" }}>
+          <button
+            type="button"
+            onClick={openDetails}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "left",
+              padding: 0,
+              margin: 0,
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              fontSize: 15,
+              fontWeight: 700,
+              color: "#1B2A4A",
+              marginBottom: 8,
+              lineHeight: 1.3,
+              fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif",
+            }}
+            className="topimob-property-title-btn"
+          >
             {property.title}
-          </div>
+          </button>
         ) : null}
 
         <div style={{ fontSize: 14, color: "#5A6478", marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
@@ -128,36 +200,9 @@ function PropertyCard({ property, index }: { property: Property; index: number }
           <span style={{ fontSize: 13, color: "#5A6478" }}>📐 <strong style={{ color: "#2C3345" }}>{property.area_m2}m²</strong></span>
         </div>
 
-        {/* Ver Detalhes — opens the legacy property modal injected from /legacy/index.html */}
-        <motion.button
-          type="button"
-          onClick={() => {
-            const w = window as unknown as { verDetalhes?: (id: string) => void };
-            if (typeof w.verDetalhes === "function") w.verDetalhes(property.id);
-          }}
-          whileHover={{ y: -1, background: "#EEF1F6" }}
-          whileTap={{ scale: 0.98 }}
-          style={{
-            display: "block",
-            width: "100%",
-            marginBottom: 12,
-            padding: "10px 14px",
-            borderRadius: 50,
-            background: "#F8F9FC",
-            color: "#1B2A4A",
-            fontSize: 13,
-            fontWeight: 600,
-            border: "1px solid #D8DDE8",
-            cursor: "pointer",
-            fontFamily: "inherit",
-          }}
-        >
-          Ver Detalhes →
-        </motion.button>
-
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <motion.a
-            href={`https://wa.me/${WA_NUMBER}?text=Olá! Vi o imóvel ${property.title} e tenho interesse.`}
+            href={waLink(`Olá! Vi o imóvel ${property.title} e tenho interesse.`)}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -2 }}
@@ -322,40 +367,4 @@ export default function PropertiesSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(340px,1fr))", gap: 24 }}
-            >
-              {filtered.map((p, i) => (
-                <PropertyCard key={p.id} property={p} index={i} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        )}
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          style={{ textAlign: "center", marginTop: 48 }}
-        >
-          <motion.a
-            href="/buildings.html"
-            whileHover={{ scale: 1.05, y: -3, boxShadow: "0 12px 32px rgba(27,42,74,0.2)" }}
-            whileTap={{ scale: 0.97 }}
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              padding: "16px 36px", borderRadius: 50,
-              background: "linear-gradient(135deg,#1B2A4A,#243656)",
-              color: "#fff", fontSize: "1rem", fontWeight: 700,
-              boxShadow: "0 8px 24px rgba(27,42,74,0.2)",
-            }}
-          >
-            🏠 Ver Todos os Imóveis
-          </motion.a>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+              transit

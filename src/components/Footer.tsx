@@ -3,6 +3,14 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  EMAIL,
+  ADDRESS_SHORT,
+  MAPS_EMBED_URL,
+  MAPS_LINK_URL,
+} from "@/lib/contact";
 
 const quickLinks = [
   { label: "🔑 Alugar Imóvel", href: "#imoveis" },
@@ -69,15 +77,20 @@ export default function Footer() {
               Locação, venda e consultoria com garantia locatícia.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <a href="tel:+5561999999999" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
-                📞 (61) 9999-9999
+              <a href={`tel:${PHONE_TEL}`} style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
+                📞 {PHONE_DISPLAY}
               </a>
-              <a href="mailto:contato@topimobiliariadf.com.br" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
-                ✉️ contato@topimobiliariadf.com.br
+              <a href={`mailto:${EMAIL}`} style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
+                ✉️ {EMAIL}
               </a>
-              <span style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
-                📍 Águas Claras, Brasília - DF
-              </span>
+              <a
+                href={MAPS_LINK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}
+              >
+                📍 {ADDRESS_SHORT}
+              </a>
             </div>
           </div>
 
@@ -120,17 +133,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
-            © {new Date().getFullYear()} Top Imobiliária DF. Todos os direitos reservados.
-          </p>
-          <div style={{ display: "flex", gap: 16 }}>
-            <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Política de Privacidade</a>
-            <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Termos de Uso</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
+        {/* Map block — Google embed showing Top Imobiliária location */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          style={{
+            marginBottom: 56,
+            borderRadius: 20,
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
+            backgro

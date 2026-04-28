@@ -25,8 +25,8 @@
  */
 
 import { useEffect, useState } from "react";
+import { waLink } from "@/lib/contact";
 
-const WA_NUMBER = "556130424344";
 const WA_DEFAULT_TEXT =
   "Olá! Estava no site da Top Imobiliária e gostaria de uma ajuda.";
 
@@ -82,7 +82,7 @@ const CHOICES: Choice[] = [
     emoji: "💬",
     action: {
       type: "external",
-      url: `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_TEXT)}`,
+      url: waLink(WA_DEFAULT_TEXT),
     },
   },
 ];
@@ -121,9 +121,27 @@ function Mascot({ size = 56 }: { size?: number }) {
   );
 }
 
+// Idle chatter rotation — short, friendly, varied. Topinho cycles through
+// these in random order while the panel is closed so visitors who scroll past
+// without engaging still feel a nudge of personality.
+const IDLE_BUBBLES = [
+  "Achei algo legal pra você ver 👀",
+  "Posso te ajudar a achar o imóvel ideal!",
+  "Quer simular um consórcio? É rapidinho.",
+  "Bora dar uma olhada nos imóveis em destaque?",
+  "Dúvida? Posso te conectar com um corretor.",
+  "Tô aqui se precisar 🏠",
+  "Posso te mostrar prédios em Águas Claras",
+  "Quer uma avaliação grátis do seu imóvel?",
+  "Já viu nossa sessão de imóveis em destaque?",
+];
+
 export default function SiteAssistant() {
   const [open, setOpen] = useState(false);
   const [pulseHint, setPulseHint] = useState(false);
+  // Idle behavior — Topinho occasionally trembles and pops a chat bubble.
+  const [wiggling, setWiggling] = useState(false);
+  const [idleBubble, setIdleBubble] = useState<string | null>(null);
 
   // First-time visitors get a small pulse hint after a beat.
   useEffect(() => {
@@ -134,6 +152,58 @@ export default function SiteAssistant() {
     return () => clearTimeout(t);
   }, []);
 
+  // Periodic idle behavior. Wiggle + speech bubble at irregular intervals so
+  // it doesn't feel mechanical. Pauses while the panel is open or the
+  // first-visit hint is up (we don't want to step on those).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (open || pulseHint) return;
+
+    let cancelled = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let wiggleTimeoutId: ReturnType<typeof setTimeout>;
+    let bubbleHideId: ReturnType<typeof setTimeout>;
+
+    let bubbleIndex = Math.floor(Math.random() * IDLE_BUBBLES.length);
+
+    const scheduleNext = (firstRun = false) => {
+      // First nudge fires sooner so users notice the assistant is alive,
+      // subsequent ones space out more.
+      const delay = firstRun
+        ? 22000 + Math.random() * 8000   // 22–30s for the first idle pop
+        : 55000 + Math.random() * 35000; // 55–90s thereafter
+      timeoutId = setTimeout(() => {
+        if (cancelled) return;
+        // Wiggle first, then pop the bubble a beat later so the motion draws
+        // the eye before the text appears.
+        setWiggling(true);
+        wiggleTimeoutId = setTimeout(() => {
+          if (cancelled) return;
+          setWiggling(false);
+          const msg = IDLE_BUBBLES[bubbleIndex % IDLE_BUBBLES.length];
+          bubbleIndex += 1;
+          setIdleBubble(msg);
+          // Auto-dismiss after a comfortable read window
+          bubbleHideId = setTimeout(() => {
+            if (cancelled) return;
+            setIdleBubble(null);
+            scheduleNext();
+          }, 7000);
+        }, 900);
+      }, delay);
+    };
+
+    scheduleNext(true);
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+      clearTimeout(wiggleTimeoutId);
+      clearTimeout(bubbleHideId);
+      setWiggling(false);
+      setIdleBubble(null);
+    };
+  }, [open, pulseHint]);
+
   const dismissHint = () => {
     setPulseHint(false);
     try {
@@ -141,6 +211,10 @@ export default function SiteAssistant() {
     } catch {
       // storage unavailable — fail silently
     }
+  };
+
+  const dismissIdleBubble = () => {
+    setIdleBubble(null);
   };
 
   const handleAction = (action: Action) => {
@@ -168,7 +242,16 @@ export default function SiteAssistant() {
   const toggle = () => {
     setOpen((v) => !v);
     if (pulseHint) dismissHint();
+    if (idleBubble) dismissIdleBubble();
   };
+
+  // Compose the launcher animation. `wiggling` shake takes precedence
+  // (very short), then the first-visit bob, otherwise no animation.
+  const launcherAnimation = wiggling
+    ? "topimobShake 0.9s ease-in-out"
+    : pulseHint
+      ? "topimobBob 1.4s ease-in-out infinite"
+      : undefined;
 
   return (
     <>
@@ -195,7 +278,7 @@ export default function SiteAssistant() {
           alignItems: "center",
           justifyContent: "center",
           zIndex: 1100,
-          animation: pulseHint ? "topimobBob 1.4s ease-in-out infinite" : undefined,
+          animation: launcherAnimation,
         }}
       >
         <Mascot size={48} />
@@ -244,6 +327,64 @@ export default function SiteAssistant() {
         >
           Oi! Posso te ajudar a achar o imóvel certo? 👋
         </button>
+      ) : null}
+
+      {/* Idle speech bubble — pops periodically while the panel is closed */}
+      {idleBubble && !open && !pulseHint ? (
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            position: "fixed",
+            bottom: 42,
+            left: 100,
+            maxWidth: 240,
+            background: "#fff",
+            color: "#1B2A4A",
+            borderRadius: "16px 16px 16px 4px",
+            padding: "10px 36px 10px 14px",
+            fontSize: 13,
+            fontWeight: 500,
+            lineHeight: 1.4,
+            boxShadow: "0 12px 30px rgba(27,42,74,0.22)",
+            border: "1px solid #EEF1F6",
+            zIndex: 1099,
+            animation: "topimobBubbleIn 0.32s cubic-bezier(0.4,0,0.2,1)",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            dismissIdleBubble();
+            toggle();
+          }}
+        >
+          {idleBubble}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              dismissIdleBubble();
+            }}
+            aria-label="Dispensar mensagem"
+            style={{
+              position: "absolute",
+              top: 4,
+              right: 4,
+              width: 22,
+              height: 22,
+              borderRadius: "50%",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: "#5A6478",
+              fontSize: 14,
+              lineHeight: 1,
+              padding: 0,
+              fontFamily: "inherit",
+            }}
+          >
+            ×
+          </button>
+        </div>
       ) : null}
 
       {/* Main panel — plain conditional render, no AnimatePresence */}
@@ -299,155 +440,4 @@ export default function SiteAssistant() {
                 style={{
                   fontSize: 15,
                   fontWeight: 700,
-                  fontFamily: "var(--font-jakarta)",
-                }}
-              >
-                Topinho
-              </div>
-              <div
-                style={{
-                  fontSize: 11,
-                  opacity: 0.75,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                <span
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: "#22c55e",
-                    display: "inline-block",
-                  }}
-                />
-                Top Imobiliária • online
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Fechar"
-              style={{
-                background: "rgba(255,255,255,0.1)",
-                border: "none",
-                color: "#fff",
-                width: 30,
-                height: 30,
-                borderRadius: "50%",
-                cursor: "pointer",
-                fontSize: 16,
-                fontFamily: "inherit",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              ✕
-            </button>
-          </div>
-
-          {/* Body */}
-          <div
-            style={{
-              padding: "16px 20px 20px",
-              overflowY: "auto",
-              flex: 1,
-              background: "#F8F9FC",
-            }}
-          >
-            <div
-              style={{
-                background: "#fff",
-                borderRadius: "16px 16px 16px 4px",
-                padding: "12px 14px",
-                fontSize: 14,
-                color: "#2C3345",
-                lineHeight: 1.45,
-                marginBottom: 16,
-                boxShadow: "0 2px 8px rgba(27,42,74,0.05)",
-                border: "1px solid #EEF1F6",
-              }}
-            >
-              Oi! Sou o <strong>Topinho</strong> 🏠 Posso te levar direto pro
-              que você precisa. O que você está buscando?
-            </div>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 8,
-              }}
-            >
-              {CHOICES.map((c) => (
-                <button
-                  key={c.label}
-                  type="button"
-                  onClick={() => handleAction(c.action)}
-                  className="topimob-assistant-choice"
-                  style={{
-                    padding: "10px 12px",
-                    borderRadius: 12,
-                    border: "1px solid #D8DDE8",
-                    background: "#fff",
-                    color: "#1B2A4A",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    textAlign: "left",
-                    fontFamily: "inherit",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    lineHeight: 1.2,
-                    transition: "transform 0.15s ease, border-color 0.15s ease",
-                  }}
-                >
-                  <span style={{ fontSize: 16 }}>{c.emoji}</span>
-                  <span>{c.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div
-            style={{
-              padding: "10px 16px",
-              borderTop: "1px solid #EEF1F6",
-              fontSize: 11,
-              color: "#5A6478",
-              textAlign: "center",
-              background: "#fff",
-            }}
-          >
-            Atendimento humano disponível em horário comercial
-          </div>
-        </div>
-      ) : null}
-
-      {/* Animations + hover styles via inline <style>. Kept here (not in
-          globals.css) so Tailwind v4 doesn't tree-shake them. */}
-      <style>{`
-        @keyframes topimobBob {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-6px); }
-        }
-        @keyframes topimobPanelIn {
-          from { opacity: 0; transform: translateY(16px) scale(0.96); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .topimob-bot-launcher:hover { transform: scale(1.05); }
-        .topimob-bot-launcher:active { transform: scale(0.96); }
-        .topimob-assistant-choice:hover {
-          border-color: #1B2A4A !important;
-          transform: translateY(-2px);
-        }
-        .topimob-assistant-choice:active {
-          transform: scale(0.97);
-        }
-      `}</style>
-    </>
-  );
-}
+                  fontFamily: "var(--font-jakarta)

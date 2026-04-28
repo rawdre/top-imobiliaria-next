@@ -2,10 +2,13 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { waLink } from "@/lib/contact";
 
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
-  const WA_URL = "https://wa.me/5561999999999?text=Olá! Gostaria de saber mais sobre os imóveis disponíveis.";
+  const WA_URL = waLink(
+    "Olá! Gostaria de saber mais sobre os imóveis disponíveis.",
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 1500);
@@ -47,6 +50,4 @@ export default function WhatsAppButton() {
           💬
         </motion.a>
       )}
-    </AnimatePresence>
-  );
-}
+    </

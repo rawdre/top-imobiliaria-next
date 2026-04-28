@@ -14,8 +14,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Legacy static pages link "Voltar para o Site Principal" -> /index.html.
-      // GitHub Pages serves that as the homepage; Next.js serves the homepage at /.
-      // Redirect /index.html -> / so back-to-home links do not 404.
+      // Next.js serves the homepage at /. Redirect /index.html -> /
+      // so back-to-home links do not 404.
       { source: "/index.html", destination: "/", permanent: true },
     ];
   },
