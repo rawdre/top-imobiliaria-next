@@ -284,7 +284,7 @@ export default function Header() {
                     textTransform: "uppercase",
                   }}
                 >
-                  🔒 Admin
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><Lock size={14} /> Admin</span>
                 </motion.a>
               </div>
             </motion.div>
