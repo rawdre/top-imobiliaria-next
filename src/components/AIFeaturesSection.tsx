@@ -2,12 +2,13 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Bell, CalendarDays, MessageCircle, Target } from "lucide-react";
 
 const features = [
-  { icon: "💬", title: "Atendimento Inteligente 24h", desc: "Respondemos suas dúvidas a qualquer hora com rapidez e precisão via WhatsApp." },
-  { icon: "📅", title: "Agendamento Automático", desc: "Agende visitas online de forma simples, sem esperar horário comercial." },
-  { icon: "🔔", title: "Alertas Personalizados", desc: "Receba notificações assim que surgir um imóvel que combina com o seu perfil." },
-  { icon: "🎯", title: "Match de Imóveis", desc: "Nossa tecnologia encontra o imóvel certo para você com base nas suas preferências." },
+  { icon: MessageCircle, title: "Atendimento Inteligente 24h", desc: "Respondemos suas dúvidas a qualquer hora com rapidez e precisão via WhatsApp." },
+  { icon: CalendarDays, title: "Agendamento Automático", desc: "Agende visitas online de forma simples, sem esperar horário comercial." },
+  { icon: Bell, title: "Alertas Personalizados", desc: "Receba notificações assim que surgir um imóvel que combina com o seu perfil." },
+  { icon: Target, title: "Match de Imóveis", desc: "Nossa tecnologia encontra o imóvel certo para você com base nas suas preferências." },
 ];
 
 export default function AIFeaturesSection() {
@@ -102,9 +103,9 @@ export default function AIFeaturesSection() {
                 width: 56, height: 56,
                 background: "linear-gradient(135deg,rgba(211,47,47,0.15),rgba(211,47,47,0.05))",
                 borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 28, marginBottom: 20,
+                marginBottom: 20,
               }}>
-                {feature.icon}
+                <feature.icon size={28} strokeWidth={2} />
               </div>
 
               <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "#fff", marginBottom: 10, fontFamily: "var(--font-jakarta)" }}>

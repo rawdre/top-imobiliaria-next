@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase, type Property } from "@/lib/supabase";
 import Image from "next/image";
 import { waLink } from "@/lib/contact";
+import { Bath, BedDouble, CalendarDays, Heart, Home, KeyRound, Landmark, MapPin, MessageCircle, Ruler, Search, Share2 } from "lucide-react";
 
 // Gallery entries are mixed-shape in Supabase: legacy rows store strings,
 // newer rows store {url, name, path}. Pull the first usable URL out.
@@ -91,7 +92,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
           />
         ) : (
           <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg,#1B2A4A,#243656)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 48 }}>
-            🏠
+            <Home size={48} color="#fff" strokeWidth={1.8} />
           </div>
         )}
 
@@ -102,7 +103,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
           background: isRent ? "rgba(34,197,94,0.9)" : "rgba(59,130,246,0.9)",
           color: "#fff",
         }}>
-          {isRent ? "🔑 Aluguel" : "🏡 Venda"}
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{isRent ? <KeyRound size={14} /> : <Landmark size={14} />}{isRent ? "Aluguel" : "Venda"}</span>
         </span>
 
         {/* Subtle "Ver detalhes" hint that fades in on hover */}
@@ -158,7 +159,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
         }}
         aria-label="Favoritar"
       >
-        🤍
+        <Heart size={18} />
       </motion.button>
 
       {/* Body */}
@@ -191,13 +192,13 @@ function PropertyCard({ property, index }: { property: Property; index: number }
         ) : null}
 
         <div style={{ fontSize: 14, color: "#5A6478", marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
-          📍 {property.address}
+          <MapPin size={14} /> {property.address}
         </div>
 
         <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
-          <span style={{ fontSize: 13, color: "#5A6478" }}>🛏️ <strong style={{ color: "#2C3345" }}>{property.bedrooms}</strong> qtos</span>
-          <span style={{ fontSize: 13, color: "#5A6478" }}>🚿 <strong style={{ color: "#2C3345" }}>{property.bathrooms}</strong> bans</span>
-          <span style={{ fontSize: 13, color: "#5A6478" }}>📐 <strong style={{ color: "#2C3345" }}>{property.area_m2}m²</strong></span>
+          <span style={{ fontSize: 13, color: "#5A6478", display: "inline-flex", alignItems: "center", gap: 4 }}><BedDouble size={14} /> <strong style={{ color: "#2C3345" }}>{property.bedrooms}</strong> qtos</span>
+          <span style={{ fontSize: 13, color: "#5A6478", display: "inline-flex", alignItems: "center", gap: 4 }}><Bath size={14} /> <strong style={{ color: "#2C3345" }}>{property.bathrooms}</strong> bans</span>
+          <span style={{ fontSize: 13, color: "#5A6478", display: "inline-flex", alignItems: "center", gap: 4 }}><Ruler size={14} /> <strong style={{ color: "#2C3345" }}>{property.area_m2}m²</strong></span>
         </div>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -213,7 +214,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
               color: "#fff", fontSize: 12, fontWeight: 600, border: "none", cursor: "pointer",
             }}
           >
-            💬 WhatsApp
+            <MessageCircle size={14} /> WhatsApp
           </motion.a>
           <motion.button
             type="button"
@@ -225,7 +226,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
               color: "#fff", fontSize: 12, fontWeight: 600, border: "none", cursor: "pointer",
             }}
           >
-            📅 Agendar Visita
+            <CalendarDays size={14} /> Agendar Visita
           </motion.button>
           <motion.button
             type="button"
@@ -243,7 +244,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
               fontFamily: "inherit",
             }}
           >
-            ↗ Compartilhar
+            <Share2 size={14} /> Compartilhar
           </motion.button>
         </div>
       </div>
@@ -343,7 +344,7 @@ export default function PropertiesSection() {
                   color: filter === tab ? "#fff" : "#5A6478",
                 }}
               >
-                {tab === "all" ? "Todos" : tab === "aluguel" ? "🔑 Alugar" : "🏡 Comprar"}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{tab === "all" ? null : tab === "aluguel" ? <KeyRound size={14} /> : <Landmark size={14} />}{tab === "all" ? "Todos" : tab === "aluguel" ? "Alugar" : "Comprar"}</span>
               </motion.button>
             ))}
           </div>
@@ -352,12 +353,12 @@ export default function PropertiesSection() {
         {/* Grid */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "80px 0", color: "#5A6478", fontSize: 16 }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>🔍</div>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 16, color: "#1B2A4A" }}><Search size={40} strokeWidth={1.8} /></div>
             Carregando imóveis...
           </div>
         ) : filtered.length === 0 ? (
           <div style={{ textAlign: "center", padding: "80px 0", color: "#5A6478" }}>
-            <div style={{ fontSize: 40, marginBottom: 16 }}>🏠</div>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 16, color: "#1B2A4A" }}><Home size={40} strokeWidth={1.8} /></div>
             <p>Nenhum imóvel encontrado nessa categoria.</p>
           </div>
         ) : (
@@ -367,4 +368,40 @@ export default function PropertiesSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transit
+              transition={{ duration: 0.3 }}
+              style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(340px,1fr))", gap: 24 }}
+            >
+              {filtered.map((p, i) => (
+                <PropertyCard key={p.id} property={p} index={i} />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        )}
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: "center", marginTop: 48 }}
+        >
+          <motion.a
+            href="/buildings.html"
+            whileHover={{ scale: 1.05, y: -3, boxShadow: "0 12px 32px rgba(27,42,74,0.2)" }}
+            whileTap={{ scale: 0.97 }}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "16px 36px", borderRadius: 50,
+              background: "linear-gradient(135deg,#1B2A4A,#243656)",
+              color: "#fff", fontSize: "1rem", fontWeight: 700,
+              boxShadow: "0 8px 24px rgba(27,42,74,0.2)",
+            }}
+          >
+            <Home size={18} /> Ver Todos os Imóveis
+          </motion.a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

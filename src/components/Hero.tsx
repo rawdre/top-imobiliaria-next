@@ -1,19 +1,20 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { Award, FileSpreadsheet, Gift, Home, KeyRound, Landmark, ShieldCheck, Star } from "lucide-react";
 
 const trustBadges = [
-  { icon: "🏆", num: "34+", label: "Anos de Experiência" },
-  { icon: "🏠", num: "500+", label: "Imóveis Administrados" },
-  { icon: "🛡️", num: "0%", label: "Taxa de Inadimplência" },
-  { icon: "⭐", num: "5.0", label: "Avaliação Google" },
+  { icon: Award, num: "34+", label: "Anos de Experiência" },
+  { icon: Home, num: "500+", label: "Imóveis Administrados" },
+  { icon: ShieldCheck, num: "0%", label: "Taxa de Inadimplência" },
+  { icon: Star, num: "5.0", label: "Avaliação Google" },
 ];
 
 const heroCards = [
-  { icon: "🔑", label: "Alugar Imóvel", href: "#imoveis", sub: "Ver disponíveis" },
-  { icon: "🏡", label: "Comprar Imóvel", href: "#imoveis", sub: "Ver à venda" },
-  { icon: "📋", label: "Consórcio", href: "#consorcio", sub: "Simular agora" },
-  { icon: "🎁", label: "Indique e Ganhe", href: "#programa-indicacao", sub: "Saiba mais" },
+  { icon: KeyRound, label: "Alugar Imóvel", href: "#imoveis", sub: "Ver disponíveis" },
+  { icon: Landmark, label: "Comprar Imóvel", href: "#imoveis", sub: "Ver à venda" },
+  { icon: FileSpreadsheet, label: "Consórcio", href: "#consorcio", sub: "Simular agora" },
+  { icon: Gift, label: "Indique e Ganhe", href: "#programa-indicacao", sub: "Saiba mais" },
 ];
 
 const containerVariants: Variants = {
@@ -138,7 +139,7 @@ export default function Hero() {
                 animation: "pulse-dot 2s infinite",
               }}
             />
-            🏆 Especialistas em Imóveis desde 1992
+            <Award size={14} /> Especialistas em Imóveis desde 1992
           </motion.div>
 
           {/* H1 */}
@@ -223,7 +224,7 @@ export default function Hero() {
                   perspective: 800,
                 }}
               >
-                <span style={{ fontSize: 32 }}>{card.icon}</span>
+                <card.icon size={32} strokeWidth={1.9} />
                 <span style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>{card.label}</span>
                 <span style={{ fontSize: 11, color: "rgba(255,255,255,0.55)", fontWeight: 500 }}>{card.sub}</span>
               </motion.a>
@@ -250,7 +251,7 @@ export default function Hero() {
               marginBottom: 40,
             }}
           >
-            🏠 Vender ou Alugar Meu Imóvel
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}><Home size={18} /> Vender ou Alugar Meu Imóvel</span>
           </motion.a>
 
           {/* Trust Badges */}
@@ -284,7 +285,7 @@ export default function Hero() {
                   cursor: "default",
                 }}
               >
-                <span style={{ fontSize: 24 }}>{badge.icon}</span>
+                <badge.icon size={24} strokeWidth={1.9} />
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>{badge.num}</span>
                   <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 500 }}>

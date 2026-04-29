@@ -3,17 +3,18 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { Banknote, Building2, ChartColumnBig, FileSpreadsheet, KeyRound, Landmark, type LucideIcon } from "lucide-react";
 
 const services = [
-  { icon: "🔑", title: "Locação Residencial", desc: "Aluguel de apartamentos, casas e kitnets com segurança e garantia locatícia." },
-  { icon: "🏢", title: "Imóveis Comerciais", desc: "Salas, lojas e pontos comerciais em Águas Claras e toda a DF." },
-  { icon: "💰", title: "Venda de Imóveis", desc: "Avaliação gratuita e venda rápida com atendimento personalizado." },
-  { icon: "🏦", title: "Financiamento", desc: "Auxílio completo no financiamento imobiliário junto aos principais bancos." },
-  { icon: "📋", title: "Consórcio Imobiliário", desc: "A melhor forma de comprar seu imóvel sem juros e com parcelas acessíveis." },
-  { icon: "📊", title: "Avaliação de Imóveis", desc: "Descubra o valor real do seu imóvel com nossa análise de mercado." },
+  { icon: KeyRound, title: "Locação Residencial", desc: "Aluguel de apartamentos, casas e kitnets com segurança e garantia locatícia." },
+  { icon: Building2, title: "Imóveis Comerciais", desc: "Salas, lojas e pontos comerciais em Águas Claras e toda a DF." },
+  { icon: Banknote, title: "Venda de Imóveis", desc: "Avaliação gratuita e venda rápida com atendimento personalizado." },
+  { icon: Landmark, title: "Financiamento", desc: "Auxílio completo no financiamento imobiliário junto aos principais bancos." },
+  { icon: FileSpreadsheet, title: "Consórcio Imobiliário", desc: "A melhor forma de comprar seu imóvel sem juros e com parcelas acessíveis." },
+  { icon: ChartColumnBig, title: "Avaliação de Imóveis", desc: "Descubra o valor real do seu imóvel com nossa análise de mercado." },
 ];
 
-function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
+function ServiceCard({ service, index }: { service: { icon: LucideIcon; title: string; desc: string }; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -52,7 +53,7 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
         }}
       />
 
-      <span style={{ fontSize: 40, display: "block", marginBottom: 16 }}>{service.icon}</span>
+      <span style={{ display: "flex", justifyContent: "center", marginBottom: 16, color: "#1B2A4A" }}><service.icon size={40} strokeWidth={1.85} /></span>
       <h3 style={{ fontSize: "1rem", fontWeight: 600, color: "#1B2A4A", marginBottom: 8, fontFamily: "var(--font-jakarta)" }}>
         {service.title}
       </h3>

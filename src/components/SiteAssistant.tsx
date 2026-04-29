@@ -26,6 +26,7 @@
 
 import { useEffect, useState } from "react";
 import { waLink } from "@/lib/contact";
+import { BookOpen, Building2, FileSpreadsheet, Home, KeyRound, Landmark, MessageCircle, PiggyBank, type LucideIcon } from "lucide-react";
 
 const WA_DEFAULT_TEXT =
   "Olá! Estava no site da Top Imobiliária e gostaria de uma ajuda.";
@@ -37,49 +38,49 @@ type Action =
 
 type Choice = {
   label: string;
-  emoji: string;
+  icon: LucideIcon;
   action: Action;
 };
 
 const CHOICES: Choice[] = [
   {
     label: "Quero alugar",
-    emoji: "🔑",
+    icon: KeyRound,
     action: { type: "scroll", targetId: "imoveis", setFilter: "aluguel" },
   },
   {
     label: "Quero comprar",
-    emoji: "🏡",
+    icon: Landmark,
     action: { type: "scroll", targetId: "imoveis", setFilter: "venda" },
   },
   {
     label: "Sou proprietário",
-    emoji: "🏠",
+    icon: Home,
     action: { type: "scroll", targetId: "proprietarios" },
   },
   {
     label: "Avaliar meu imóvel",
-    emoji: "💰",
+    icon: PiggyBank,
     action: { type: "scroll", targetId: "simulador" },
   },
   {
     label: "Conhecer prédios",
-    emoji: "🏛️",
+    icon: Building2,
     action: { type: "navigate", href: "/buildings.html" },
   },
   {
     label: "Simular consórcio",
-    emoji: "📋",
+    icon: FileSpreadsheet,
     action: { type: "scroll", targetId: "consorcio" },
   },
   {
     label: "Ler conteúdo",
-    emoji: "📚",
+    icon: BookOpen,
     action: { type: "scroll", targetId: "blog" },
   },
   {
     label: "Falar no WhatsApp",
-    emoji: "💬",
+    icon: MessageCircle,
     action: {
       type: "external",
       url: waLink(WA_DEFAULT_TEXT),
@@ -125,12 +126,12 @@ function Mascot({ size = 56 }: { size?: number }) {
 // these in random order while the panel is closed so visitors who scroll past
 // without engaging still feel a nudge of personality.
 const IDLE_BUBBLES = [
-  "Achei algo legal pra você ver 👀",
+  "Achei algo legal pra você ver.",
   "Posso te ajudar a achar o imóvel ideal!",
   "Quer simular um consórcio? É rapidinho.",
   "Bora dar uma olhada nos imóveis em destaque?",
   "Dúvida? Posso te conectar com um corretor.",
-  "Tô aqui se precisar 🏠",
+  "Tô aqui se precisar.",
   "Posso te mostrar prédios em Águas Claras",
   "Quer uma avaliação grátis do seu imóvel?",
   "Já viu nossa sessão de imóveis em destaque?",
@@ -233,7 +234,7 @@ export default function SiteAssistant() {
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
     } else if (action.type === "navigate") {
-      window.location.href = action.href;
+      window.location.assign(action.href);
     } else if (action.type === "external") {
       window.open(action.url, "_blank", "noopener,noreferrer");
     }
@@ -325,7 +326,7 @@ export default function SiteAssistant() {
             zIndex: 1099,
           }}
         >
-          Oi! Posso te ajudar a achar o imóvel certo? 👋
+          Oi! Posso te ajudar a achar o imóvel certo?
         </button>
       ) : null}
 
@@ -440,4 +441,167 @@ export default function SiteAssistant() {
                 style={{
                   fontSize: 15,
                   fontWeight: 700,
-                  fontFamily: "var(--font-jakarta)
+                  fontFamily: "var(--font-jakarta)",
+                }}
+              >
+                Topinho
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  opacity: 0.75,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                <span
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: "#22c55e",
+                    display: "inline-block",
+                  }}
+                />
+                Top Imobiliária • online
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Fechar"
+              style={{
+                background: "rgba(255,255,255,0.1)",
+                border: "none",
+                color: "#fff",
+                width: 30,
+                height: 30,
+                borderRadius: "50%",
+                cursor: "pointer",
+                fontSize: 16,
+                fontFamily: "inherit",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Body */}
+          <div
+            style={{
+              padding: "16px 20px 20px",
+              overflowY: "auto",
+              flex: 1,
+              background: "#F8F9FC",
+            }}
+          >
+            <div
+              style={{
+                background: "#fff",
+                borderRadius: "16px 16px 16px 4px",
+                padding: "12px 14px",
+                fontSize: 14,
+                color: "#2C3345",
+                lineHeight: 1.45,
+                marginBottom: 16,
+                boxShadow: "0 2px 8px rgba(27,42,74,0.05)",
+                border: "1px solid #EEF1F6",
+              }}
+            >
+              Oi! Sou o <strong>Topinho</strong>. Posso te levar direto pro
+              que você precisa. O que você está buscando?
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 8,
+              }}
+            >
+              {CHOICES.map((c) => (
+                <button
+                  key={c.label}
+                  type="button"
+                  onClick={() => handleAction(c.action)}
+                  className="topimob-assistant-choice"
+                  style={{
+                    padding: "10px 12px",
+                    borderRadius: 12,
+                    border: "1px solid #D8DDE8",
+                    background: "#fff",
+                    color: "#1B2A4A",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    textAlign: "left",
+                    fontFamily: "inherit",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    lineHeight: 1.2,
+                    transition: "transform 0.15s ease, border-color 0.15s ease",
+                  }}
+                >
+                  <c.icon size={16} strokeWidth={1.9} />
+                  <span>{c.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div
+            style={{
+              padding: "10px 16px",
+              borderTop: "1px solid #EEF1F6",
+              fontSize: 11,
+              color: "#5A6478",
+              textAlign: "center",
+              background: "#fff",
+            }}
+          >
+            Atendimento humano disponível em horário comercial
+          </div>
+        </div>
+      ) : null}
+
+      {/* Animations + hover styles via inline <style>. Kept here (not in
+          globals.css) so Tailwind v4 doesn't tree-shake them. */}
+      <style>{`
+        @keyframes topimobBob {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+        @keyframes topimobShake {
+          0%, 100% { transform: translateX(0) rotate(0); }
+          15% { transform: translateX(-3px) rotate(-6deg); }
+          30% { transform: translateX(3px)  rotate(6deg); }
+          45% { transform: translateX(-2px) rotate(-4deg); }
+          60% { transform: translateX(2px)  rotate(4deg); }
+          75% { transform: translateX(-1px) rotate(-2deg); }
+        }
+        @keyframes topimobBubbleIn {
+          from { opacity: 0; transform: translateY(8px) scale(0.94); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes topimobPanelIn {
+          from { opacity: 0; transform: translateY(16px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .topimob-bot-launcher:hover { transform: scale(1.05); }
+        .topimob-bot-launcher:active { transform: scale(0.96); }
+        .topimob-assistant-choice:hover {
+          border-color: #1B2A4A !important;
+          transform: translateY(-2px);
+        }
+        .topimob-assistant-choice:active {
+          transform: scale(0.97);
+        }
+      `}</style>
+    </>
+  );
+}

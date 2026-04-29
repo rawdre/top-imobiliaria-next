@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Banknote, FileSpreadsheet, Gift, KeyRound, Landmark, Mail, MapPin, MapPinned, Phone, type LucideIcon } from "lucide-react";
 import {
   PHONE_DISPLAY,
   PHONE_TEL,
@@ -13,12 +14,12 @@ import {
 } from "@/lib/contact";
 
 const quickLinks = [
-  { label: "🔑 Alugar Imóvel", href: "#imoveis" },
-  { label: "🏡 Comprar Imóvel", href: "#imoveis" },
-  { label: "💰 Vender Imóvel", href: "#proprietarios" },
-  { label: "📋 Consórcio", href: "#consorcio" },
-  { label: "📊 Simulador", href: "#simulador" },
-  { label: "🎁 Indique e Ganhe", href: "#programa-indicacao" },
+  { label: "Alugar Imóvel", href: "#imoveis", icon: KeyRound },
+  { label: "Comprar Imóvel", href: "#imoveis", icon: Landmark },
+  { label: "Vender Imóvel", href: "#proprietarios", icon: Banknote },
+  { label: "Consórcio", href: "#consorcio", icon: FileSpreadsheet },
+  { label: "Simulador", href: "#simulador", icon: MapPinned },
+  { label: "Indique e Ganhe", href: "#programa-indicacao", icon: Gift },
 ];
 
 const services = [
@@ -78,10 +79,10 @@ export default function Footer() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <a href={`tel:${PHONE_TEL}`} style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
-                📞 {PHONE_DISPLAY}
+                <Phone size={16} /> {PHONE_DISPLAY}
               </a>
               <a href={`mailto:${EMAIL}`} style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}>
-                ✉️ {EMAIL}
+                <Mail size={16} /> {EMAIL}
               </a>
               <a
                 href={MAPS_LINK_URL}
@@ -89,7 +90,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 8 }}
               >
-                📍 {ADDRESS_SHORT}
+                <MapPin size={16} /> {ADDRESS_SHORT}
               </a>
             </div>
           </div>
@@ -100,14 +101,14 @@ export default function Footer() {
               Links Rápidos
             </h4>
             <nav style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {quickLinks.map((link) => (
+              {quickLinks.map((link: { label: string; href: string; icon: LucideIcon }) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
                   whileHover={{ x: 4, color: "#D32F2F" }}
                   style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", display: "flex", alignItems: "center", gap: 6 }}
                 >
-                  {link.label}
+                  <link.icon size={15} /> {link.label}
                 </motion.a>
               ))}
             </nav>
@@ -145,4 +146,73 @@ export default function Footer() {
             overflow: "hidden",
             border: "1px solid rgba(255,255,255,0.08)",
             boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
-            backgro
+            background: "rgba(255,255,255,0.03)",
+          }}
+        >
+          <div
+            style={{
+              padding: "20px 24px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 16,
+              flexWrap: "wrap",
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 6 }}>
+                Onde estamos
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "var(--font-jakarta)" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><MapPin size={16} /> {ADDRESS_SHORT}</span>
+              </div>
+            </div>
+            <motion.a
+              href={MAPS_LINK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -2, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 18px",
+                borderRadius: 50,
+                background: "linear-gradient(135deg,#D32F2F,#B71C1C)",
+                color: "#fff",
+                fontSize: 13,
+                fontWeight: 600,
+                boxShadow: "0 4px 16px rgba(211,47,47,0.3)",
+              }}
+            >
+              <MapPinned size={15} /> Ver no Google Maps
+            </motion.a>
+          </div>
+          <iframe
+            src={MAPS_EMBED_URL}
+            width="100%"
+            height="320"
+            style={{ border: 0, display: "block", filter: "saturate(0.9)" }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+            title="Localização Top Imobiliária — Águas Claras, Brasília"
+          />
+        </motion.div>
+
+        {/* Divider */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
+            © {new Date().getFullYear()} Top Imobiliária DF. Todos os direitos reservados.
+          </p>
+          <div style={{ display: "flex", gap: 16 }}>
+            <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Política de Privacidade</a>
+            <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Termos de Uso</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
