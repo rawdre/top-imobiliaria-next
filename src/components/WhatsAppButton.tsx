@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { waLink } from "@/lib/contact";
-import { MessageCircle } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
@@ -47,7 +47,7 @@ export default function WhatsAppButton() {
             textDecoration: "none",
           }}
         >
-          <MessageCircle size={28} strokeWidth={2.25} />
+          <WhatsAppIcon size={30} color="#fff" />
         </motion.a>
       )}
     </AnimatePresence>

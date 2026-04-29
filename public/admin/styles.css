@@ -81,6 +81,8 @@ td strong{color:var(--navy)}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:700}
 .chip.green{background:#EAF7EE;color:#1B5E20}
 .chip.blue{background:#EAF2FF;color:#0D47A1}
+.chip.amber{background:#FFF4E5;color:#B45309}
+.chip.red{background:#FDECEC;color:#B42318}
 .chip.gray{background:#F3F4F8;color:#4B5565}
 .empty-state{text-align:center;padding:40px 20px;color:var(--gray-600)}
 .login-shell{min-height:100vh;display:grid;place-items:center;padding:32px}
@@ -91,9 +93,14 @@ td strong{color:var(--navy)}
 .login-header p{color:var(--gray-600);line-height:1.6}
 .thumb-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:12px}
 .thumb-item{position:relative;border-radius:16px;overflow:hidden;background:var(--gray-100);border:1px solid var(--gray-200)}
+.thumb-item.is-cover{border-color:rgba(211,47,47,.42);box-shadow:0 0 0 3px rgba(211,47,47,.12)}
 .thumb-item img{display:block;width:100%;height:110px;object-fit:cover}
 .thumb-item button{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:none;background:rgba(15,26,46,.78);color:var(--white);cursor:pointer}
+.thumb-item .thumb-cover-btn{left:8px;right:auto;width:auto;height:auto;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.96);color:var(--navy);font-size:.72rem;font-weight:800}
+.thumb-item.is-cover .thumb-cover-btn{background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--white)}
+.amenities-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.amenities-grid .check-stack{min-height:58px}
 .loading-inline{display:inline-flex;align-items:center;gap:10px;color:var(--gray-600)}
 @media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-2{grid-template-columns:1fr}}
 @media(max-width:900px){.admin-shell{grid-template-columns:1fr}.admin-sidebar{position:relative;height:auto}}
-@media(max-width:768px){.admin-main{padding:20px}.form-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr}.admin-topbar{flex-direction:column;align-items:flex-start}}
+@media(max-width:768px){.admin-main{padding:20px}.form-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr}.admin-topbar{flex-direction:column;align-items:flex-start}.amenities-grid{grid-template-columns:1fr}}

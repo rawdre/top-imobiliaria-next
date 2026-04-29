@@ -3,6 +3,16 @@ function getPropertyIdFromUrl() {
   return params.get('id');
 }
 
+let galleryState = [];
+
+function getGalleryItemId(prefix = 'gallery') {
+  if (window.crypto?.randomUUID) {
+    return `${prefix}-${window.crypto.randomUUID()}`;
+  }
+
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 function showFormMessage(message, type = 'error') {
   const box = document.getElementById('formMessage');
   if (!box) return;
@@ -10,35 +20,83 @@ function showFormMessage(message, type = 'error') {
   box.className = `message show ${type}`;
 }
 
-function collectGalleryFromPreview() {
-  const items = Array.from(document.querySelectorAll('.thumb-item'));
-  return items.map((item) => ({
-    name: item.dataset.name || 'imagem',
-    path: item.dataset.path || '',
-    url: item.dataset.url || '',
+function normalizeGalleryItem(image, index = 0) {
+  return {
+    id: image.id || getGalleryItemId('stored'),
+    name: image.name || `imagem-${index + 1}`,
+    path: image.path || '',
+    url: image.url || '',
+    file: image.file || null,
+  };
+}
+
+function collectGalleryPayload() {
+  return galleryState.map(({ name, path, url }) => ({
+    name,
+    path,
+    url,
   })).filter((item) => item.url);
 }
 
-function renderGalleryPreview(images) {
+function renderGalleryPreview() {
   const container = document.getElementById('galleryPreview');
   if (!container) return;
 
-  if (!images.length) {
+  if (!galleryState.length) {
     container.innerHTML = '';
     return;
   }
 
-  container.innerHTML = images.map((image, index) => `
-    <div class="thumb-item" data-name="${escapeHtml(image.name || `imagem-${index + 1}`)}" data-path="${escapeHtml(image.path || '')}" data-url="${escapeHtml(image.url || '')}">
+  container.innerHTML = galleryState.map((image, index) => `
+    <div class="thumb-item ${index === 0 ? 'is-cover' : ''}" data-id="${escapeHtml(image.id)}">
       <img src="${escapeHtml(image.url)}" alt="Imagem do imóvel ${index + 1}">
+      <button type="button" class="thumb-cover-btn" data-action="set-cover" aria-label="Definir como capa">
+        ${index === 0 ? 'Capa' : 'Definir capa'}
+      </button>
       <button type="button" data-action="remove-image" aria-label="Remover imagem">&times;</button>
     </div>
   `).join('');
 }
 
+function setGalleryCover(itemId) {
+  const index = galleryState.findIndex((item) => item.id === itemId);
+  if (index <= 0) return;
+  const [selected] = galleryState.splice(index, 1);
+  galleryState.unshift(selected);
+  renderGalleryPreview();
+}
+
+function removeGalleryItem(itemId) {
+  const item = galleryState.find((entry) => entry.id === itemId);
+  if (item?.file && item.url.startsWith('blob:')) {
+    URL.revokeObjectURL(item.url);
+  }
+
+  galleryState = galleryState.filter((entry) => entry.id !== itemId);
+  renderGalleryPreview();
+}
+
+function collectAmenities() {
+  const form = document.getElementById('propertyForm');
+  return Array.from(form.querySelectorAll('input[name="amenities"]:checked'))
+    .map((input) => input.value.trim())
+    .filter(Boolean);
+}
+
+function collectPropertyMetaPayload() {
+  const form = document.getElementById('propertyForm');
+  return {
+    property_status: form.querySelector('[name="property_status"]').value || 'ativo',
+    suites: Number(form.querySelector('[name="suites"]')?.value || 0),
+    has_dce: form.querySelector('[name="has_dce"]').checked,
+    amenities: collectAmenities(),
+  };
+}
+
 function collectFormPayload() {
   const form = document.getElementById('propertyForm');
   const data = new FormData(form);
+  const meta = collectPropertyMetaPayload();
 
   return {
     title: data.get('title'),
@@ -55,17 +113,19 @@ function collectFormPayload() {
     garage_spaces: data.get('garage_spaces'),
     address: data.get('address'),
     neighborhood: data.get('neighborhood'),
+    property_status: meta.property_status,
     condominium_name: data.get('condominium_name'),
     description: data.get('description'),
     gradient: data.get('gradient'),
-    gallery: collectGalleryFromPreview(),
-    is_active: form.querySelector('[name="is_active"]').checked,
+    gallery: collectGalleryPayload(),
+    is_active: meta.property_status === 'ativo',
     is_featured: form.querySelector('[name="is_featured"]').checked,
   };
 }
 
-function fillForm(property) {
+function fillForm(property, meta) {
   const form = document.getElementById('propertyForm');
+  const propertyMeta = meta || defaultPropertyMeta(property);
   form.title.value = property.title || '';
   form.property_type.value = property.property_type || 'apartamento';
   form.listing_type.value = property.listing_type || 'aluguel';
@@ -80,19 +140,35 @@ function fillForm(property) {
   form.garage_spaces.value = property.garage_spaces ?? 0;
   form.address.value = property.address || '';
   form.neighborhood.value = property.neighborhood || '';
+  form.property_status.value = propertyMeta.property_status || 'ativo';
+  if (form.suites) form.suites.value = propertyMeta.suites ?? 0;
+  if (form.has_dce) form.has_dce.checked = Boolean(propertyMeta.has_dce);
   form.condominium_name.value = property.condominium_name || '';
   form.description.value = property.description || '';
   form.gradient.value = property.gradient || '';
-  form.is_active.checked = Boolean(property.is_active);
   form.is_featured.checked = Boolean(property.is_featured);
-  renderGalleryPreview(Array.isArray(property.gallery) ? property.gallery : []);
+  Array.from(form.querySelectorAll('input[name="amenities"]')).forEach((input) => {
+    input.checked = propertyMeta.amenities?.includes(input.value) || false;
+  });
+  galleryState = (Array.isArray(property.gallery) ? property.gallery : []).map((image, index) => normalizeGalleryItem(image, index));
+  renderGalleryPreview();
 }
 
-async function maybeUploadNewImages() {
-  const input = document.getElementById('imageFiles');
-  const files = Array.from(input?.files || []);
-  if (!files.length) return [];
-  return uploadPropertyImages(files);
+async function syncPendingImages() {
+  const pendingItems = galleryState.filter((item) => item.file);
+  if (!pendingItems.length) return;
+
+  const uploaded = await uploadPropertyImages(pendingItems.map((item) => item.file));
+  let uploadIndex = 0;
+  galleryState = galleryState.map((item) => {
+    if (!item.file) return item;
+    const upload = uploaded[uploadIndex++];
+    if (item.url.startsWith('blob:')) {
+      URL.revokeObjectURL(item.url);
+    }
+    return normalizeGalleryItem(upload, uploadIndex - 1);
+  });
+  renderGalleryPreview();
 }
 
 function bindFormInteractions() {
@@ -108,8 +184,36 @@ function bindFormInteractions() {
 
   document.getElementById('galleryPreview')?.addEventListener('click', (event) => {
     const button = event.target.closest('[data-action="remove-image"]');
-    if (!button) return;
-    button.closest('.thumb-item')?.remove();
+    if (button) {
+      const item = button.closest('.thumb-item');
+      if (!item?.dataset.id) return;
+      removeGalleryItem(item.dataset.id);
+      return;
+    }
+
+    const coverButton = event.target.closest('[data-action="set-cover"]');
+    if (!coverButton) return;
+    const item = coverButton.closest('.thumb-item');
+    if (!item?.dataset.id) return;
+    setGalleryCover(item.dataset.id);
+  });
+
+  document.getElementById('imageFiles')?.addEventListener('change', (event) => {
+    const input = event.target;
+    const files = Array.from(input.files || []);
+    if (!files.length) return;
+
+    const newItems = files.map((file) => normalizeGalleryItem({
+      id: getGalleryItemId('pending'),
+      name: file.name,
+      path: '',
+      url: URL.createObjectURL(file),
+      file,
+    }));
+
+    galleryState = [...galleryState, ...newItems];
+    renderGalleryPreview();
+    input.value = '';
   });
 
   const form = document.getElementById('propertyForm');
@@ -151,7 +255,8 @@ async function bootstrapPropertyForm() {
 
     try {
       const property = await fetchPropertyById(propertyId);
-      fillForm(property);
+      const meta = await fetchPropertyMeta(propertyId, property);
+      fillForm(property, meta);
     } catch (error) {
       showFormMessage(error.message || 'Não foi possível carregar o imóvel.');
       return;
@@ -167,30 +272,28 @@ async function bootstrapPropertyForm() {
     submitButton.textContent = isEditMode ? 'Salvando...' : 'Criando...';
 
     try {
-      const uploadedImages = await maybeUploadNewImages();
-      const currentGallery = collectGalleryFromPreview();
+      await syncPendingImages();
       const payload = collectFormPayload();
-      payload.gallery = [...currentGallery, ...uploadedImages];
+      const metaPayload = collectPropertyMetaPayload();
 
       if (!payload.title || !payload.address || !payload.neighborhood) {
         throw new Error('Preencha pelo menos título, endereço e região.');
       }
 
       if (isEditMode) {
-        await updateProperty(propertyId, payload);
+        const updated = await updateProperty(propertyId, payload);
+        await savePropertyMeta(propertyId, metaPayload, updated);
         showFormMessage('Imóvel atualizado com sucesso.', 'success');
       } else {
         const created = await createProperty(payload);
+        await savePropertyMeta(created.id, metaPayload, created);
         showFormMessage('Imóvel criado com sucesso.', 'success');
         setTimeout(() => {
           window.location.href = `./edit-property.html?id=${encodeURIComponent(created.id)}`;
         }, 800);
       }
 
-      if (uploadedImages.length) {
-        renderGalleryPreview(payload.gallery);
-      }
-      form.querySelector('#imageFiles').value = '';
+      renderGalleryPreview();
     } catch (error) {
       showFormMessage(error.message || 'Falha ao salvar imóvel.');
     } finally {

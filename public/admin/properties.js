@@ -9,6 +9,13 @@ function propertyImageCount(item) {
   return Array.isArray(item.gallery) ? item.gallery.length : 0;
 }
 
+function statusChip(status) {
+  if (status === 'vendido') return '<span class="chip amber">Vendido</span>';
+  if (status === 'suspenso') return '<span class="chip red">Suspenso</span>';
+  if (status === 'inativo') return '<span class="chip gray">Inativo</span>';
+  return '<span class="chip green">Ativo</span>';
+}
+
 function renderPropertiesTable(items) {
   const tbody = document.getElementById('propertiesTableBody');
   if (!tbody) return;
@@ -36,7 +43,7 @@ function renderPropertiesTable(items) {
       <td>${escapeHtml(item.neighborhood || '--')}</td>
       <td>${propertyImageCount(item)}</td>
       <td class="table-actions">
-        ${item.is_active ? '<span class="chip green">Ativo</span>' : '<span class="chip gray">Inativo</span>'}
+        ${statusChip(item.property_meta?.property_status || (item.is_active ? 'ativo' : 'inativo'))}
         ${item.is_featured ? '<span class="chip blue">Destaque</span>' : ''}
         <a class="btn btn-secondary" href="./edit-property.html?id=${encodeURIComponent(item.id)}">Editar</a>
         <button class="btn btn-secondary" type="button" data-action="delete" data-id="${escapeHtml(item.id)}">Excluir</button>

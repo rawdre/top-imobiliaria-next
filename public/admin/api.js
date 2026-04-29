@@ -2,6 +2,7 @@ const SUPABASE_CONFIG = window.TOP_IMOBILIARIA_SUPABASE || {};
 const SUPABASE_URL = SUPABASE_CONFIG.url || 'YOUR_SUPABASE_URL';
 const SUPABASE_ANON_KEY = SUPABASE_CONFIG.anonKey || 'YOUR_SUPABASE_ANON_KEY';
 const PROPERTY_IMAGE_BUCKET = SUPABASE_CONFIG.propertyImageBucket || 'property-images';
+const PROPERTY_META_PREFIX = 'property-meta';
 
 let supabaseClient = null;
 
@@ -115,7 +116,18 @@ async function fetchProperties(filters = {}) {
 
   const { data, error } = await query;
   if (error) throw error;
-  return data || [];
+  const items = data || [];
+  const metadataMap = await fetchPropertyMetas(items);
+  const enriched = items.map((item) => ({
+    ...item,
+    property_meta: metadataMap[item.id] || defaultPropertyMeta(item),
+  }));
+
+  if (['ativo', 'vendido', 'suspenso', 'inativo'].includes(filters.status)) {
+    return enriched.filter((item) => item.property_meta.property_status === filters.status);
+  }
+
+  return enriched;
 }
 
 async function fetchPropertyById(id) {
@@ -128,6 +140,93 @@ async function fetchPropertyById(id) {
 
   if (error) throw error;
   return data;
+}
+
+function getPropertyMetaPath(id) {
+  return `${PROPERTY_META_PREFIX}/${id}.json`;
+}
+
+function defaultPropertyMeta(property = {}) {
+  return {
+    property_status: property.is_active === false ? 'inativo' : 'ativo',
+    suites: 0,
+    has_dce: false,
+    amenities: [],
+  };
+}
+
+function normalizePropertyMeta(rawMeta = {}, property = {}) {
+  const fallback = defaultPropertyMeta(property);
+  const propertyStatus = ['ativo', 'vendido', 'suspenso', 'inativo'].includes(rawMeta.property_status)
+    ? rawMeta.property_status
+    : fallback.property_status;
+
+  return {
+    property_status: propertyStatus,
+    suites: Number(rawMeta.suites || 0),
+    has_dce: Boolean(rawMeta.has_dce),
+    amenities: Array.isArray(rawMeta.amenities)
+      ? rawMeta.amenities.map((item) => String(item).trim()).filter(Boolean)
+      : [],
+  };
+}
+
+function getPropertyMetaPublicUrl(id) {
+  const client = getSupabaseClient();
+  const { data } = client.storage
+    .from(PROPERTY_IMAGE_BUCKET)
+    .getPublicUrl(getPropertyMetaPath(id));
+  return data.publicUrl;
+}
+
+async function fetchPropertyMeta(id, property = {}) {
+  const fallback = defaultPropertyMeta(property);
+
+  try {
+    const response = await fetch(`${getPropertyMetaPublicUrl(id)}?t=${Date.now()}`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      return fallback;
+    }
+
+    const data = await response.json();
+    return normalizePropertyMeta(data, property);
+  } catch {
+    return fallback;
+  }
+}
+
+async function fetchPropertyMetas(properties = []) {
+  const entries = await Promise.all(
+    (properties || []).map(async (property) => ([
+      property.id,
+      await fetchPropertyMeta(property.id, property),
+    ])),
+  );
+
+  return Object.fromEntries(entries);
+}
+
+async function savePropertyMeta(id, metaPayload, property = {}) {
+  const client = getSupabaseClient();
+  const normalized = normalizePropertyMeta(metaPayload, property);
+  const blob = new File(
+    [JSON.stringify(normalized, null, 2)],
+    `${id}.json`,
+    { type: 'application/json' },
+  );
+
+  const { error } = await client.storage
+    .from(PROPERTY_IMAGE_BUCKET)
+    .upload(getPropertyMetaPath(id), blob, {
+      upsert: true,
+      contentType: 'application/json',
+    });
+
+  if (error) throw error;
+  return normalized;
 }
 
 async function uploadPropertyImages(files) {
@@ -234,6 +333,14 @@ async function deleteProperty(id) {
     if (storageError) {
       console.warn('Falha ao remover imagens do Storage:', storageError.message);
     }
+  }
+
+  const { error: metaError } = await client.storage
+    .from(PROPERTY_IMAGE_BUCKET)
+    .remove([getPropertyMetaPath(id)]);
+
+  if (metaError) {
+    console.warn('Falha ao remover metadata do imóvel:', metaError.message);
   }
 
   const { error } = await client

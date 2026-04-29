@@ -14,6 +14,8 @@ export const PHONE_TEL = "+556130424344";
 export const EMAIL = "contato@topimobiliariadf.com.br";
 
 export const ADDRESS_SHORT = "Águas Claras – DF";
+export const ADDRESS_FULL =
+  "Rua 07 Norte LT 3, 5 e 7 Loja 06 Edifício Max Mall, Águas Claras, Brasília - DF, 71908-180";
 
 /**
  * Build a wa.me URL with optional pre-filled text.
@@ -25,13 +27,11 @@ export function waLink(message?: string): string {
   return `${base}?text=${encodeURIComponent(message)}`;
 }
 
-// Google Maps embed query — Águas Claras DF, since the live site keeps the
-// exact street address private and tells visitors to schedule. Matches the
-// legacy site's map-section behavior.
-export const MAPS_QUERY = "Águas Claras, Brasília, DF, Brasil";
+// Exact office address for a tighter embed with a visible marker on load.
+export const MAPS_QUERY = ADDRESS_FULL;
 export const MAPS_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
   MAPS_QUERY,
-)}&output=embed`;
+)}&z=18&output=embed`;
 export const MAPS_LINK_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   MAPS_QUERY,
 )}`;

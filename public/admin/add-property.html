@@ -136,6 +136,17 @@
             <input id="neighborhood" name="neighborhood" type="text" placeholder="Águas Claras Sul" required>
           </div>
 
+          <div class="field">
+            <label for="property_status">Status do imóvel</label>
+            <select id="property_status" name="property_status">
+              <option value="ativo">Ativo</option>
+              <option value="vendido">Vendido</option>
+              <option value="suspenso">Suspenso</option>
+              <option value="inativo">Inativo</option>
+            </select>
+            <p class="helper">Somente imóveis com status “Ativo” aparecem no site público.</p>
+          </div>
+
           <div class="form-section">
             <div class="form-section-title">Localização e texto comercial</div>
             <div class="form-section-desc">Use a descrição para colocar diferenciais, lazer, regras da locação e condições especiais.</div>
@@ -163,15 +174,41 @@
           <div class="field-full">
             <label for="imageFiles">Fotos do imóvel</label>
             <input id="imageFiles" name="imageFiles" type="file" accept="image/*" multiple>
-            <p class="helper">Ordem sugerida: fachada ou área comum primeiro, depois sala, cozinha, quartos, banheiro e lazer. As imagens serão enviadas para o bucket público <code>property-images</code> no Supabase Storage.</p>
+            <p class="helper">Ordem sugerida: fachada ou área comum primeiro, depois sala, cozinha, quartos, banheiro e lazer. Use o botão “Definir capa” para escolher a imagem principal do card.</p>
             <div id="galleryPreview" class="thumb-list"></div>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-title">Detalhes para a equipe</div>
+            <div class="form-section-desc">Esses campos ajudam o time a organizar melhor cada imóvel sem depender de observações soltas.</div>
+          </div>
+
+          <div class="field">
+            <label for="suites">Suítes</label>
+            <input id="suites" name="suites" type="number" min="0" step="1" value="0">
           </div>
 
           <div class="field">
             <label class="check-stack">
-              <input type="checkbox" name="is_active" checked>
-              Imóvel ativo no site
+              <input type="checkbox" name="has_dce">
+              Possui DCE
             </label>
+          </div>
+
+          <div class="field-full">
+            <label>Checklist de diferenciais</label>
+            <div class="amenities-grid">
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Cozinha com armários">Cozinha com armários</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Armários planejados">Armários planejados</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Salão de festas">Salão de festas</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Piscina">Piscina</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Área de lazer">Área de lazer</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Academia">Academia</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Churrasqueira">Churrasqueira</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Playground">Playground</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Quadra esportiva">Quadra esportiva</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Portaria 24h">Portaria 24h</label>
+            </div>
           </div>
 
           <div class="field">

@@ -8,6 +8,7 @@ import LegacySectionsFromHtml from "@/components/LegacySectionsFromHtml";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import BackToTopButton from "@/components/BackToTopButton";
 
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
         <LegacySectionsFromHtml />
       </main>
       <Footer />
+      <BackToTopButton />
       <WhatsAppButton />
       <SiteAssistant />
     </>

@@ -54,29 +54,9 @@ const CHOICES: Choice[] = [
     action: { type: "scroll", targetId: "imoveis", setFilter: "venda" },
   },
   {
-    label: "Sou proprietário",
-    icon: Home,
-    action: { type: "scroll", targetId: "proprietarios" },
-  },
-  {
     label: "Avaliar meu imóvel",
     icon: PiggyBank,
     action: { type: "scroll", targetId: "simulador" },
-  },
-  {
-    label: "Conhecer prédios",
-    icon: Building2,
-    action: { type: "navigate", href: "/buildings.html" },
-  },
-  {
-    label: "Simular consórcio",
-    icon: FileSpreadsheet,
-    action: { type: "scroll", targetId: "consorcio" },
-  },
-  {
-    label: "Ler conteúdo",
-    icon: BookOpen,
-    action: { type: "scroll", targetId: "blog" },
   },
   {
     label: "Falar no WhatsApp",
@@ -85,6 +65,26 @@ const CHOICES: Choice[] = [
       type: "external",
       url: waLink(WA_DEFAULT_TEXT),
     },
+  },
+  {
+    label: "Simular compra por consórcio",
+    icon: FileSpreadsheet,
+    action: { type: "scroll", targetId: "consorcio" },
+  },
+  {
+    label: "Sou proprietário",
+    icon: Home,
+    action: { type: "scroll", targetId: "proprietarios" },
+  },
+  {
+    label: "Conhecer prédios",
+    icon: Building2,
+    action: { type: "navigate", href: "/buildings.html" },
+  },
+  {
+    label: "Ler conteúdo",
+    icon: BookOpen,
+    action: { type: "scroll", targetId: "blog" },
   },
 ];
 
@@ -512,8 +512,8 @@ export default function SiteAssistant() {
                 border: "1px solid #EEF1F6",
               }}
             >
-              Oi! Sou o <strong>Topinho</strong>. Posso te levar direto pro
-              que você precisa. O que você está buscando?
+              Oi! Sou o <strong>Topinho</strong>. Posso te ajudar a encontrar o
+              imóvel ideal ou avaliar o seu em segundos. O que você está buscando?
             </div>
 
             <div

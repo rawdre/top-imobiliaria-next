@@ -158,7 +158,10 @@ export default function Hero() {
             }}
           >
             Especialistas em Imóveis
-            <span style={{ display: "block", color: "#D32F2F" }}>em Águas Claras – DF</span>
+            <span style={{ display: "block" }}>
+              em <span style={{ color: "#D32F2F" }}>Águas Claras</span>{" "}
+              <span style={{ color: "rgba(255,255,255,0.72)" }}>– DF</span>
+            </span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -173,7 +176,9 @@ export default function Hero() {
             }}
           >
             Descubra o valor do seu imóvel no{" "}
-            <strong style={{ color: "#D32F2F" }}>Distrito Federal em segundos</strong>
+            <strong style={{ color: "#D32F2F" }}>
+              Distrito Federal <span style={{ whiteSpace: "nowrap" }}>em segundos</span>
+            </strong>
           </motion.p>
 
           <motion.p
@@ -186,14 +191,8 @@ export default function Hero() {
           {/* CTA Cards */}
           <motion.div
             variants={containerVariants}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
-              gap: 12,
-              width: "100%",
-              maxWidth: 680,
-              marginBottom: 32,
-            }}
+            className="topimob-hero-cards"
+            style={{ width: "100%", maxWidth: 920, marginBottom: 32 }}
           >
             {heroCards.map((card) => (
               <motion.a
@@ -224,6 +223,7 @@ export default function Hero() {
                   transformStyle: "preserve-3d",
                   perspective: 800,
                 }}
+                className="topimob-hero-card"
               >
                 <card.icon size={32} strokeWidth={1.9} />
                 <span style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>{card.label}</span>
@@ -298,6 +298,26 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
+      <style>{`
+        .topimob-hero-cards {
+          display: grid;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: 12px;
+        }
+        .topimob-hero-card {
+          min-height: 132px;
+        }
+        @media (max-width: 980px) {
+          .topimob-hero-cards {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 640px) {
+          .topimob-hero-cards {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+      `}</style>
     </section>
   );
 }
