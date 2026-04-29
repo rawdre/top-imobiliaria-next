@@ -13,7 +13,7 @@ export const PHONE_TEL = "+556130424344";
 
 export const EMAIL = "contato@topimobiliariadf.com.br";
 
-export const ADDRESS_SHORT = "Águas Claras, Brasília — DF";
+export const ADDRESS_SHORT = "Águas Claras – DF";
 
 /**
  * Build a wa.me URL with optional pre-filled text.

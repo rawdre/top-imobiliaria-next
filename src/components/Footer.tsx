@@ -74,7 +74,7 @@ export default function Footer() {
               </span>
             </Link>
             <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, maxWidth: 340, marginBottom: 24 }}>
-              Especialistas em imóveis em Águas Claras e Brasília DF desde 1992.
+              Especialistas em imóveis em Águas Claras – DF desde 1992.
               Locação, venda e consultoria com garantia locatícia.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -187,7 +187,7 @@ export default function Footer() {
                 boxShadow: "0 4px 16px rgba(211,47,47,0.3)",
               }}
             >
-              <MapPinned size={15} /> Ver no Google Maps
+              <MapPinned size={15} /> Ver como chegar
             </motion.a>
           </div>
           <iframe

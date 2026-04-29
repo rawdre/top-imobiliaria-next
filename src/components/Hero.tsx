@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Award, FileSpreadsheet, Gift, Home, KeyRound, Landmark, ShieldCheck, Star } from "lucide-react";
+import { Award, FileSpreadsheet, Gift, Home, KeyRound, Landmark, MapPinned, ShieldCheck, Star } from "lucide-react";
+import { MAPS_LINK_URL } from "@/lib/contact";
 
 const trustBadges = [
   { icon: Award, num: "34+", label: "Anos de Experiência" },
@@ -15,6 +16,7 @@ const heroCards = [
   { icon: Landmark, label: "Comprar Imóvel", href: "#imoveis", sub: "Ver à venda" },
   { icon: FileSpreadsheet, label: "Consórcio", href: "#consorcio", sub: "Simular agora" },
   { icon: Gift, label: "Indique e Ganhe", href: "#programa-indicacao", sub: "Saiba mais" },
+  { icon: MapPinned, label: "Localização", href: MAPS_LINK_URL, sub: "Ver como chegar", external: true },
 ];
 
 const containerVariants: Variants = {
@@ -156,10 +158,7 @@ export default function Hero() {
             }}
           >
             Especialistas em Imóveis
-            <span style={{ display: "block", color: "#D32F2F" }}>
-              em Águas Claras{" "}
-              <span style={{ fontSize: "0.62em", color: "rgba(255,255,255,0.72)", fontWeight: 600 }}>DF</span>
-            </span>
+            <span style={{ display: "block", color: "#D32F2F" }}>em Águas Claras – DF</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -173,8 +172,8 @@ export default function Hero() {
               maxWidth: 680,
             }}
           >
-            Descubra quanto vale seu imóvel{" "}
-            <strong style={{ color: "#D32F2F" }}>em segundos</strong>
+            Descubra o valor do seu imóvel no{" "}
+            <strong style={{ color: "#D32F2F" }}>Distrito Federal em segundos</strong>
           </motion.p>
 
           <motion.p
@@ -200,6 +199,8 @@ export default function Hero() {
               <motion.a
                 key={card.label}
                 href={card.href}
+                target={card.external ? "_blank" : undefined}
+                rel={card.external ? "noopener noreferrer" : undefined}
                 variants={itemVariants}
                 whileHover={{
                   y: -8,
