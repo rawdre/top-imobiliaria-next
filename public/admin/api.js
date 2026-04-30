@@ -149,8 +149,39 @@ function getPropertyMetaPath(id) {
 function defaultPropertyMeta(property = {}) {
   return {
     property_status: property.is_active === false ? 'inativo' : 'ativo',
+    property_subtype: '',
+    owner_name: '',
+    search_code: '',
+    postal_code: '',
+    country: 'Brasil',
+    state: 'DF',
+    city: '',
+    address_number: '',
+    complement: '',
+    building_name: '',
+    reference_point: '',
+    show_complement: false,
+    show_reference: false,
+    agio: 0,
+    saldo_devedor: 0,
+    iptu: 0,
+    show_agio: 'nao-informar',
+    accepts_financing: 'nao-informar',
+    accepts_fgts: 'nao-informar',
     suites: 0,
-    has_dce: false,
+    dce: 0,
+    elevator: 0,
+    floor: '',
+    total_floors: '',
+    units_per_floor: '',
+    total_area: 0,
+    land_area: 0,
+    property_position: 'nao-informar',
+    solar_position: 'nao-informar',
+    differential: '',
+    youtube_url: '',
+    property_age: 0,
+    video_360_url: '',
     amenities: [],
   };
 }
@@ -163,8 +194,49 @@ function normalizePropertyMeta(rawMeta = {}, property = {}) {
 
   return {
     property_status: propertyStatus,
+    property_subtype: String(rawMeta.property_subtype || fallback.property_subtype || '').trim(),
+    owner_name: String(rawMeta.owner_name || fallback.owner_name || '').trim(),
+    search_code: String(rawMeta.search_code || fallback.search_code || '').trim(),
+    postal_code: String(rawMeta.postal_code || fallback.postal_code || '').trim(),
+    country: String(rawMeta.country || fallback.country || 'Brasil').trim(),
+    state: String(rawMeta.state || fallback.state || 'DF').trim(),
+    city: String(rawMeta.city || fallback.city || '').trim(),
+    address_number: String(rawMeta.address_number || fallback.address_number || '').trim(),
+    complement: String(rawMeta.complement || fallback.complement || '').trim(),
+    building_name: String(rawMeta.building_name || fallback.building_name || '').trim(),
+    reference_point: String(rawMeta.reference_point || fallback.reference_point || '').trim(),
+    show_complement: Boolean(rawMeta.show_complement),
+    show_reference: Boolean(rawMeta.show_reference),
+    agio: Number(rawMeta.agio || 0),
+    saldo_devedor: Number(rawMeta.saldo_devedor || 0),
+    iptu: Number(rawMeta.iptu || 0),
+    show_agio: ['sim', 'nao', 'nao-informar'].includes(rawMeta.show_agio)
+      ? rawMeta.show_agio
+      : fallback.show_agio,
+    accepts_financing: ['sim', 'nao', 'nao-informar'].includes(rawMeta.accepts_financing)
+      ? rawMeta.accepts_financing
+      : fallback.accepts_financing,
+    accepts_fgts: ['sim', 'nao', 'nao-informar'].includes(rawMeta.accepts_fgts)
+      ? rawMeta.accepts_fgts
+      : fallback.accepts_fgts,
     suites: Number(rawMeta.suites || 0),
-    has_dce: Boolean(rawMeta.has_dce),
+    dce: Number(rawMeta.dce || 0),
+    elevator: Number(rawMeta.elevator || 0),
+    floor: String(rawMeta.floor || fallback.floor || '').trim(),
+    total_floors: String(rawMeta.total_floors || fallback.total_floors || '').trim(),
+    units_per_floor: String(rawMeta.units_per_floor || fallback.units_per_floor || '').trim(),
+    total_area: Number(rawMeta.total_area || 0),
+    land_area: Number(rawMeta.land_area || 0),
+    property_position: ['nao-informar', 'frente', 'fundos', 'vazado', 'lateral'].includes(rawMeta.property_position)
+      ? rawMeta.property_position
+      : fallback.property_position,
+    solar_position: ['nao-informar', 'nascente', 'poente', 'perpendicular'].includes(rawMeta.solar_position)
+      ? rawMeta.solar_position
+      : fallback.solar_position,
+    differential: String(rawMeta.differential || fallback.differential || '').trim(),
+    youtube_url: String(rawMeta.youtube_url || fallback.youtube_url || '').trim(),
+    property_age: Number(rawMeta.property_age || 0),
+    video_360_url: String(rawMeta.video_360_url || fallback.video_360_url || '').trim(),
     amenities: Array.isArray(rawMeta.amenities)
       ? rawMeta.amenities.map((item) => String(item).trim()).filter(Boolean)
       : [],

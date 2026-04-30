@@ -101,6 +101,35 @@ td strong{color:var(--navy)}
 .amenities-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .amenities-grid .check-stack{min-height:58px}
 .loading-inline{display:inline-flex;align-items:center;gap:10px;color:var(--gray-600)}
-@media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-2{grid-template-columns:1fr}}
-@media(max-width:900px){.admin-shell{grid-template-columns:1fr}.admin-sidebar{position:relative;height:auto}}
-@media(max-width:768px){.admin-main{padding:20px}.form-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr}.admin-topbar{flex-direction:column;align-items:flex-start}.amenities-grid{grid-template-columns:1fr}}
+.property-form-stack{display:flex;flex-direction:column;gap:22px}
+.admin-form-card{border:1px solid rgba(27,42,74,.12);border-radius:20px;background:linear-gradient(180deg,#FFFFFF 0%,#FAFBFE 100%);padding:22px}
+.admin-form-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--gray-100)}
+.admin-form-card-header h2{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:1.15rem;color:var(--navy);margin-bottom:4px}
+.admin-form-card-header p{color:var(--gray-600);line-height:1.6;font-size:.92rem}
+.form-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.form-grid-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.form-grid-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.field-span-2{grid-column:span 2}
+.field-span-3{grid-column:span 3}
+.field-span-4{grid-column:span 4}
+.inline-input{display:flex;gap:10px;align-items:center}
+.inline-input input{flex:1}
+.btn-accent{background:linear-gradient(135deg,#F59E0B,#D97706);color:var(--white)}
+.btn-accent:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(217,119,6,.22)}
+.btn-inline{padding:12px 14px;white-space:nowrap}
+.inline-checks{display:flex;flex-wrap:wrap;gap:12px}
+.inline-checks .check-stack{min-width:260px}
+.radio-group{display:flex;flex-wrap:wrap;gap:14px;min-height:52px;align-items:center;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:14px;background:var(--white)}
+.radio-group label{display:flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600;color:var(--gray-800);text-transform:none;letter-spacing:normal}
+.radio-group input{width:16px;height:16px}
+.description-helper{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:16px 18px;border:1px dashed var(--gray-200);border-radius:16px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFD 100%);margin-bottom:18px}
+.description-helper strong{display:block;color:var(--navy);margin-bottom:4px}
+.description-helper p{color:var(--gray-600);line-height:1.6;max-width:700px}
+.form-submit-row{display:flex;justify-content:flex-end}
+.form-submit-row .btn{min-width:220px}
+.amenities-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.field input[readonly],.field-full input[readonly]{background:#F4F6FB;color:var(--gray-600)}
+@media(max-width:1400px){.form-grid-6{grid-template-columns:repeat(4,minmax(0,1fr))}.amenities-grid-4{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-2{grid-template-columns:1fr}.form-grid-5,.form-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.admin-shell{grid-template-columns:1fr}.admin-sidebar{position:relative;height:auto}.form-grid-6,.amenities-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:768px){.admin-main{padding:20px}.form-grid,.form-grid-4,.form-grid-5,.form-grid-6{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr}.admin-topbar{flex-direction:column;align-items:flex-start}.amenities-grid,.amenities-grid-4{grid-template-columns:1fr}.field-span-2,.field-span-3,.field-span-4{grid-column:auto}.inline-input,.description-helper,.form-submit-row,.inline-checks{flex-direction:column;align-items:stretch}.form-submit-row .btn,.btn-inline{width:100%}}

@@ -14,7 +14,7 @@ const trustBadges = [
 const heroCards = [
   { icon: KeyRound, label: "Alugar Imóvel", href: "#imoveis", sub: "Ver disponíveis" },
   { icon: Landmark, label: "Comprar Imóvel", href: "#imoveis", sub: "Ver à venda" },
-  { icon: FileSpreadsheet, label: "Consórcio", href: "#consorcio", sub: "Simular agora" },
+  { icon: FileSpreadsheet, label: "Consórcio x Financiamento", href: "#consorcio", sub: "Comparar agora" },
   { icon: Gift, label: "Indique e Ganhe", href: "#programa-indicacao", sub: "Saiba mais" },
   { icon: MapPinned, label: "Localização", href: MAPS_LINK_URL, sub: "Ver como chegar", external: true },
 ];

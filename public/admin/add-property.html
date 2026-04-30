@@ -34,7 +34,7 @@
       <header class="admin-topbar">
         <div>
           <h1>Novo imóvel</h1>
-          <p>Cadastre o imóvel com os mesmos campos usados no site público.</p>
+          <p>Cadastro operacional completo para alimentar o site e a rotina da equipe.</p>
         </div>
         <div class="admin-actions">
           <a class="btn btn-secondary" href="./help.html">Como cadastrar</a>
@@ -46,179 +46,446 @@
 
       <section class="panel">
         <div class="banner">
-          <strong>Fluxo recomendado:</strong> preencha primeiro os dados principais do imóvel, depois valores e por último as fotos. Para locação, informe aluguel bruto e desconto de pontualidade que o painel calcula o valor líquido automaticamente.
+          <strong>Fluxo recomendado:</strong> comece por dados básicos e endereço, depois valores e características. Finalize com fotos, detalhes e descrição para garantir um card completo no site.
         </div>
-        <form id="propertyForm" class="form-grid">
-          <div class="form-section">
-            <div class="form-section-title">Identificação do imóvel</div>
-            <div class="form-section-desc">Esses dados aparecem no card, nos detalhes e ajudam a equipe a localizar o imóvel depois.</div>
-          </div>
-          <div class="field-full">
-            <label for="title">Título</label>
-            <input id="title" name="title" type="text" placeholder="Apartamento 3 quartos - Rua 25 Sul" required>
-          </div>
 
-          <div class="field">
-            <label for="property_type">Tipo de imóvel</label>
-            <select id="property_type" name="property_type">
-              <option value="apartamento">Apartamento</option>
-              <option value="kitnet">Kitnet</option>
-              <option value="casa">Casa</option>
-              <option value="sobrado">Sobrado</option>
-              <option value="cobertura">Cobertura</option>
-              <option value="duplex">Duplex</option>
-              <option value="sala-comercial">Sala comercial</option>
-              <option value="loja">Loja</option>
-              <option value="galpao">Galpão</option>
-              <option value="terreno">Terreno</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="listing_type">Objetivo</label>
-            <select id="listing_type" name="listing_type">
-              <option value="aluguel">Aluguel</option>
-              <option value="venda">Venda</option>
-            </select>
-          </div>
-
-          <div class="form-section">
-            <div class="form-section-title">Valores comerciais</div>
-            <div class="form-section-desc">Para aluguel, informe bruto e desconto. O campo preço vira o valor líquido. Para venda, preencha diretamente o preço final.</div>
-          </div>
-          <div class="field">
-            <label for="gross_price">Aluguel bruto</label>
-            <input id="gross_price" name="gross_price" type="number" min="0" step="0.01" placeholder="2310">
-          </div>
-          <div class="field">
-            <label for="punctuality_discount">Desconto de pontualidade</label>
-            <input id="punctuality_discount" name="punctuality_discount" type="number" min="0" step="0.01" placeholder="210">
-          </div>
-          <div class="field">
-            <label for="price">Preço anunciado / líquido</label>
-            <input id="price" name="price" type="number" min="0" step="0.01" placeholder="2100">
-          </div>
-          <div class="field">
-            <label for="condo_fee">Condomínio</label>
-            <input id="condo_fee" name="condo_fee" type="number" min="0" step="0.01" placeholder="729.51">
-          </div>
-          <div class="field-full">
-            <label for="water_notes">Observações de água / taxas</label>
-            <input id="water_notes" name="water_notes" type="text" placeholder="Água rateada">
-          </div>
-
-          <div class="form-section">
-            <div class="form-section-title">Características</div>
-            <div class="form-section-desc">Preencha a estrutura física do imóvel. Se algum dado não existir, pode deixar zero.</div>
-          </div>
-          <div class="field">
-            <label for="area_m2">Metragem (m²)</label>
-            <input id="area_m2" name="area_m2" type="number" min="0" step="0.01" placeholder="85">
-          </div>
-
-          <div class="field">
-            <label for="bedrooms">Quartos</label>
-            <input id="bedrooms" name="bedrooms" type="number" min="0" step="1" value="0">
-          </div>
-
-          <div class="field">
-            <label for="bathrooms">Banheiros</label>
-            <input id="bathrooms" name="bathrooms" type="number" min="0" step="1" value="0">
-          </div>
-
-          <div class="field">
-            <label for="garage_spaces">Garagens</label>
-            <input id="garage_spaces" name="garage_spaces" type="number" min="0" step="1" value="0">
-          </div>
-
-          <div class="field">
-            <label for="neighborhood">Região / bairro</label>
-            <input id="neighborhood" name="neighborhood" type="text" placeholder="Águas Claras Sul" required>
-          </div>
-
-          <div class="field">
-            <label for="property_status">Status do imóvel</label>
-            <select id="property_status" name="property_status">
-              <option value="ativo">Ativo</option>
-              <option value="vendido">Vendido</option>
-              <option value="suspenso">Suspenso</option>
-              <option value="inativo">Inativo</option>
-            </select>
-            <p class="helper">Somente imóveis com status “Ativo” aparecem no site público.</p>
-          </div>
-
-          <div class="form-section">
-            <div class="form-section-title">Localização e texto comercial</div>
-            <div class="form-section-desc">Use a descrição para colocar diferenciais, lazer, regras da locação e condições especiais.</div>
-          </div>
-          <div class="field-full">
-            <label for="address">Endereço</label>
-            <input id="address" name="address" type="text" placeholder="Rua 25 Sul, Águas Claras" required>
-          </div>
-
-          <div class="field-full">
-            <label for="condominium_name">Nome do prédio / condomínio</label>
-            <input id="condominium_name" name="condominium_name" type="text" placeholder="Residencial Park Sul">
-          </div>
-
-          <div class="field-full">
-            <label for="description">Descrição</label>
-            <textarea id="description" name="description" placeholder="Destaques do imóvel, estrutura, lazer, diferenciais e contexto comercial."></textarea>
-          </div>
-
-          <div class="field-full">
-            <label for="gradient">Gradient opcional</label>
-            <input id="gradient" name="gradient" type="text" placeholder="linear-gradient(135deg,#1B2A4A 0%,#3B5998 50%,#6B8CC7 100%)">
-          </div>
-
-          <div class="field-full">
-            <label for="imageFiles">Fotos do imóvel</label>
-            <input id="imageFiles" name="imageFiles" type="file" accept="image/*" multiple>
-            <p class="helper">Ordem sugerida: fachada ou área comum primeiro, depois sala, cozinha, quartos, banheiro e lazer. Use o botão “Definir capa” para escolher a imagem principal do card.</p>
-            <div id="galleryPreview" class="thumb-list"></div>
-          </div>
-
-          <div class="form-section">
-            <div class="form-section-title">Detalhes para a equipe</div>
-            <div class="form-section-desc">Esses campos ajudam o time a organizar melhor cada imóvel sem depender de observações soltas.</div>
-          </div>
-
-          <div class="field">
-            <label for="suites">Suítes</label>
-            <input id="suites" name="suites" type="number" min="0" step="1" value="0">
-          </div>
-
-          <div class="field">
-            <label class="check-stack">
-              <input type="checkbox" name="has_dce">
-              Possui DCE
-            </label>
-          </div>
-
-          <div class="field-full">
-            <label>Checklist de diferenciais</label>
-            <div class="amenities-grid">
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Cozinha com armários">Cozinha com armários</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Armários planejados">Armários planejados</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Salão de festas">Salão de festas</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Piscina">Piscina</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Área de lazer">Área de lazer</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Academia">Academia</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Churrasqueira">Churrasqueira</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Playground">Playground</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Quadra esportiva">Quadra esportiva</label>
-              <label class="check-stack"><input type="checkbox" name="amenities" value="Portaria 24h">Portaria 24h</label>
+        <form id="propertyForm" class="property-form-stack">
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Dados Básicos</h2>
+                <p>Base do cadastro, organização comercial e visibilidade do imóvel no portal.</p>
+              </div>
             </div>
-          </div>
 
-          <div class="field">
-            <label class="check-stack">
-              <input type="checkbox" name="is_featured">
-              Exibir em destaque
-            </label>
-          </div>
+            <div class="form-grid form-grid-4">
+              <div class="field">
+                <label for="listing_type">Negócio *</label>
+                <select id="listing_type" name="listing_type">
+                  <option value="aluguel">Aluguel</option>
+                  <option value="venda">Venda</option>
+                </select>
+              </div>
 
-          <div class="field-full">
+              <div class="field">
+                <label for="property_type">Tipo *</label>
+                <select id="property_type" name="property_type">
+                  <option value="apartamento">Apartamento</option>
+                  <option value="kitnet">Kitnet</option>
+                  <option value="casa">Casa</option>
+                  <option value="sobrado">Sobrado</option>
+                  <option value="cobertura">Cobertura</option>
+                  <option value="duplex">Duplex</option>
+                  <option value="sala-comercial">Sala comercial</option>
+                  <option value="loja">Loja</option>
+                  <option value="galpao">Galpão</option>
+                  <option value="terreno">Terreno</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="property_subtype">Subtipo</label>
+                <input id="property_subtype" name="property_subtype" type="text" placeholder="Padrão">
+              </div>
+
+              <div class="field">
+                <label for="property_status">Situação do cadastro *</label>
+                <select id="property_status" name="property_status">
+                  <option value="ativo">Ativo</option>
+                  <option value="vendido">Vendido</option>
+                  <option value="suspenso">Suspenso</option>
+                  <option value="inativo">Inativo</option>
+                </select>
+              </div>
+
+              <div class="field field-span-2">
+                <label for="title">Título *</label>
+                <input id="title" name="title" type="text" placeholder="Apartamento 3 quartos no Max Home Mall" required>
+              </div>
+
+              <div class="field">
+                <label for="owner_name">Proprietário</label>
+                <input id="owner_name" name="owner_name" type="text" placeholder="Nome do proprietário">
+              </div>
+
+              <div class="field">
+                <label for="search_code">Cod. de Busca</label>
+                <input id="search_code" name="search_code" type="text" placeholder="MAX1010">
+              </div>
+
+              <div class="field field-span-2">
+                <div class="inline-checks">
+                  <label class="check-stack">
+                    <input type="checkbox" name="is_featured">
+                    Exibir em destaque
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Endereço</h2>
+                <p>Campos estruturados para facilitar localização, busca futura e integração visual com o portal.</p>
+              </div>
+            </div>
+
+            <div class="form-grid form-grid-4">
+              <div class="field">
+                <label for="postal_code">CEP</label>
+                <div class="inline-input">
+                  <input id="postal_code" name="postal_code" type="text" inputmode="numeric" placeholder="71908-180">
+                  <button id="lookupPostalCode" type="button" class="btn btn-accent btn-inline">Buscar CEP</button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="country">País *</label>
+                <input id="country" name="country" type="text" value="Brasil">
+              </div>
+
+              <div class="field">
+                <label for="state">UF *</label>
+                <input id="state" name="state" type="text" value="DF" maxlength="2">
+              </div>
+
+              <div class="field">
+                <label for="city">Cidade *</label>
+                <input id="city" name="city" type="text" placeholder="Águas Claras">
+              </div>
+
+              <div class="field">
+                <label for="neighborhood">Bairro *</label>
+                <input id="neighborhood" name="neighborhood" type="text" placeholder="Norte" required>
+              </div>
+
+              <div class="field">
+                <label for="address">Logradouro *</label>
+                <input id="address" name="address" type="text" placeholder="Rua 7 Norte" required>
+              </div>
+
+              <div class="field">
+                <label for="condominium_name">Condomínio</label>
+                <input id="condominium_name" name="condominium_name" type="text" placeholder="Residencial Max Home Mall">
+              </div>
+
+              <div class="field">
+                <label for="address_number">Nº</label>
+                <input id="address_number" name="address_number" type="text" placeholder="06">
+              </div>
+
+              <div class="field">
+                <label for="complement">Complemento</label>
+                <input id="complement" name="complement" type="text" placeholder="Loja 06">
+              </div>
+
+              <div class="field">
+                <label for="building_name">Edifício</label>
+                <input id="building_name" name="building_name" type="text" placeholder="Max Home Mall">
+              </div>
+
+              <div class="field field-span-2">
+                <label for="reference_point">Ponto de referência</label>
+                <input id="reference_point" name="reference_point" type="text" placeholder="Ao lado da estação Arniqueiras">
+              </div>
+
+              <div class="field field-span-2">
+                <div class="inline-checks">
+                  <label class="check-stack">
+                    <input type="checkbox" name="show_complement">
+                    Exibir complemento do endereço
+                  </label>
+                  <label class="check-stack">
+                    <input type="checkbox" name="show_reference">
+                    Exibir ponto de referência
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Valores</h2>
+                <p>Cadastro financeiro comercial, com opções adicionais para financiamento, FGTS e ágio.</p>
+              </div>
+            </div>
+
+            <div class="form-grid form-grid-5">
+              <div class="field">
+                <label for="price">Valor *</label>
+                <input id="price" name="price" type="number" min="0" step="0.01" placeholder="2100">
+              </div>
+
+              <div class="field">
+                <label for="condo_fee">Condomínio</label>
+                <input id="condo_fee" name="condo_fee" type="number" min="0" step="0.01" placeholder="463.09">
+              </div>
+
+              <div class="field">
+                <label for="agio">Ágio</label>
+                <input id="agio" name="agio" type="number" min="0" step="0.01" placeholder="0.00">
+              </div>
+
+              <div class="field">
+                <label for="saldo_devedor">Saldo devedor</label>
+                <input id="saldo_devedor" name="saldo_devedor" type="number" min="0" step="0.01" placeholder="0.00">
+              </div>
+
+              <div class="field">
+                <label for="iptu">IPTU</label>
+                <input id="iptu" name="iptu" type="number" min="0" step="0.01" placeholder="0.00">
+              </div>
+
+              <div class="field">
+                <label for="gross_price">Aluguel bruto</label>
+                <input id="gross_price" name="gross_price" type="number" min="0" step="0.01" placeholder="2310">
+              </div>
+
+              <div class="field">
+                <label for="punctuality_discount">Desconto de pontualidade</label>
+                <input id="punctuality_discount" name="punctuality_discount" type="number" min="0" step="0.01" placeholder="210">
+              </div>
+
+              <div class="field field-span-3">
+                <label for="water_notes">Observações de água / taxas</label>
+                <input id="water_notes" name="water_notes" type="text" placeholder="Água rateada, gás incluso, etc.">
+              </div>
+
+              <div class="field">
+                <label>Exibir Ágio</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="show_agio" value="sim">Sim</label>
+                  <label><input type="radio" name="show_agio" value="nao">Não</label>
+                  <label><input type="radio" name="show_agio" value="nao-informar" checked>Não informar</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Aceita financiamento</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="accepts_financing" value="sim">Sim</label>
+                  <label><input type="radio" name="accepts_financing" value="nao">Não</label>
+                  <label><input type="radio" name="accepts_financing" value="nao-informar" checked>Não informar</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Aceita FGTS</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="accepts_fgts" value="sim">Sim</label>
+                  <label><input type="radio" name="accepts_fgts" value="nao">Não</label>
+                  <label><input type="radio" name="accepts_fgts" value="nao-informar" checked>Não informar</label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Características</h2>
+                <p>Estrutura física do imóvel com os mesmos detalhes que o time consulta no atendimento.</p>
+              </div>
+            </div>
+
+            <div class="form-grid form-grid-6">
+              <div class="field">
+                <label for="bedrooms">Quartos *</label>
+                <input id="bedrooms" name="bedrooms" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field">
+                <label for="suites">Suítes *</label>
+                <input id="suites" name="suites" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field">
+                <label for="bathrooms">Banheiro *</label>
+                <input id="bathrooms" name="bathrooms" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field">
+                <label for="dce">D.C.E.</label>
+                <input id="dce" name="dce" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field">
+                <label for="garage_spaces">Garagem</label>
+                <input id="garage_spaces" name="garage_spaces" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field">
+                <label for="elevator">Elevador</label>
+                <input id="elevator" name="elevator" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field">
+                <label for="floor">Andar</label>
+                <input id="floor" name="floor" type="text" placeholder="10">
+              </div>
+
+              <div class="field">
+                <label for="total_floors">Andares</label>
+                <input id="total_floors" name="total_floors" type="text" placeholder="20">
+              </div>
+
+              <div class="field">
+                <label for="units_per_floor">Unidades no andar</label>
+                <input id="units_per_floor" name="units_per_floor" type="text" placeholder="4">
+              </div>
+
+              <div class="field">
+                <label for="area_m2">Área útil *</label>
+                <input id="area_m2" name="area_m2" type="number" min="0" step="0.01" placeholder="42.00">
+              </div>
+
+              <div class="field">
+                <label for="total_area">Área total</label>
+                <input id="total_area" name="total_area" type="number" min="0" step="0.01" placeholder="42.00">
+              </div>
+
+              <div class="field">
+                <label for="land_area">Área do terreno</label>
+                <input id="land_area" name="land_area" type="number" min="0" step="0.01" placeholder="0.00">
+              </div>
+
+              <div class="field">
+                <label for="property_position">Posição do imóvel</label>
+                <select id="property_position" name="property_position">
+                  <option value="nao-informar">Não informar</option>
+                  <option value="frente">Frente</option>
+                  <option value="fundos">Fundos</option>
+                  <option value="vazado">Vazado</option>
+                  <option value="lateral">Lateral</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="solar_position">Posição do sol</label>
+                <select id="solar_position" name="solar_position">
+                  <option value="nao-informar">Não informar</option>
+                  <option value="nascente">Nascente</option>
+                  <option value="poente">Poente</option>
+                  <option value="perpendicular">Perpendicular</option>
+                </select>
+              </div>
+
+              <div class="field field-span-2">
+                <label for="differential">Diferencial</label>
+                <input id="differential" name="differential" type="text" placeholder="Ex: Excelente oportunidade próximo ao metrô">
+              </div>
+
+              <div class="field field-span-2">
+                <label for="youtube_url">Url do vídeo do Youtube</label>
+                <input id="youtube_url" name="youtube_url" type="url" placeholder="https://www.youtube.com/watch?v=">
+              </div>
+
+              <div class="field">
+                <label for="property_age">Idade do imóvel</label>
+                <input id="property_age" name="property_age" type="number" min="0" step="1" value="0">
+              </div>
+
+              <div class="field field-span-2">
+                <label for="video_360_url">Url do vídeo 360º</label>
+                <input id="video_360_url" name="video_360_url" type="url" placeholder="https://">
+              </div>
+            </div>
+          </section>
+
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Detalhes</h2>
+                <p>Checklist mais rico para não depender de observações soltas no time comercial.</p>
+              </div>
+            </div>
+
+            <div class="amenities-grid amenities-grid-4">
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Aquecimento Solar">Aquecimento Solar</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Ar Condicionado">Ar Condicionado</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Área de Lazer">Área de Lazer</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Área de Serviço">Área de Serviço</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Brinquedoteca">Brinquedoteca</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Churrasqueira">Churrasqueira</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Circuito de TV">Circuito de TV</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Cobertura Coletiva">Cobertura Coletiva</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Cozinha com Armários">Cozinha com Armários</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Despensa">Despensa</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Escritório">Escritório</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Gás Canalizado">Gás Canalizado</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Gerador de Energia">Gerador de Energia</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Guarita">Guarita</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Interfone">Interfone</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Jardim">Jardim</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Lavabo">Lavabo</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Lazer no Pilotis">Lazer no Pilotis</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Piscina">Piscina</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Playground">Playground</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Portão Eletrônico">Portão Eletrônico</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Portaria 24h">Portaria 24h</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Projeto de Iluminação">Projeto de Iluminação</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Quadra Esportiva">Quadra Esportiva</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Sala de Ginástica">Sala de Ginástica</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Sala de Jogos">Sala de Jogos</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Salão de Festas">Salão de Festas</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Salão Gourmet">Salão Gourmet</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Sauna">Sauna</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="SPA">SPA</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Varanda">Varanda</label>
+              <label class="check-stack"><input type="checkbox" name="amenities" value="Vista Livre">Vista Livre</label>
+            </div>
+          </section>
+
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Descrição</h2>
+                <p>Texto comercial com apoio de preenchimento automático para agilizar o time.</p>
+              </div>
+            </div>
+
+            <div class="description-helper">
+              <strong>Geração automática de descrição</strong>
+              <p>Use o botão para criar uma base comercial com as informações que já foram preenchidas. Depois refine o texto antes de salvar.</p>
+              <button id="generateDescriptionBtn" type="button" class="btn btn-accent">Gerar descrição base</button>
+            </div>
+
+            <div class="form-grid">
+              <div class="field-full">
+                <label for="description">Descrição *</label>
+                <textarea id="description" name="description" placeholder="Destaques do imóvel, estrutura, lazer, diferenciais e contexto comercial."></textarea>
+              </div>
+
+              <div class="field-full">
+                <label for="gradient">Gradient opcional</label>
+                <input id="gradient" name="gradient" type="text" placeholder="linear-gradient(135deg,#1B2A4A 0%,#3B5998 50%,#6B8CC7 100%)">
+              </div>
+            </div>
+          </section>
+
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Fotos</h2>
+                <p>Escolha a capa do card e mantenha a galeria em uma ordem lógica para o cliente.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field-full">
+                <label for="imageFiles">Fotos do imóvel</label>
+                <input id="imageFiles" name="imageFiles" type="file" accept="image/*" multiple>
+                <p class="helper">Sugestão de ordem: fachada ou área comum, sala, cozinha, quartos, banheiros e lazer. Use “Definir capa” para escolher a imagem principal do card.</p>
+                <div id="galleryPreview" class="thumb-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <div class="field-full form-submit-row">
             <button type="submit" class="btn btn-primary">Criar imóvel</button>
           </div>
         </form>

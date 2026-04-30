@@ -11,7 +11,7 @@
  *   - Sou proprietário      -> scroll to #proprietarios
  *   - Avaliar meu imóvel    -> scroll to #simulador
  *   - Conhecer prédios      -> navigate to /buildings.html
- *   - Simular consórcio     -> scroll to #consorcio
+ *   - Consórcio x financiamento -> scroll to #consorcio
  *   - Ler conteúdo          -> scroll to #blog
  *   - Falar no WhatsApp     -> external wa.me link
  *
@@ -67,7 +67,7 @@ const CHOICES: Choice[] = [
     },
   },
   {
-    label: "Simular compra por consórcio",
+    label: "Consórcio x Financiamento",
     icon: FileSpreadsheet,
     action: { type: "scroll", targetId: "consorcio" },
   },
@@ -128,7 +128,7 @@ function Mascot({ size = 56 }: { size?: number }) {
 const IDLE_BUBBLES = [
   "Achei algo legal pra você ver.",
   "Posso te ajudar a achar o imóvel ideal!",
-  "Quer simular um consórcio? É rapidinho.",
+  "Quer comparar consórcio e financiamento? É rapidinho.",
   "Bora dar uma olhada nos imóveis em destaque?",
   "Dúvida? Posso te conectar com um corretor.",
   "Tô aqui se precisar.",

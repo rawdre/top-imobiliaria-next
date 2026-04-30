@@ -11,7 +11,7 @@ const navLinks = [
   { label: "Alugar", href: "/#imoveis" },
   { label: "Todos os Imóveis", href: "/#imoveis" },
   { label: "Serviços", href: "/#servicos" },
-  { label: "Consórcio", href: "/#consorcio", icon: FileSpreadsheet },
+  { label: "Consórcio x Financiamento", href: "/#consorcio", icon: FileSpreadsheet },
   { label: "Indique e Ganhe", href: "/#programa-indicacao", icon: Gift },
   { label: "Sobre", href: "/#sobre" },
   { label: "Contato", href: "/#contato" },
