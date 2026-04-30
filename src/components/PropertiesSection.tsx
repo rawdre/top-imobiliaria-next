@@ -260,26 +260,38 @@ export default function PropertiesSection() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        // Pull featured + active first; if empty, fall back to active.
-        // Fields match the live Supabase schema (listing_type, is_featured, gallery, area_m2).
-        const featured = await supabase
+        const limit = 6;
+
+        // Give featured listings priority, but always fill the grid with the
+        // latest active listings so non-featured active rows still appear.
+        const featuredResult = await supabase
           .from("properties")
           .select("*")
           .eq("is_featured", true)
           .eq("is_active", true)
           .order("created_at", { ascending: false })
-          .limit(6);
+          .limit(limit);
 
-        let rows = featured.data ?? [];
-        if (rows.length === 0) {
-          const fallback = await supabase
+        const featuredRows = featuredResult.data ?? [];
+        const remaining = Math.max(limit - featuredRows.length, 0);
+
+        let rows = [...featuredRows];
+
+        if (remaining > 0) {
+          const latestResult = await supabase
             .from("properties")
             .select("*")
             .eq("is_active", true)
             .order("created_at", { ascending: false })
-            .limit(6);
-          rows = fallback.data ?? [];
+            .limit(limit * 3);
+
+          const latestRows = (latestResult.data ?? []).filter(
+            (item) => !featuredRows.some((featuredItem) => featuredItem.id === item.id),
+          );
+
+          rows = [...featuredRows, ...latestRows.slice(0, remaining)];
         }
+
         setProperties(rows);
       } catch {
         // silently fail — show empty state
@@ -318,7 +330,7 @@ export default function PropertiesSection() {
         >
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 600, color: "#D32F2F", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 12 }}>
             <span style={{ width: 32, height: 2, background: "#D32F2F", borderRadius: 2, display: "inline-block" }} />
-            Imóveis em Destaque
+            Imóveis disponíveis
           </div>
           <h2 style={{ fontSize: "clamp(1.8rem,3.5vw,2.6rem)", fontWeight: 700, color: "#1B2A4A", marginBottom: 16, fontFamily: "var(--font-jakarta)" }}>
             Encontre seu imóvel ideal
