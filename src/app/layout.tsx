@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.topimobiliariadf.com.br"),
+  metadataBase: new URL("https://www.topimobiliaria.com"),
   title: "Top Imobiliária DF — Imóveis em Águas Claras, Brasília | Desde 1992",
   description:
     "Top Imobiliária DF — 34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial com aluguel protegido com garantia locatícia.",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Top Imobiliária DF — Imóveis em Águas Claras | Desde 1992",
     description:
       "34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial.",
-    url: "https://www.topimobiliariadf.com.br/",
+    url: "https://www.topimobiliaria.com/",
     siteName: "Top Imobiliária DF",
     locale: "pt_BR",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
