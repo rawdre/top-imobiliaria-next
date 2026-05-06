@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase, type Property } from "@/lib/supabase";
 import Image from "next/image";
 import { waLink } from "@/lib/contact";
+import { getPropertyAbsoluteUrl, getPropertyPath } from "@/lib/property-urls";
 import { Bath, BedDouble, CalendarDays, Heart, Home, KeyRound, Landmark, MapPin, MessageCircle, Ruler, Search, Share2 } from "lucide-react";
 
 // Gallery entries are mixed-shape in Supabase: legacy rows store strings,
@@ -24,13 +25,8 @@ function PropertyCard({ property, index }: { property: Property; index: number }
   const isRent = property.listing_type === "aluguel";
   const price = property.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0 });
 
-  // Single source of truth for opening the property modal. The legacy
-  // /legacy/index.html bundle injects a global `verDetalhes(id)` that owns the
-  // modal — we just delegate to it.
-  const openDetails = () => {
-    const w = window as unknown as { verDetalhes?: (id: string) => void };
-    if (typeof w.verDetalhes === "function") w.verDetalhes(property.id);
-  };
+  const propertyPath = getPropertyPath(property);
+  const propertyUrl = getPropertyAbsoluteUrl(property);
 
   return (
     <motion.div
@@ -58,9 +54,8 @@ function PropertyCard({ property, index }: { property: Property; index: number }
     >
       {/* Image — entire image area is the click target for "Ver Detalhes".
           The fav button (zIndex 3) and tag still take their own clicks. */}
-      <button
-        type="button"
-        onClick={openDetails}
+      <a
+        href={propertyPath}
         aria-label={`Ver detalhes do imóvel ${property.title || ""}`}
         style={{
           height: 220,
@@ -141,7 +136,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
             {isRent && <small style={{ fontSize: 13, fontWeight: 400, opacity: 0.8 }}>/mês</small>}
           </div>
         </div>
-      </button>
+      </a>
 
       {/* Fav button — sibling of the image button so it doesn't nest a button.
           Positioned over the image area. */}
@@ -166,9 +161,8 @@ function PropertyCard({ property, index }: { property: Property; index: number }
       <div style={{ padding: 20 }}>
         {/* Title — also a click target for details */}
         {property.title ? (
-          <button
-            type="button"
-            onClick={openDetails}
+          <a
+            href={propertyPath}
             style={{
               display: "block",
               width: "100%",
@@ -188,7 +182,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
             className="topimob-property-title-btn"
           >
             {property.title}
-          </button>
+          </a>
         ) : null}
 
         <div style={{ fontSize: 14, color: "#5A6478", marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
@@ -203,7 +197,7 @@ function PropertyCard({ property, index }: { property: Property; index: number }
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <motion.a
-            href={waLink(`Olá! Vi o imóvel ${property.title} e tenho interesse.`)}
+            href={waLink(`Olá! Vi o imóvel ${property.title} e tenho interesse: ${propertyUrl}`)}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -2 }}
@@ -231,8 +225,16 @@ function PropertyCard({ property, index }: { property: Property; index: number }
           <motion.button
             type="button"
             onClick={() => {
-              const w = window as unknown as { compartilhar?: (id: string) => void };
-              if (typeof w.compartilhar === "function") w.compartilhar(property.id);
+              if (navigator.share) {
+                navigator.share({
+                  title: property.title,
+                  text: `Confira este imóvel: ${property.title}`,
+                  url: propertyUrl,
+                });
+              } else {
+                navigator.clipboard?.writeText(propertyUrl);
+                alert("Link do imóvel copiado!");
+              }
             }}
             whileHover={{ scale: 1.05, y: -2, background: "#EEF1F6" }}
             whileTap={{ scale: 0.97 }}

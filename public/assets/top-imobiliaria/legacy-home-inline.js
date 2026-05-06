@@ -211,8 +211,23 @@ function getPropertyFragment(propertyId) {
   return `property-${propertyId}`;
 }
 
-function getPropertyUrl(propertyId) {
-  return `${window.location.origin}${window.location.pathname}#${getPropertyFragment(propertyId)}`;
+function slugifyProperty(value) {
+  return String(value || 'imovel')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 90) || 'imovel';
+}
+
+function getPropertyPath(property) {
+  if (!property) return '/#imoveis';
+  return `/imovel/${slugifyProperty(property.title)}--${property.id}`;
+}
+
+function getPropertyUrl(property) {
+  return `${window.location.origin}${getPropertyPath(property)}`;
 }
 
 function getPropertyGallery(property) {
@@ -372,7 +387,7 @@ function renderProperties(properties) {
             ${property.bathrooms ? `<div class="property-feat">🚿 <strong>${property.bathrooms}</strong> banheiros</div>` : ''}
             ${property.area_m2 ? `<div class="property-feat">📐 <strong>${property.area_m2}</strong>m²</div>` : ''}
           </div>
-          <button class="btn-details" onclick="verDetalhes('${property.id}')">Ver Detalhes →</button>
+          <a class="btn-details" href="${getPropertyPath(property)}">Ver Detalhes →</a>
           <div class="property-actions">
             <button class="btn-wa-sm" onclick="contatarWhatsApp('${property.id}')">💬 WhatsApp</button>
             <button class="btn-agendar" onclick="agendarVisita('${property.id}')">📅 Agendar Visita</button>
@@ -403,14 +418,14 @@ function formatPrice(price, isRent) {
 function verDetalhes(propertyId) {
   const property = allProperties.find(p => p.id === propertyId);
   if (property) {
-    openPropertyModal(property);
+    window.location.href = getPropertyPath(property);
   }
 }
 
 function contatarWhatsApp(propertyId) {
   const property = allProperties.find(p => p.id === propertyId);
   if (property) {
-    const message = `Olá! Tenho interesse no imóvel: ${property.title} (${property.address})`;
+    const message = `Olá! Tenho interesse no imóvel: ${property.title} (${property.address}) ${getPropertyUrl(property)}`;
     window.open(`https://wa.me/556130424344?text=${encodeURIComponent(message)}`, '_blank');
   }
 }
@@ -418,7 +433,7 @@ function contatarWhatsApp(propertyId) {
 function agendarVisita(propertyId) {
   const property = allProperties.find(p => p.id === propertyId);
   if (property) {
-    const message = `Olá! Gostaria de agendar uma visita para: ${property.title} (${property.address})`;
+    const message = `Olá! Gostaria de agendar uma visita para: ${property.title} (${property.address}) ${getPropertyUrl(property)}`;
     window.open(`https://wa.me/556130424344?text=${encodeURIComponent(message)}`, '_blank');
   }
 }
@@ -426,7 +441,7 @@ function agendarVisita(propertyId) {
 function compartilhar(propertyId) {
   const property = allProperties.find(p => p.id === propertyId);
   if (property) {
-    const url = getPropertyUrl(property.id);
+    const url = getPropertyUrl(property);
     if (navigator.share) {
       navigator.share({
         title: property.title,
@@ -491,7 +506,7 @@ function openPropertyModal(property) {
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-  history.replaceState(null, '', `#${getPropertyFragment(property.id)}`);
+  history.replaceState(null, '', getPropertyPath(property));
 }
 
 function closePropertyModal() {
@@ -501,8 +516,8 @@ function closePropertyModal() {
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   currentPropertyModalId = null;
-  if (window.location.hash.startsWith('#property-')) {
-    history.replaceState(null, '', window.location.pathname);
+  if (window.location.pathname.startsWith('/imovel/')) {
+    history.replaceState(null, '', '/#imoveis');
   }
 }
 

@@ -1,6 +1,8 @@
 import { readdirSync } from "fs";
 import { join } from "path";
 import type { MetadataRoute } from "next";
+import { fetchActiveProperties } from "@/lib/property-data";
+import { getPropertyAbsoluteUrl } from "@/lib/property-urls";
 
 const SITE_URL = "https://www.topimobiliaria.com";
 const PUBLIC_DIR = join(process.cwd(), "public");
@@ -12,9 +14,10 @@ function getPublicHtmlRoutes(): string[] {
     .sort((left, right) => left.localeCompare(right, "pt-BR"));
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const htmlRoutes = getPublicHtmlRoutes();
   const now = new Date();
+  const properties = await fetchActiveProperties().catch(() => []);
 
   return [
     {
@@ -36,5 +39,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority,
       };
     }),
+    ...properties.map((property): MetadataRoute.Sitemap[number] => ({
+      url: getPropertyAbsoluteUrl(property),
+      lastModified: property.updated_at ? new Date(property.updated_at) : now,
+      changeFrequency: "weekly",
+      priority: property.is_featured ? 0.9 : 0.75,
+    })),
   ];
 }
