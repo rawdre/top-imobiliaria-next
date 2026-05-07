@@ -262,39 +262,15 @@ export default function PropertiesSection() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const limit = 6;
-
-        // Give featured listings priority, but always fill the grid with the
-        // latest active listings so non-featured active rows still appear.
-        const featuredResult = await supabase
+        const result = await supabase
           .from("properties")
           .select("*")
-          .eq("is_featured", true)
           .eq("is_active", true)
-          .order("created_at", { ascending: false })
-          .limit(limit);
+          .order("is_featured", { ascending: false })
+          .order("created_at", { ascending: false });
 
-        const featuredRows = featuredResult.data ?? [];
-        const remaining = Math.max(limit - featuredRows.length, 0);
-
-        let rows = [...featuredRows];
-
-        if (remaining > 0) {
-          const latestResult = await supabase
-            .from("properties")
-            .select("*")
-            .eq("is_active", true)
-            .order("created_at", { ascending: false })
-            .limit(limit * 3);
-
-          const latestRows = (latestResult.data ?? []).filter(
-            (item) => !featuredRows.some((featuredItem) => featuredItem.id === item.id),
-          );
-
-          rows = [...featuredRows, ...latestRows.slice(0, remaining)];
-        }
-
-        setProperties(rows);
+        if (result.error) throw result.error;
+        setProperties(result.data ?? []);
       } catch {
         // silently fail — show empty state
       } finally {

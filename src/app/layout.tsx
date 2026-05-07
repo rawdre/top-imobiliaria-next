@@ -27,17 +27,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  title: "Top Imobiliária DF — Imóveis em Águas Claras, Brasília | Desde 1992",
+  title: "Top Imobiliária DF — Imobiliária em Águas Claras há 34 anos",
   description:
-    "Top Imobiliária DF — 34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial com aluguel protegido com garantia locatícia.",
+    "Imobiliária em Águas Claras com 34 anos de mercado. Consultoria imobiliária personalizada no DF para vender, alugar, avaliar imóveis e comparar consórcio x financiamento com ferramentas abertas.",
   keywords:
-    "imobiliária águas claras, aluguel águas claras, apartamento águas claras, imóveis brasília, locação DF, venda de imóveis águas claras",
+    "Imobiliária em Águas Claras 34 anos, Melhor imobiliária para vender imóvel em Brasília, Especialista em alto padrão Sudoeste e Noroeste, Consultoria imobiliária personalizada DF, avaliação de imóveis em Águas Claras grátis, simulador consórcio ou financiamento imobiliário",
   authors: [{ name: "Top Imobiliária DF" }],
   openGraph: {
     type: "website",
-    title: "Top Imobiliária DF — Imóveis em Águas Claras | Desde 1992",
+    title: "Top Imobiliária DF — Imobiliária em Águas Claras há 34 anos",
     description:
-      "34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial.",
+      "Consultoria imobiliária personalizada no DF para venda, locação, avaliação gratuita e comparação aberta de consórcio x financiamento.",
     url: "https://www.topimobiliaria.com/",
     siteName: "Top Imobiliária DF",
     locale: "pt_BR",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Top Imobiliária DF — Imóveis em Águas Claras",
+    title: "Top Imobiliária DF — Imobiliária em Águas Claras",
     description:
-      "34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília.",
+      "34 anos de mercado em Brasília, Águas Claras, Sudoeste e Noroeste, com ferramentas abertas para avaliação e decisão de compra.",
     images: ["/og-image.jpg"],
   },
 };
