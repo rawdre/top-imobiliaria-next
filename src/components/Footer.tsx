@@ -205,7 +205,7 @@ export default function Footer() {
         {/* Divider */}
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
-            © {new Date().getFullYear()} Top Imobiliária DF. Todos os direitos reservados.
+            © {new Date().getFullYear()} Top Imobiliária DF. Todos os direitos reservados. CJ:15806
           </p>
           <div style={{ display: "flex", gap: 16 }}>
             <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Política de Privacidade</a>
