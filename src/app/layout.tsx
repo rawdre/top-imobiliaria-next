@@ -33,6 +33,14 @@ export const metadata: Metadata = {
   keywords:
     "Imobiliária em Águas Claras 34 anos, Melhor imobiliária para vender imóvel em Brasília, Especialista em alto padrão Sudoeste e Noroeste, Consultoria imobiliária personalizada DF, avaliação de imóveis em Águas Claras grátis, simulador consórcio ou financiamento imobiliário",
   authors: [{ name: "Top Imobiliária DF" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/assets/top-imobiliaria/icon-square.jpg", type: "image/jpeg" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/assets/top-imobiliaria/icon-square.jpg",
+  },
   openGraph: {
     type: "website",
     title: "Top Imobiliária DF — Imobiliária em Águas Claras há 34 anos",
