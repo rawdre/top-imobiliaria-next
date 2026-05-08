@@ -26,6 +26,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: `${SITE_URL}/imoveis`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.95,
+    },
     ...htmlRoutes.map((route): MetadataRoute.Sitemap[number] => {
       const changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] =
         route === "/blog-index.html" ? "weekly" : "monthly";

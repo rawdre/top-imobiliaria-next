@@ -20,7 +20,7 @@ function galleryFirstUrl(gallery: Property["gallery"]): string | null {
   return null;
 }
 
-function PropertyCard({ property, index }: { property: Property; index: number }) {
+export function PropertyCard({ property, index }: { property: Property; index: number }) {
   const imgSrc = galleryFirstUrl(property.gallery);
   const isRent = property.listing_type === "aluguel";
   const price = property.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0 });
@@ -377,7 +377,7 @@ export default function PropertiesSection() {
           style={{ textAlign: "center", marginTop: 48 }}
         >
           <motion.a
-            href="/buildings.html"
+            href="/imoveis"
             whileHover={{ scale: 1.05, y: -3, boxShadow: "0 12px 32px rgba(27,42,74,0.2)" }}
             whileTap={{ scale: 0.97 }}
             style={{

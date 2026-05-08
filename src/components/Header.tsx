@@ -9,7 +9,7 @@ import { FileSpreadsheet, Gift, Lock, Phone } from "lucide-react";
 const navLinks = [
   { label: "Comprar", href: "/#imoveis" },
   { label: "Alugar", href: "/#imoveis" },
-  { label: "Todos os Imóveis", href: "/#imoveis" },
+  { label: "Todos os Imóveis", href: "/imoveis" },
   { label: "Serviços", href: "/#servicos" },
   { label: "Consórcio x Financiamento", href: "/#consorcio", icon: FileSpreadsheet },
   { label: "Indique e Ganhe", href: "/#programa-indicacao", icon: Gift },
