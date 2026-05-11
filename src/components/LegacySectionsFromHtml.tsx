@@ -33,7 +33,9 @@ export default function LegacySectionsFromHtml() {
 
     const loadSections = async () => {
       try {
-        const response = await fetch("/legacy/index.html", { cache: "no-store" });
+        const response = await fetch("/legacy/index.html?top_internal_sections=1", {
+          cache: "no-store",
+        });
         const source = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(source, "text/html");

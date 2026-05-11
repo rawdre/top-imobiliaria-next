@@ -8,8 +8,12 @@ export function proxy(request: NextRequest) {
   }
 
   const fetchDestination = request.headers.get("sec-fetch-dest");
+  const isInternalSectionsRequest =
+    request.nextUrl.searchParams.get("top_internal_sections") === "1";
   const isInternalLegacyHomeFetch =
-    pathname === "/legacy/index.html" && fetchDestination !== "document";
+    pathname === "/legacy/index.html" &&
+    isInternalSectionsRequest &&
+    fetchDestination !== "document";
 
   if (isInternalLegacyHomeFetch) {
     return NextResponse.next();
