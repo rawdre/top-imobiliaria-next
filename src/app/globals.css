@@ -596,6 +596,31 @@
   margin: 10px 0 22px;
 }
 
+.all-properties-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.all-properties-clear {
+  min-height: 38px;
+  border: 1px solid #D8DDE8;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1B2A4A;
+  padding: 0 16px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.all-properties-clear:hover {
+  border-color: #D32F2F;
+  color: #D32F2F;
+}
+
 .all-properties-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -612,6 +637,10 @@
   background: #ffffff;
   border: 1px solid #EEF1F6;
   border-radius: 8px;
+}
+
+.all-properties-state p {
+  margin: 0;
 }
 
 .all-properties-spin {

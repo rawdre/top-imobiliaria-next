@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AllPropertiesClient from "@/components/AllPropertiesClient";
@@ -16,8 +17,29 @@ export default function ImoveisPage() {
   return (
     <>
       <Header />
-      <AllPropertiesClient />
+      <Suspense fallback={<ListingsFallback />}>
+        <AllPropertiesClient />
+      </Suspense>
       <Footer />
     </>
+  );
+}
+
+function ListingsFallback() {
+  return (
+    <main className="all-properties-page">
+      <section className="all-properties-hero">
+        <div className="all-properties-inner">
+          <div className="all-properties-kicker">Imóveis publicados</div>
+          <h1>Todos os imóveis anunciados</h1>
+          <p>Carregando a vitrine completa de imóveis ativos da Top Imobiliária.</p>
+        </div>
+      </section>
+      <section className="all-properties-content">
+        <div className="all-properties-inner">
+          <div className="all-properties-state">Carregando imóveis publicados...</div>
+        </div>
+      </section>
+    </main>
   );
 }

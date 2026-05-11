@@ -1,28 +1,63 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Filter, Home, KeyRound, Landmark, Loader2, MapPin, Search } from "lucide-react";
+import {
+  AlertCircle,
+  Filter,
+  Home,
+  KeyRound,
+  Landmark,
+  Loader2,
+  MapPin,
+  Search,
+} from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { supabase, type Property } from "@/lib/supabase";
 import { PropertyCard } from "@/components/PropertiesSection";
 
-type ListingFilter = "all" | "aluguel" | "venda";
-type SortMode = "featured" | "recent";
+type ListingFilter = "todos" | "aluguel" | "venda";
+type SortMode = "destaques" | "recentes";
+type SearchParams = ReturnType<typeof useSearchParams>;
 
 const PAGE_SIZE = 9;
+const LISTING_FILTERS: ListingFilter[] = ["todos", "aluguel", "venda"];
+const SORT_MODES: SortMode[] = ["destaques", "recentes"];
+
+function getListingFilter(searchParams: URLSearchParams | SearchParams): ListingFilter {
+  const value = searchParams.get("tipo");
+  return LISTING_FILTERS.includes(value as ListingFilter) ? (value as ListingFilter) : "todos";
+}
+
+function getSortMode(searchParams: URLSearchParams | SearchParams): SortMode {
+  const value = searchParams.get("ordem");
+  return SORT_MODES.includes(value as SortMode) ? (value as SortMode) : "destaques";
+}
+
+function getPage(searchParams: URLSearchParams | SearchParams): number {
+  const value = Number(searchParams.get("pagina"));
+  return Number.isInteger(value) && value > 0 ? value : 1;
+}
 
 export default function AllPropertiesClient() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
-  const [listingFilter, setListingFilter] = useState<ListingFilter>("all");
-  const [sortMode, setSortMode] = useState<SortMode>("featured");
-  const [region, setRegion] = useState("all");
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const listingFilter = getListingFilter(searchParams);
+  const sortMode = getSortMode(searchParams);
+  const selectedRegion = searchParams.get("regiao")?.trim() || "all";
+  const page = getPage(searchParams);
+  const visibleCount = page * PAGE_SIZE;
 
   useEffect(() => {
     async function fetchProperties() {
       try {
+        setErrorMessage(null);
         const result = await supabase
           .from("properties")
           .select("*")
@@ -32,6 +67,10 @@ export default function AllPropertiesClient() {
 
         if (result.error) throw result.error;
         setProperties(result.data ?? []);
+      } catch {
+        setErrorMessage(
+          "Não foi possível carregar os imóveis publicados agora. Tente novamente em alguns instantes.",
+        );
       } finally {
         setLoading(false);
       }
@@ -39,6 +78,40 @@ export default function AllPropertiesClient() {
 
     fetchProperties();
   }, []);
+
+  const updateUrlState = useCallback(
+    (
+      updates: Partial<{
+        tipo: ListingFilter;
+        ordem: SortMode;
+        regiao: string;
+        pagina: number;
+      }>,
+      options: { resetPage?: boolean } = { resetPage: true },
+    ) => {
+      const params = new URLSearchParams(searchParams.toString());
+      const nextTipo = updates.tipo ?? listingFilter;
+      const nextOrdem = updates.ordem ?? sortMode;
+      const nextRegiao = updates.regiao ?? selectedRegion;
+      const nextPagina = updates.pagina ?? (options.resetPage === false ? page : 1);
+
+      if (nextTipo === "todos") params.delete("tipo");
+      else params.set("tipo", nextTipo);
+
+      if (nextOrdem === "destaques") params.delete("ordem");
+      else params.set("ordem", nextOrdem);
+
+      if (!nextRegiao || nextRegiao === "all") params.delete("regiao");
+      else params.set("regiao", nextRegiao);
+
+      if (nextPagina <= 1) params.delete("pagina");
+      else params.set("pagina", String(nextPagina));
+
+      const queryString = params.toString();
+      router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+    },
+    [listingFilter, page, pathname, router, searchParams, selectedRegion, sortMode],
+  );
 
   const regions = useMemo(() => {
     return Array.from(
@@ -53,22 +126,35 @@ export default function AllPropertiesClient() {
   const filteredProperties = useMemo(() => {
     const filtered = properties.filter((property) => {
       const matchesListing =
-        listingFilter === "all" || property.listing_type === listingFilter;
-      const matchesRegion = region === "all" || property.neighborhood === region;
+        listingFilter === "todos" || property.listing_type === listingFilter;
+      const matchesRegion =
+        selectedRegion === "all" || property.neighborhood === selectedRegion;
       return matchesListing && matchesRegion;
     });
 
     return [...filtered].sort((left, right) => {
-      if (sortMode === "featured" && left.is_featured !== right.is_featured) {
+      if (sortMode === "destaques" && left.is_featured !== right.is_featured) {
         return Number(right.is_featured) - Number(left.is_featured);
       }
 
       return new Date(right.created_at).getTime() - new Date(left.created_at).getTime();
     });
-  }, [listingFilter, properties, region, sortMode]);
+  }, [listingFilter, properties, selectedRegion, sortMode]);
 
   const visibleProperties = filteredProperties.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProperties.length;
+  const hasActiveProperties = properties.length > 0;
+  const hasCustomFilters =
+    listingFilter !== "todos" || sortMode !== "destaques" || selectedRegion !== "all" || page > 1;
+
+  const clearFilters = () => {
+    updateUrlState({
+      tipo: "todos",
+      ordem: "destaques",
+      regiao: "all",
+      pagina: 1,
+    });
+  };
 
   return (
     <main className="all-properties-page">
@@ -93,24 +179,21 @@ export default function AllPropertiesClient() {
         <div className="all-properties-inner">
           <div className="all-properties-toolbar" aria-label="Filtros de imóveis">
             <div className="all-properties-tabs">
-              {(["all", "aluguel", "venda"] as const).map((value) => (
+              {LISTING_FILTERS.map((value) => (
                 <button
                   key={value}
                   type="button"
                   className={listingFilter === value ? "active" : ""}
-                  onClick={() => {
-                    setListingFilter(value);
-                    setVisibleCount(PAGE_SIZE);
-                  }}
+                  onClick={() => updateUrlState({ tipo: value })}
                 >
-                  {value === "all" ? (
+                  {value === "todos" ? (
                     <Filter size={15} />
                   ) : value === "aluguel" ? (
                     <KeyRound size={15} />
                   ) : (
                     <Landmark size={15} />
                   )}
-                  {value === "all" ? "Todos" : value === "aluguel" ? "Aluguel" : "Venda"}
+                  {value === "todos" ? "Todos" : value === "aluguel" ? "Aluguel" : "Venda"}
                 </button>
               ))}
             </div>
@@ -119,26 +202,23 @@ export default function AllPropertiesClient() {
               <span>Ordenar</span>
               <select
                 value={sortMode}
-                onChange={(event) => {
-                  setSortMode(event.target.value as SortMode);
-                  setVisibleCount(PAGE_SIZE);
-                }}
+                onChange={(event) => updateUrlState({ ordem: event.target.value as SortMode })}
               >
-                <option value="featured">Destaques primeiro</option>
-                <option value="recent">Mais recentes</option>
+                <option value="destaques">Destaques primeiro</option>
+                <option value="recentes">Mais recentes</option>
               </select>
             </label>
 
             <label>
               <span>Região</span>
               <select
-                value={region}
-                onChange={(event) => {
-                  setRegion(event.target.value);
-                  setVisibleCount(PAGE_SIZE);
-                }}
+                value={selectedRegion}
+                onChange={(event) => updateUrlState({ regiao: event.target.value })}
               >
                 <option value="all">Todas as regiões</option>
+                {selectedRegion !== "all" && !regions.includes(selectedRegion) ? (
+                  <option value={selectedRegion}>{selectedRegion}</option>
+                ) : null}
                 {regions.map((item) => (
                   <option key={item} value={item}>
                     {item}
@@ -148,10 +228,17 @@ export default function AllPropertiesClient() {
             </label>
           </div>
 
-          <div className="all-properties-count">
-            <MapPin size={16} />
-            {filteredProperties.length} imóvel{filteredProperties.length === 1 ? "" : "is"} encontrado
-            {filteredProperties.length === 1 ? "" : "s"}
+          <div className="all-properties-summary">
+            <div className="all-properties-count">
+              <MapPin size={16} />
+              {filteredProperties.length} imóvel{filteredProperties.length === 1 ? "" : "is"} encontrado
+              {filteredProperties.length === 1 ? "" : "s"}
+            </div>
+            {hasCustomFilters ? (
+              <button type="button" className="all-properties-clear" onClick={clearFilters}>
+                Limpar filtros
+              </button>
+            ) : null}
           </div>
 
           {loading ? (
@@ -159,10 +246,24 @@ export default function AllPropertiesClient() {
               <Loader2 className="all-properties-spin" size={38} />
               Carregando imóveis publicados...
             </div>
+          ) : errorMessage ? (
+            <div className="all-properties-state">
+              <AlertCircle size={38} />
+              <p>{errorMessage}</p>
+            </div>
           ) : filteredProperties.length === 0 ? (
             <div className="all-properties-state">
               <Search size={38} />
-              Nenhum imóvel publicado encontrado com esses filtros.
+              <p>
+                {hasActiveProperties
+                  ? "Nenhum imóvel publicado encontrado com esses filtros."
+                  : "Nenhum imóvel ativo publicado no momento."}
+              </p>
+              {hasCustomFilters ? (
+                <button type="button" className="all-properties-clear" onClick={clearFilters}>
+                  Limpar filtros
+                </button>
+              ) : null}
             </div>
           ) : (
             <>
@@ -174,7 +275,10 @@ export default function AllPropertiesClient() {
 
               {hasMore ? (
                 <div className="all-properties-more">
-                  <button type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>
+                  <button
+                    type="button"
+                    onClick={() => updateUrlState({ pagina: page + 1 }, { resetPage: false })}
+                  >
                     Carregar mais imóveis
                   </button>
                 </div>
