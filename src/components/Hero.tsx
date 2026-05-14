@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Award, FileSpreadsheet, Gift, Home, KeyRound, Landmark, MapPinned, ShieldCheck, Star } from "lucide-react";
+import { Award, BookOpen, FileSpreadsheet, Gift, Home, KeyRound, Landmark, MapPinned, PiggyBank, ShieldCheck, Star } from "lucide-react";
 import { MAPS_LINK_URL } from "@/lib/contact";
 
 const trustBadges = [
@@ -14,6 +14,8 @@ const trustBadges = [
 const heroCards = [
   { icon: KeyRound, label: "Alugar Imóvel", href: "#imoveis", sub: "Ver disponíveis" },
   { icon: Landmark, label: "Comprar Imóvel", href: "#imoveis", sub: "Ver à venda" },
+  { icon: PiggyBank, label: "Avaliação de Imóvel", href: "#simulador", sub: "Descobrir valor" },
+  { icon: BookOpen, label: "Blog / Conteúdo", href: "/blog-index.html", sub: "Ler artigos" },
   { icon: FileSpreadsheet, label: "Consórcio x Financiamento", href: "#consorcio", sub: "Comparar agora" },
   { icon: Gift, label: "Indique e Ganhe", href: "#programa-indicacao", sub: "Saiba mais" },
   { icon: MapPinned, label: "Localização", href: MAPS_LINK_URL, sub: "Ver como chegar", external: true },
@@ -301,7 +303,7 @@ export default function Hero() {
       <style>{`
         .topimob-hero-cards {
           display: grid;
-          grid-template-columns: repeat(5, minmax(0, 1fr));
+          grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 12px;
         }
         .topimob-hero-card {
@@ -314,7 +316,12 @@ export default function Hero() {
         }
         @media (max-width: 640px) {
           .topimob-hero-cards {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 420px) {
+          .topimob-hero-card {
+            min-height: 120px;
           }
         }
       `}</style>

@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FileSpreadsheet, Gift, Lock, Phone } from "lucide-react";
+import { BookOpen, FileSpreadsheet, Gift, Lock, Phone, PiggyBank } from "lucide-react";
 
 const navLinks = [
   { label: "Comprar", href: "/#imoveis" },
   { label: "Alugar", href: "/#imoveis" },
+  { label: "Avaliação de Imóvel", href: "/#simulador", icon: PiggyBank },
+  { label: "Blog / Conteúdo", href: "/blog-index.html", icon: BookOpen },
   { label: "Todos os Imóveis", href: "/imoveis" },
   { label: "Serviços", href: "/#servicos" },
   { label: "Consórcio x Financiamento", href: "/#consorcio", icon: FileSpreadsheet },
@@ -88,15 +90,15 @@ export default function Header() {
 
           {/* Desktop Nav (hidden on mobile via CSS) */}
           <nav className="topimob-nav-desktop" aria-label="Navegação principal">
-            {navLinks.slice(0, 6).map((link) => (
+            {navLinks.slice(0, 7).map((link) => (
               <motion.a
                 key={link.label}
                 href={link.href}
                 whileHover={{ color: "#D32F2F" }}
                 style={{
                   color: "rgba(255,255,255,0.85)",
-                  fontSize: 14,
-                  fontWeight: 500,
+                  fontSize: 13,
+                  fontWeight: 600,
                   position: "relative",
                   padding: "8px 0",
                 }}
@@ -327,7 +329,7 @@ export default function Header() {
         .topimob-nav-desktop {
           display: flex;
           align-items: center;
-          gap: 24px;
+          gap: 18px;
         }
         .topimob-burger {
           display: none;

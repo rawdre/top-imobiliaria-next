@@ -93,30 +93,64 @@ function Mascot({ size = 56 }: { size?: number }) {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 80 80"
+      viewBox="0 0 120 120"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       style={{ display: "block" }}
     >
-      <line x1="40" y1="8" x2="40" y2="2" stroke="#1B2A4A" strokeWidth="2" />
-      <circle cx="40" cy="2" r="3" fill="#D32F2F" />
-      <path d="M40 8 L72 30 L8 30 Z" fill="#D32F2F" />
+      <circle cx="60" cy="8" r="5" fill="#D32F2F" />
+      <path d="M58 13 L62 13 L64 18 L56 18 Z" fill="#1B2A4A" opacity="0.9" />
       <path
-        d="M14 30 L66 30 Q70 30 70 34 L70 66 Q70 72 64 72 L16 72 Q10 72 10 66 L10 34 Q10 30 14 30 Z"
-        fill="#1B2A4A"
+        d="M24 38 C24 20, 40 12, 60 12 C80 12, 96 20, 96 38 L96 44 L24 44 Z"
+        fill="#E0302F"
       />
-      <circle cx="30" cy="46" r="6" fill="#fff" />
-      <circle cx="50" cy="46" r="6" fill="#fff" />
-      <circle cx="31" cy="47" r="2.6" fill="#1B2A4A" />
-      <circle cx="51" cy="47" r="2.6" fill="#1B2A4A" />
-      <circle cx="22" cy="56" r="2.5" fill="#EF5350" opacity="0.55" />
-      <circle cx="58" cy="56" r="2.5" fill="#EF5350" opacity="0.55" />
       <path
-        d="M30 60 Q40 67 50 60"
-        stroke="#fff"
-        strokeWidth="2.5"
-        fill="none"
+        d="M35 26 L58 16 C60 15 62 15 64 16 L85 27"
+        stroke="#FFF7F3"
+        strokeWidth="6"
         strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M28 40 C30 31, 40 25, 60 25 C80 25, 90 31, 92 40"
+        fill="#C81F26"
+      />
+      <circle cx="20" cy="56" r="10" fill="#D32F2F" />
+      <circle cx="100" cy="56" r="10" fill="#D32F2F" />
+      <circle cx="20" cy="56" r="6.5" fill="#202838" />
+      <circle cx="100" cy="56" r="6.5" fill="#202838" />
+      <rect x="26" y="28" width="68" height="56" rx="20" fill="#F5F1EA" />
+      <rect x="34" y="38" width="52" height="34" rx="16" fill="#142130" />
+      <circle cx="50" cy="55" r="9.5" fill="#FFFDF8" />
+      <circle cx="70" cy="55" r="9.5" fill="#FFFDF8" />
+      <circle cx="52" cy="57" r="5.5" fill="#0E5CA8" />
+      <circle cx="72" cy="57" r="5.5" fill="#0E5CA8" />
+      <circle cx="53.5" cy="56" r="2.4" fill="#05070B" />
+      <circle cx="73.5" cy="56" r="2.4" fill="#05070B" />
+      <circle cx="56" cy="52" r="1.6" fill="#FFF" />
+      <circle cx="76" cy="52" r="1.6" fill="#FFF" />
+      <path d="M46 48 C48 45, 52 45, 55 47" stroke="#314258" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+      <path d="M65 47 C68 45, 72 45, 74 48" stroke="#314258" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+      <path d="M51 67 C56 73, 64 73, 69 67" stroke="#FFFDF8" strokeWidth="4" strokeLinecap="round" fill="none" />
+      <path d="M59 69 C61 69, 63 70, 64 72" stroke="#F87171" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <rect x="43" y="84" width="34" height="26" rx="10" fill="#F5F1EA" />
+      <rect x="48" y="89" width="24" height="18" rx="6" fill="#1B2231" />
+      <path d="M52 99 L60 92 L68 99" stroke="#E0302F" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <text x="60" y="105" textAnchor="middle" fontSize="10" fontWeight="700" fill="#FFFDF8">Top</text>
+      <path d="M42 86 L30 96" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" />
+      <path d="M78 86 L90 74" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" />
+      <path d="M90 74 C97 72, 101 76, 102 82" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <path d="M43 109 L37 118" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" />
+      <path d="M77 109 L83 118" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" />
+      <path d="M33 118 H48" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" />
+      <path d="M72 118 H87" stroke="#1B2231" strokeWidth="6" strokeLinecap="round" />
+      <path
+        d="M35 35 C39 30, 47 29, 54 30"
+        stroke="#A71E24"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
       />
     </svg>
   );
@@ -267,14 +301,14 @@ export default function SiteAssistant() {
           position: "fixed",
           bottom: 24,
           left: 24,
-          width: 64,
-          height: 64,
-          borderRadius: "50%",
-          border: "none",
+          width: 74,
+          height: 74,
+          borderRadius: 24,
+          border: "1px solid rgba(255,255,255,0.84)",
           padding: 0,
           cursor: "pointer",
-          background: "linear-gradient(135deg,#F8F9FC,#EEF1F6)",
-          boxShadow: "0 12px 32px rgba(27,42,74,0.25), 0 4px 12px rgba(0,0,0,0.08)",
+          background: "radial-gradient(circle at 30% 25%, #FFFFFF 0%, #F8F9FC 60%, #E8EDF5 100%)",
+          boxShadow: "0 18px 38px rgba(27,42,74,0.28), 0 6px 16px rgba(0,0,0,0.08)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -282,16 +316,16 @@ export default function SiteAssistant() {
           animation: launcherAnimation,
         }}
       >
-        <Mascot size={48} />
+        <Mascot size={60} />
         {pulseHint ? (
           <span
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: -2,
-              right: -2,
-              width: 14,
-              height: 14,
+              top: -3,
+              right: -3,
+              width: 16,
+              height: 16,
               background: "#D32F2F",
               borderRadius: "50%",
               border: "2px solid #fff",
@@ -308,8 +342,8 @@ export default function SiteAssistant() {
           onClick={toggle}
           style={{
             position: "fixed",
-            bottom: 38,
-            left: 100,
+            bottom: 44,
+            left: 110,
             maxWidth: 220,
             padding: "10px 14px",
             borderRadius: "16px 16px 16px 4px",
@@ -337,8 +371,8 @@ export default function SiteAssistant() {
           aria-live="polite"
           style={{
             position: "fixed",
-            bottom: 42,
-            left: 100,
+            bottom: 46,
+            left: 112,
             maxWidth: 240,
             background: "#fff",
             color: "#1B2A4A",
@@ -424,17 +458,17 @@ export default function SiteAssistant() {
           >
             <div
               style={{
-                width: 44,
-                height: 44,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.95)",
+                width: 56,
+                height: 56,
+                borderRadius: 18,
+                background: "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(242,246,251,0.95))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
+                boxShadow: "0 8px 18px rgba(0,0,0,0.18)",
               }}
             >
-              <Mascot size={32} />
+              <Mascot size={44} />
             </div>
             <div style={{ flex: 1 }}>
               <div
@@ -600,6 +634,15 @@ export default function SiteAssistant() {
         }
         .topimob-assistant-choice:active {
           transform: scale(0.97);
+        }
+        @media (max-width: 640px) {
+          .topimob-bot-launcher {
+            width: 66px !important;
+            height: 66px !important;
+            border-radius: 22px !important;
+            bottom: 18px !important;
+            left: 18px !important;
+          }
         }
       `}</style>
     </>
