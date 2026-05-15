@@ -3,7 +3,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Banknote, Building2, ChartColumnBig, FileSpreadsheet, KeyRound, Landmark, type LucideIcon } from "lucide-react";
+import {
+  Banknote,
+  Building2,
+  ChartColumnBig,
+  ClipboardCheck,
+  FileSpreadsheet,
+  KeyRound,
+  Landmark,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 
 const services = [
   { icon: KeyRound, title: "Locação Residencial", desc: "Aluguel de apartamentos, casas e kitnets com segurança e garantia locatícia." },
@@ -12,6 +22,8 @@ const services = [
   { icon: Landmark, title: "Financiamento", desc: "Auxílio completo no financiamento imobiliário junto aos principais bancos." },
   { icon: FileSpreadsheet, title: "Consórcio Imobiliário", desc: "A melhor forma de comprar seu imóvel sem juros e com parcelas acessíveis." },
   { icon: ChartColumnBig, title: "Avaliação de Imóveis", desc: "Descubra o valor real do seu imóvel com nossa análise de mercado." },
+  { icon: ShieldCheck, title: "Seguro Imobiliário", desc: "Proteção para imóvel, locação e negociação com coberturas alinhadas ao seu perfil." },
+  { icon: ClipboardCheck, title: "Assessoria Documental e Cartorial", desc: "Organização de documentos, cartório e registro para reduzir riscos e agilizar o processo." },
 ];
 
 function ServiceCard({ service, index }: { service: { icon: LucideIcon; title: string; desc: string }; index: number }) {

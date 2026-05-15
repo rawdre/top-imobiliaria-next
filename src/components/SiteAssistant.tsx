@@ -26,7 +26,20 @@
 
 import { useEffect, useState } from "react";
 import { waLink } from "@/lib/contact";
-import { BookOpen, Building2, FileSpreadsheet, Home, KeyRound, Landmark, MessageCircle, PiggyBank, type LucideIcon } from "lucide-react";
+import { track } from "@/lib/analytics";
+import {
+  BookOpen,
+  Building2,
+  FileSpreadsheet,
+  Gift,
+  Home,
+  KeyRound,
+  Landmark,
+  MapPin,
+  MessageCircle,
+  PiggyBank,
+  type LucideIcon,
+} from "lucide-react";
 
 const WA_DEFAULT_TEXT =
   "Olá! Estava no site da Top Imobiliária e gostaria de uma ajuda.";
@@ -77,6 +90,16 @@ const CHOICES: Choice[] = [
     action: { type: "scroll", targetId: "proprietarios" },
   },
   {
+    label: "Indique e Ganhe",
+    icon: Gift,
+    action: { type: "scroll", targetId: "programa-indicacao" },
+  },
+  {
+    label: "Nossa localização",
+    icon: MapPin,
+    action: { type: "scroll", targetId: "contato" },
+  },
+  {
     label: "Conhecer prédios",
     icon: Building2,
     action: { type: "navigate", href: "/buildings.html" },
@@ -96,9 +119,10 @@ function Mascot({ size = 56 }: { size?: number }) {
       viewBox="0 0 120 120"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      className="topimob-mascot"
       style={{ display: "block" }}
     >
-      <circle cx="60" cy="8" r="5" fill="#D32F2F" />
+      <circle className="topimob-antenna-dot" cx="60" cy="8" r="5" fill="#D32F2F" />
       <path d="M58 13 L62 13 L64 18 L56 18 Z" fill="#1B2A4A" opacity="0.9" />
       <path
         d="M24 38 C24 20, 40 12, 60 12 C80 12, 96 20, 96 38 L96 44 L24 44 Z"
@@ -126,10 +150,12 @@ function Mascot({ size = 56 }: { size?: number }) {
       <circle cx="70" cy="55" r="9.5" fill="#FFFDF8" />
       <circle cx="52" cy="57" r="5.5" fill="#0E5CA8" />
       <circle cx="72" cy="57" r="5.5" fill="#0E5CA8" />
-      <circle cx="53.5" cy="56" r="2.4" fill="#05070B" />
-      <circle cx="73.5" cy="56" r="2.4" fill="#05070B" />
+      <circle className="topimob-pupil topimob-pupil-left" cx="53.5" cy="56" r="2.4" fill="#05070B" />
+      <circle className="topimob-pupil topimob-pupil-right" cx="73.5" cy="56" r="2.4" fill="#05070B" />
       <circle cx="56" cy="52" r="1.6" fill="#FFF" />
       <circle cx="76" cy="52" r="1.6" fill="#FFF" />
+      <ellipse className="topimob-eyelid topimob-eyelid-left" cx="50" cy="55" rx="10" ry="9.5" fill="#142130" />
+      <ellipse className="topimob-eyelid topimob-eyelid-right" cx="70" cy="55" rx="10" ry="9.5" fill="#142130" />
       <path d="M46 48 C48 45, 52 45, 55 47" stroke="#314258" strokeWidth="2.2" strokeLinecap="round" fill="none" />
       <path d="M65 47 C68 45, 72 45, 74 48" stroke="#314258" strokeWidth="2.2" strokeLinecap="round" fill="none" />
       <path d="M51 67 C56 73, 64 73, 69 67" stroke="#FFFDF8" strokeWidth="4" strokeLinecap="round" fill="none" />
@@ -169,6 +195,8 @@ const IDLE_BUBBLES = [
   "Posso te mostrar prédios em Águas Claras",
   "Quer uma avaliação grátis do seu imóvel?",
   "Já viu nossa sessão de imóveis em destaque?",
+  "Quer indicar um proprietário e ganhar?",
+  "Posso te mostrar onde fica a Top.",
 ];
 
 export default function SiteAssistant() {
@@ -257,6 +285,7 @@ export default function SiteAssistant() {
     dismissHint();
 
     if (action.type === "scroll") {
+      track.assistantIntent(`scroll:${action.targetId}${action.setFilter ? `:${action.setFilter}` : ""}`);
       if (action.setFilter) {
         window.dispatchEvent(
           new CustomEvent("topimob:set-filter", { detail: action.setFilter }),
@@ -268,14 +297,23 @@ export default function SiteAssistant() {
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
     } else if (action.type === "navigate") {
+      track.assistantIntent(`navigate:${action.href}`);
       window.location.assign(action.href);
     } else if (action.type === "external") {
+      track.assistantIntent(`external:${action.url}`);
+      if (action.url.includes("wa.me")) {
+        track.whatsappClick("assistant");
+      }
       window.open(action.url, "_blank", "noopener,noreferrer");
     }
   };
 
   const toggle = () => {
-    setOpen((v) => !v);
+    setOpen((v) => {
+      const next = !v;
+      if (next) track.assistantOpen();
+      return next;
+    });
     if (pulseHint) dismissHint();
     if (idleBubble) dismissIdleBubble();
   };
@@ -308,12 +346,13 @@ export default function SiteAssistant() {
           padding: 0,
           cursor: "pointer",
           background: "radial-gradient(circle at 30% 25%, #FFFFFF 0%, #F8F9FC 60%, #E8EDF5 100%)",
-          boxShadow: "0 18px 38px rgba(27,42,74,0.28), 0 6px 16px rgba(0,0,0,0.08)",
+          boxShadow: "0 18px 46px rgba(27,42,74,0.28), 0 6px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           zIndex: 1100,
           animation: launcherAnimation,
+          transformStyle: "preserve-3d",
         }}
       >
         <Mascot size={60} />
@@ -448,7 +487,8 @@ export default function SiteAssistant() {
           {/* Header */}
           <div
             style={{
-              background: "linear-gradient(135deg,#1B2A4A,#243656)",
+              background:
+                "linear-gradient(135deg,rgba(27,42,74,0.98),rgba(36,54,86,0.98))",
               color: "#fff",
               padding: "16px 20px",
               display: "flex",
@@ -577,8 +617,9 @@ export default function SiteAssistant() {
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
+                    minHeight: 52,
                     lineHeight: 1.2,
-                    transition: "transform 0.15s ease, border-color 0.15s ease",
+                    transition: "transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease",
                   }}
                 >
                   <c.icon size={16} strokeWidth={1.9} />
@@ -626,11 +667,65 @@ export default function SiteAssistant() {
           from { opacity: 0; transform: translateY(16px) scale(0.96); }
           to   { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .topimob-bot-launcher:hover { transform: scale(1.05); }
+        @keyframes topimobMascotFloat {
+          0%, 100% { transform: translate3d(0,0,0) rotateZ(0); }
+          48% { transform: translate3d(0,-2px,0) rotateZ(-1.2deg); }
+          72% { transform: translate3d(0,-1px,0) rotateZ(0.8deg); }
+        }
+        @keyframes topimobHaloPulse {
+          0%, 100% { opacity: 0.28; transform: scale(0.88); }
+          50% { opacity: 0.52; transform: scale(1.04); }
+        }
+        @keyframes topimobLookAround {
+          0%, 72%, 100% { transform: translate3d(0,0,0); }
+          78%, 84% { transform: translate3d(2px,-1px,0); }
+          90%, 94% { transform: translate3d(-2px,1px,0); }
+        }
+        @keyframes topimobBlink {
+          0%, 88%, 93%, 100% { transform: scaleY(0); }
+          90%, 91% { transform: scaleY(1); }
+        }
+        @keyframes topimobAntennaPulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.22); opacity: 0.72; }
+        }
+        .topimob-mascot {
+          overflow: visible;
+          transform-origin: 50% 62%;
+          filter: drop-shadow(0 6px 10px rgba(27,42,74,0.18));
+          animation: topimobMascotFloat 4.8s ease-in-out infinite;
+        }
+        .topimob-bot-launcher::before {
+          content: "";
+          position: absolute;
+          inset: 7px;
+          border-radius: inherit;
+          background: radial-gradient(circle, rgba(211,47,47,0.18), transparent 66%);
+          animation: topimobHaloPulse 3.6s ease-in-out infinite;
+          pointer-events: none;
+        }
+        .topimob-pupil {
+          animation: topimobLookAround 6.4s ease-in-out infinite;
+          transform-box: fill-box;
+          transform-origin: center;
+        }
+        .topimob-eyelid {
+          animation: topimobBlink 5.8s ease-in-out infinite;
+          transform: scaleY(0);
+          transform-box: fill-box;
+          transform-origin: center;
+        }
+        .topimob-antenna-dot {
+          animation: topimobAntennaPulse 2.8s ease-in-out infinite;
+          transform-box: fill-box;
+          transform-origin: center;
+        }
+        .topimob-bot-launcher:hover { transform: translateY(-4px) scale(1.04); }
         .topimob-bot-launcher:active { transform: scale(0.96); }
         .topimob-assistant-choice:hover {
           border-color: #1B2A4A !important;
           transform: translateY(-2px);
+          box-shadow: 0 10px 24px rgba(27,42,74,0.10);
         }
         .topimob-assistant-choice:active {
           transform: scale(0.97);
