@@ -9,6 +9,7 @@ import {
   PHONE_TEL,
   EMAIL,
   ADDRESS_SHORT,
+  ADDRESS_FULL,
   MAPS_EMBED_URL,
   MAPS_LINK_URL,
 } from "@/lib/contact";
@@ -161,12 +162,24 @@ export default function Footer() {
               borderBottom: "1px solid rgba(255,255,255,0.06)",
             }}
           >
-            <div>
+            <div style={{ minWidth: 0, flex: "1 1 520px" }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 6 }}>
                 Onde estamos
               </div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "var(--font-jakarta)" }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><MapPin size={16} /> {ADDRESS_SHORT}</span>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontWeight: 700,
+                  color: "#fff",
+                  fontFamily: "var(--font-jakarta)",
+                  lineHeight: 1.45,
+                  overflowWrap: "anywhere",
+                }}
+              >
+                <span style={{ display: "inline-flex", alignItems: "flex-start", gap: 8 }}>
+                  <MapPin size={16} style={{ flex: "0 0 auto", marginTop: 3 }} />
+                  <span>{ADDRESS_FULL}</span>
+                </span>
               </div>
             </div>
             <motion.a
