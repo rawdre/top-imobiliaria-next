@@ -35,6 +35,7 @@ export default function Footer() {
   return (
     <footer
       id="contato"
+      className="topimob-footer"
       style={{
         background: "linear-gradient(135deg,#0F1A2E,#1B2A4A)",
         color: "#fff",
@@ -152,6 +153,7 @@ export default function Footer() {
           }}
         >
           <div
+            className="topimob-footer-map-header"
             style={{
               padding: "20px 24px",
               display: "flex",
@@ -162,11 +164,12 @@ export default function Footer() {
               borderBottom: "1px solid rgba(255,255,255,0.06)",
             }}
           >
-            <div style={{ minWidth: 0, flex: "1 1 520px" }}>
+            <div className="topimob-footer-address-block" style={{ minWidth: 0, flex: "1 1 520px" }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 6 }}>
                 Onde estamos
               </div>
               <div
+                className="topimob-footer-address-text"
                 style={{
                   fontSize: 16,
                   fontWeight: 700,
@@ -176,13 +179,14 @@ export default function Footer() {
                   overflowWrap: "anywhere",
                 }}
               >
-                <span style={{ display: "inline-flex", alignItems: "flex-start", gap: 8 }}>
+                <span className="topimob-footer-address-row" style={{ display: "inline-flex", alignItems: "flex-start", gap: 8 }}>
                   <MapPin size={16} style={{ flex: "0 0 auto", marginTop: 3 }} />
                   <span>{ADDRESS_FULL}</span>
                 </span>
               </div>
             </div>
             <motion.a
+              className="topimob-footer-map-button"
               href={MAPS_LINK_URL}
               target="_blank"
               rel="noopener noreferrer"
@@ -205,6 +209,7 @@ export default function Footer() {
             </motion.a>
           </div>
           <iframe
+            className="topimob-footer-map-frame"
             src={MAPS_EMBED_URL}
             width="100%"
             height="320"
@@ -217,11 +222,14 @@ export default function Footer() {
         </motion.div>
 
         {/* Divider */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+        <div
+          className="topimob-footer-bottom"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}
+        >
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
             © {new Date().getFullYear()} Top Imobiliária DF. Todos os direitos reservados. CJ:15806
           </p>
-          <div style={{ display: "flex", gap: 16 }}>
+          <div className="topimob-footer-legal-links" style={{ display: "flex", gap: 16 }}>
             <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Política de Privacidade</a>
             <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Termos de Uso</a>
           </div>
