@@ -136,6 +136,7 @@ export default function Footer() {
 
         {/* Map block — Google embed showing Top Imobiliária location */}
         <motion.div
+          id="localizacao"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}

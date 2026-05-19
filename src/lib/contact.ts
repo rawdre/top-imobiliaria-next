@@ -11,7 +11,7 @@ export const WA_NUMBER = "556130424344";
 export const PHONE_DISPLAY = "(61) 3042-4344";
 export const PHONE_TEL = "+556130424344";
 
-export const EMAIL = "contato@topimobiliariadf.com.br";
+export const EMAIL = "contatotopimobiliaria@gmail.com";
 
 export const ADDRESS_SHORT = "Águas Claras – DF";
 export const ADDRESS_FULL =

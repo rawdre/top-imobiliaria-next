@@ -11,6 +11,7 @@
  *   - Sou proprietário      -> scroll to #proprietarios
  *   - Avaliar meu imóvel    -> scroll to #simulador
  *   - Conhecer prédios      -> navigate to /buildings.html
+ *   - Nossa localização     -> scroll to #localizacao
  *   - Consórcio x financiamento -> scroll to #consorcio
  *   - Ler conteúdo          -> scroll to #blog
  *   - Falar no WhatsApp     -> external wa.me link
@@ -97,7 +98,7 @@ const CHOICES: Choice[] = [
   {
     label: "Nossa localização",
     icon: MapPin,
-    action: { type: "scroll", targetId: "contato" },
+    action: { type: "scroll", targetId: "localizacao" },
   },
   {
     label: "Conhecer prédios",
@@ -318,13 +319,11 @@ export default function SiteAssistant() {
     if (idleBubble) dismissIdleBubble();
   };
 
-  // Compose the launcher animation. `wiggling` shake takes precedence
-  // (very short), then the first-visit bob, otherwise no animation.
+  // Keep the button itself stable for reliable clicks; motion lives inside
+  // the mascot/halo, with only the occasional idle shake on the launcher.
   const launcherAnimation = wiggling
     ? "topimobShake 0.9s ease-in-out"
-    : pulseHint
-      ? "topimobBob 1.4s ease-in-out infinite"
-      : undefined;
+    : undefined;
 
   return (
     <>
