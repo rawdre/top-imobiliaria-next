@@ -281,6 +281,24 @@ export default function SiteAssistant() {
     setIdleBubble(null);
   };
 
+  const scrollToTarget = (targetId: string) => {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+
+    const header = document.querySelector("header");
+    const headerHeight = header?.getBoundingClientRect().height ?? 0;
+    const extraOffset = targetId === "localizacao" ? 20 : 16;
+    const targetTop =
+      el.getBoundingClientRect().top + window.scrollY - headerHeight - extraOffset;
+    const maxScroll =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    window.scrollTo({
+      top: Math.max(0, Math.min(targetTop, maxScroll)),
+      behavior: "smooth",
+    });
+  };
+
   const handleAction = (action: Action) => {
     setOpen(false);
     dismissHint();
@@ -294,8 +312,7 @@ export default function SiteAssistant() {
       }
       // Defer the scroll a tick so any state-driven layout shift settles.
       setTimeout(() => {
-        const el = document.getElementById(action.targetId);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollToTarget(action.targetId);
       }, 80);
     } else if (action.type === "navigate") {
       track.assistantIntent(`navigate:${action.href}`);
