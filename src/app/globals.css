@@ -973,3 +973,256 @@
     width: 100%;
   }
 }
+
+.pillar-page {
+  background: #f7f9fc;
+  color: #1b2a4a;
+  min-height: 100vh;
+}
+
+.pillar-inner {
+  width: min(1080px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.pillar-hero {
+  padding: 150px 0 82px;
+  background:
+    linear-gradient(135deg, rgba(15, 26, 46, 0.94), rgba(27, 42, 74, 0.86)),
+    radial-gradient(circle at 82% 24%, rgba(211, 47, 47, 0.22), transparent 28%);
+  color: #ffffff;
+}
+
+.pillar-kicker {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.pillar-hero h1 {
+  font-family: var(--font-jakarta);
+  font-size: clamp(2.25rem, 5vw, 4.9rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.04;
+  margin: 0 0 24px;
+  max-width: 980px;
+}
+
+.pillar-hero p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.08rem;
+  line-height: 1.8;
+  margin: 0;
+  max-width: 820px;
+}
+
+.pillar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.pillar-actions a {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 800;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  text-decoration: none;
+}
+
+.pillar-actions a:first-child {
+  background: #d32f2f;
+  color: #ffffff;
+}
+
+.pillar-actions a:last-child {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+}
+
+.pillar-content {
+  padding: 46px 0 90px;
+}
+
+.pillar-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: -86px 0 34px;
+}
+
+.pillar-card,
+.pillar-article,
+.pillar-list-cards > div,
+.pillar-question-grid > div,
+.pillar-final {
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(27, 42, 74, 0.08);
+}
+
+.pillar-card {
+  padding: 22px;
+}
+
+.pillar-card svg,
+.pillar-section-title svg,
+.pillar-check-grid svg,
+.pillar-question-grid svg {
+  color: #d32f2f;
+  flex: 0 0 auto;
+}
+
+.pillar-card h2 {
+  font-family: var(--font-jakarta);
+  font-size: 1.02rem;
+  margin: 12px 0 8px;
+}
+
+.pillar-card p,
+.pillar-article p,
+.pillar-list-cards p,
+.pillar-final p {
+  color: #566074;
+  font-size: 1rem;
+  line-height: 1.84;
+  margin: 0;
+}
+
+.pillar-article {
+  padding: 46px;
+}
+
+.pillar-section + .pillar-section,
+.pillar-final {
+  margin-top: 38px;
+}
+
+.pillar-section-title {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pillar-section-title h2,
+.pillar-final h2 {
+  font-family: var(--font-jakarta);
+  font-size: clamp(1.45rem, 3vw, 2.15rem);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.pillar-section p + p,
+.pillar-final p + p {
+  margin-top: 14px;
+}
+
+.pillar-check-grid,
+.pillar-question-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 22px 0;
+}
+
+.pillar-check-grid > div,
+.pillar-question-grid > div {
+  align-items: flex-start;
+  display: flex;
+  gap: 9px;
+}
+
+.pillar-check-grid > div {
+  background: #f7f9fc;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+  color: #1b2a4a;
+  font-weight: 700;
+  padding: 13px;
+}
+
+.pillar-list-cards {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pillar-list-cards > div,
+.pillar-question-grid > div {
+  box-shadow: none;
+  padding: 18px;
+}
+
+.pillar-list-cards h3 {
+  font-family: var(--font-jakarta);
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.pillar-bullets {
+  color: #566074;
+  display: grid;
+  gap: 10px;
+  line-height: 1.7;
+  margin: 20px 0;
+  padding-left: 22px;
+}
+
+.pillar-question-grid > div {
+  color: #1b2a4a;
+  font-weight: 700;
+}
+
+.pillar-final {
+  background: linear-gradient(135deg, #1b2a4a, #0f1a2e);
+  color: #ffffff;
+  padding: 30px;
+}
+
+.pillar-final p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.pillar-actions-dark a:last-child {
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+@media (max-width: 800px) {
+  .pillar-inner {
+    width: min(100% - 32px, 680px);
+  }
+
+  .pillar-hero {
+    padding: 118px 0 66px;
+  }
+
+  .pillar-card-grid,
+  .pillar-check-grid,
+  .pillar-list-cards,
+  .pillar-question-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar-card-grid {
+    margin-top: -70px;
+  }
+
+  .pillar-article {
+    padding: 28px 20px;
+  }
+
+  .pillar-actions a {
+    width: 100%;
+  }
+}

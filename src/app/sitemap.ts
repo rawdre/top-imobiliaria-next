@@ -38,6 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.82,
     },
+    {
+      url: `${SITE_URL}/artigos/como-escolher-imobiliaria-administrar-imovel-brasilia`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.86,
+    },
     ...htmlRoutes.map((route): MetadataRoute.Sitemap[number] => {
       const changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] =
         route === "/blog-index.html" ? "weekly" : "monthly";
