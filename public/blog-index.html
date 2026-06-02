@@ -240,6 +240,78 @@ body {
   height: 100%;
 }
 
+.gradient-bg::after {
+  content: "Top Imobiliária";
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  color: rgba(255,255,255,0.92);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.content-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0 0 34px;
+}
+
+.content-feature-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(27,42,74,0.08);
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.content-feature-card:hover {
+  box-shadow: 0 10px 34px rgba(27,42,74,0.14);
+  transform: translateY(-4px);
+}
+
+.content-feature-thumb {
+  align-items: center;
+  background: linear-gradient(135deg, var(--navy), var(--red));
+  color: var(--white);
+  display: flex;
+  font-size: 2.4rem;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.content-feature-body {
+  padding: 24px;
+}
+
+.content-feature-label {
+  color: var(--red);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  margin-bottom: 9px;
+  text-transform: uppercase;
+}
+
+.content-feature-body h3 {
+  color: var(--navy);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.28rem;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.content-feature-body p {
+  color: var(--gray-600);
+  font-size: .95rem;
+  line-height: 1.6;
+}
+
 .blog-card-body {
   padding: 24px;
 }
@@ -485,6 +557,18 @@ body {
   .blog-grid {
     grid-template-columns: 1fr;
   }
+
+  .content-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-feature-card {
+    grid-template-columns: 1fr;
+  }
+
+  .content-feature-thumb {
+    min-height: 128px;
+  }
   
   .section-title {
     font-size: 2rem;
@@ -533,6 +617,25 @@ body {
 <div class="section-label">Blog Top Imobiliária</div>
 <h2 class="section-title">Todos os Artigos</h2>
 <p class="section-desc">Explore nosso conteúdo completo sobre mercado imobiliário em Águas Claras, dicas de aluguel, venda e administração de imóveis.</p>
+</div>
+
+<div class="content-feature-grid" aria-label="Conteúdos estratégicos da Top Imobiliária">
+<a class="content-feature-card" href="/artigos/como-escolher-imobiliaria-administrar-imovel-brasilia">
+<div class="content-feature-thumb" aria-hidden="true">SEO</div>
+<div class="content-feature-body">
+<div class="content-feature-label">Artigo pilar</div>
+<h3>Como escolher uma imobiliária para administrar seu imóvel em Brasília</h3>
+<p>Guia completo para proprietários avaliarem estrutura, atendimento, tecnologia, transparência e segurança antes de contratar uma administradora.</p>
+</div>
+</a>
+<a class="content-feature-card" href="/regioes/asa-norte">
+<div class="content-feature-thumb" aria-hidden="true">DF</div>
+<div class="content-feature-body">
+<div class="content-feature-label">Guia regional</div>
+<h3>Asa Norte: história, qualidade de vida e mercado imobiliário</h3>
+<p>Página regional completa sobre mobilidade, educação, comércio, qualidade de vida e oportunidades imobiliárias na Asa Norte.</p>
+</div>
+</a>
 </div>
 
 <div class="blog-grid">
