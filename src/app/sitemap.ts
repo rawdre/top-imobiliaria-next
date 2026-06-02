@@ -32,6 +32,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.95,
     },
+    {
+      url: `${SITE_URL}/regioes/asa-norte`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
     ...htmlRoutes.map((route): MetadataRoute.Sitemap[number] => {
       const changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] =
         route === "/blog-index.html" ? "weekly" : "monthly";

@@ -753,3 +753,223 @@
     padding: 16px 14px !important;
   }
 }
+
+.region-page {
+  background: #f6f8fb;
+  color: #1b2a4a;
+  min-height: 100vh;
+}
+
+.region-inner {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.region-hero {
+  padding: 148px 0 72px;
+  background:
+    linear-gradient(135deg, rgba(15, 26, 46, 0.9), rgba(27, 42, 74, 0.82)),
+    url("/assets/top-imobiliaria/icon-square.jpg") center/180px auto no-repeat;
+  color: #ffffff;
+}
+
+.region-kicker {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.region-hero h1 {
+  font-family: var(--font-jakarta);
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.04;
+  max-width: 980px;
+  margin: 0 0 24px;
+}
+
+.region-hero p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.08rem;
+  line-height: 1.8;
+  max-width: 820px;
+  margin: 0;
+}
+
+.region-hero-actions,
+.region-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.region-hero-actions a,
+.region-cta-actions a {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 800;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  text-decoration: none;
+}
+
+.region-hero-actions a:first-child,
+.region-cta-actions a:first-child {
+  background: #d32f2f;
+  color: #ffffff;
+}
+
+.region-hero-actions a:last-child,
+.region-cta-actions a:last-child {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+}
+
+.region-content {
+  padding: 46px 0 88px;
+}
+
+.region-highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: -84px 0 34px;
+}
+
+.region-highlight,
+.region-article,
+.region-decision-grid > div,
+.region-cta {
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(27, 42, 74, 0.08);
+}
+
+.region-highlight {
+  padding: 22px;
+}
+
+.region-highlight svg,
+.region-section-title svg {
+  color: #d32f2f;
+  flex: 0 0 auto;
+}
+
+.region-highlight h2 {
+  font-family: var(--font-jakarta);
+  font-size: 1.02rem;
+  margin: 12px 0 8px;
+}
+
+.region-highlight p,
+.region-article p,
+.region-decision-grid p,
+.region-cta p {
+  color: #566074;
+  font-size: 1rem;
+  line-height: 1.82;
+  margin: 0;
+}
+
+.region-article {
+  padding: 44px;
+}
+
+.region-intro-block,
+.region-section,
+.region-decision-grid,
+.region-cta {
+  margin-top: 34px;
+}
+
+.region-intro-block {
+  margin-top: 0;
+}
+
+.region-intro-block h2,
+.region-section h2,
+.region-decision-grid h2,
+.region-cta h2 {
+  font-family: var(--font-jakarta);
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+.region-section-title {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.region-section-title h2 {
+  margin: 0;
+}
+
+.region-section p + p,
+.region-intro-block p + p,
+.region-cta p + p {
+  margin-top: 14px;
+}
+
+.region-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.region-decision-grid > div {
+  box-shadow: none;
+  padding: 24px;
+}
+
+.region-decision-grid h2 {
+  font-size: 1.25rem;
+}
+
+.region-cta {
+  background: linear-gradient(135deg, #1b2a4a, #0f1a2e);
+  color: #ffffff;
+  padding: 30px;
+}
+
+.region-cta p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+@media (max-width: 800px) {
+  .region-inner {
+    width: min(100% - 32px, 680px);
+  }
+
+  .region-hero {
+    padding: 118px 0 64px;
+  }
+
+  .region-highlight-grid,
+  .region-decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .region-highlight-grid {
+    margin-top: -68px;
+  }
+
+  .region-article {
+    padding: 28px 20px;
+  }
+
+  .region-hero-actions a,
+  .region-cta-actions a {
+    width: 100%;
+  }
+}
