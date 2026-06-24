@@ -45,6 +45,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.82,
     },
     {
+      url: `${SITE_URL}/regioes/lago-sul`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.84,
+    },
+    {
       url: `${SITE_URL}/artigos/como-escolher-imobiliaria-administrar-imovel-brasilia`,
       lastModified: now,
       changeFrequency: "monthly",
