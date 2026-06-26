@@ -1226,3 +1226,244 @@
     width: 100%;
   }
 }
+
+.intelligence-hub {
+  background:
+    linear-gradient(180deg, #f8f9fc 0%, #ffffff 62%, #f6f8fb 100%);
+  padding: 72px 0 62px;
+}
+
+.intelligence-hub-inner {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 0 24px;
+}
+
+.hub-heading {
+  margin: 0 auto 26px;
+  max-width: 720px;
+  text-align: center;
+}
+
+.hub-kicker {
+  align-items: center;
+  color: #d32f2f;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 800;
+  gap: 8px;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.hub-heading h2 {
+  color: #101a2f;
+  font-family: var(--font-jakarta);
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 1.08;
+  margin: 0 0 14px;
+}
+
+.hub-heading p {
+  color: #5c6575;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.hub-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto 28px;
+}
+
+.hub-tag {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e3e8f0;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(27, 42, 74, 0.06);
+  color: #1b2a4a;
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 800;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.hub-tag svg {
+  color: #d32f2f;
+}
+
+.hub-tag:hover {
+  border-color: rgba(211, 47, 47, 0.32);
+  box-shadow: 0 14px 30px rgba(27, 42, 74, 0.1);
+  transform: translateY(-2px);
+}
+
+.hub-card-rail {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.hub-card {
+  background: #ffffff;
+  border: 1px solid #e6ebf3;
+  border-radius: 8px;
+  box-shadow: 0 14px 36px rgba(27, 42, 74, 0.08);
+  color: inherit;
+  min-width: 0;
+  overflow: hidden;
+  text-decoration: none;
+  transition: box-shadow 0.24s ease, transform 0.24s ease;
+}
+
+.hub-card:hover {
+  box-shadow: 0 22px 46px rgba(27, 42, 74, 0.13);
+  transform: translateY(-4px);
+}
+
+.hub-card-media {
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  min-height: 164px;
+  padding: 14px;
+}
+
+.hub-card-icon {
+  align-items: center;
+  align-self: flex-end;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 999px;
+  color: #d32f2f;
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.hub-card-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 226px;
+  padding: 20px;
+}
+
+.hub-card-eyebrow {
+  color: #d32f2f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.hub-card-title {
+  color: #101a2f;
+  font-family: var(--font-jakarta);
+  font-size: 1.08rem;
+  font-weight: 900;
+  line-height: 1.22;
+  margin-bottom: 10px;
+}
+
+.hub-card-description {
+  color: #606a7a;
+  font-size: 0.92rem;
+  line-height: 1.58;
+}
+
+.hub-card-action {
+  color: #d32f2f;
+  font-size: 0.86rem;
+  font-weight: 900;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.hub-utility-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.hub-utility-row a {
+  border-bottom: 1px solid rgba(211, 47, 47, 0.32);
+  color: #1b2a4a;
+  font-size: 0.92rem;
+  font-weight: 800;
+  padding: 6px 2px;
+  text-decoration: none;
+}
+
+.hub-utility-row a:hover {
+  color: #d32f2f;
+}
+
+@media (max-width: 1040px) {
+  .hub-card-rail {
+    grid-auto-columns: minmax(280px, 34vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding: 4px 2px 18px;
+    scroll-snap-type: x proximity;
+  }
+
+  .hub-card {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .intelligence-hub {
+    padding: 54px 0 46px;
+  }
+
+  .intelligence-hub-inner {
+    padding: 0 18px;
+  }
+
+  .hub-heading {
+    text-align: left;
+  }
+
+  .hub-tags {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-left: -18px;
+    margin-right: -18px;
+    overflow-x: auto;
+    padding: 0 18px 12px;
+  }
+
+  .hub-tag {
+    flex: 0 0 auto;
+  }
+
+  .hub-card-rail {
+    grid-auto-columns: minmax(266px, 82vw);
+    margin-left: -18px;
+    margin-right: -18px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hub-card-body {
+    min-height: 218px;
+  }
+
+  .hub-utility-row {
+    justify-content: flex-start;
+  }
+}

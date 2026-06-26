@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import IntelligenceHub from "@/components/IntelligenceHub";
 import PropertiesSection from "@/components/PropertiesSection";
 import AIFeaturesSection from "@/components/AIFeaturesSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
+        <IntelligenceHub />
         <PropertiesSection />
         <AIFeaturesSection />
         <ServicesSection />
