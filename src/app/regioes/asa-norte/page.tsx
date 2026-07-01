@@ -168,6 +168,29 @@ export default function AsaNortePage() {
                 </section>
               ))}
 
+              <section className="region-section">
+                <div className="region-section-title">
+                  <TrendingUp size={22} />
+                  <h2>O futuro da região</h2>
+                </div>
+                <p>
+                  A Asa Norte tende a manter forte relevância imobiliária pela
+                  combinação entre localização estratégica, proximidade da UnB,
+                  infraestrutura consolidada e demanda constante por moradia e
+                  locação.
+                </p>
+                <p>
+                  Melhorias urbanas, novos serviços, atualização de imóveis
+                  antigos e fortalecimento do comércio local devem continuar
+                  influenciando a valorização da região nos próximos anos.
+                </p>
+                <p>
+                  Para proprietários e investidores, imóveis bem conservados,
+                  reformados e próximos a serviços essenciais tendem a ganhar
+                  ainda mais competitividade no mercado.
+                </p>
+              </section>
+
               <section className="region-decision-grid" aria-label="Perguntas frequentes sobre a Asa Norte">
                 <div>
                   <h2>Vale a pena morar na Asa Norte?</h2>
@@ -207,6 +230,9 @@ export default function AsaNortePage() {
                 </p>
                 <div className="region-cta-actions">
                   <Link href="/#simulador">Avaliar meu imóvel</Link>
+                  <Link href="/#administracao">Administração imobiliária</Link>
+                  <Link href="/regioes/asa-sul">Asa Sul</Link>
+                  <Link href="/regioes/lago-norte">Lago Norte</Link>
                   <Link href="/#contato">Falar com especialista</Link>
                 </div>
               </section>

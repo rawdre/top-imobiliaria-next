@@ -178,6 +178,29 @@ export default function LagoSulPage() {
                 </section>
               ))}
 
+              <section className="region-section">
+                <div className="region-section-title">
+                  <TrendingUp size={22} />
+                  <h2>O futuro da região</h2>
+                </div>
+                <p>
+                  O Lago Sul deve seguir como uma das regiões mais exclusivas de
+                  Brasília pela escassez de áreas disponíveis, pelo alto padrão
+                  construtivo e pela força do endereço no mercado imobiliário.
+                </p>
+                <p>
+                  A valorização tende a ser influenciada por projetos de alto
+                  padrão, melhorias de mobilidade, novos serviços qualificados e
+                  pela busca crescente por imóveis com privacidade, espaço e
+                  integração com a natureza.
+                </p>
+                <p>
+                  Para proprietários, imóveis bem apresentados, atualizados e
+                  com boa documentação tendem a se destacar em um mercado de
+                  compradores exigentes.
+                </p>
+              </section>
+
               <section className="region-decision-grid" aria-label="Perguntas frequentes sobre o Lago Sul">
                 <div>
                   <h2>Vale a pena morar no Lago Sul?</h2>
@@ -216,6 +239,9 @@ export default function LagoSulPage() {
                 </p>
                 <div className="region-cta-actions">
                   <Link href="/#simulador">Avaliar meu imóvel</Link>
+                  <Link href="/#administracao">Administração imobiliária</Link>
+                  <Link href="/regioes/lago-norte">Lago Norte</Link>
+                  <Link href="/regioes/asa-sul">Asa Sul</Link>
                   <Link href="/#contato">Falar com especialista</Link>
                 </div>
               </section>

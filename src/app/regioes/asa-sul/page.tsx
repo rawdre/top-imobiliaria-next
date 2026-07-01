@@ -173,6 +173,28 @@ export default function AsaSulPage() {
                 </section>
               ))}
 
+              <section className="region-section">
+                <div className="region-section-title">
+                  <TrendingUp size={22} />
+                  <h2>O futuro da região</h2>
+                </div>
+                <p>
+                  A Asa Sul deve continuar entre as regiões mais procuradas de
+                  Brasília pela combinação entre tradição urbanística, mobilidade,
+                  metrô, serviços consolidados e proximidade com áreas centrais.
+                </p>
+                <p>
+                  A modernização de imóveis, melhorias em comércio local, novos
+                  centros de serviços e a valorização de unidades bem reformadas
+                  tendem a fortalecer a liquidez da região.
+                </p>
+                <p>
+                  Para investidores, a baixa disponibilidade de áreas novas e a
+                  demanda constante por moradia no Plano Piloto reforçam a
+                  perspectiva de preservação patrimonial.
+                </p>
+              </section>
+
               <section className="region-decision-grid" aria-label="Perguntas frequentes sobre a Asa Sul">
                 <div>
                   <h2>Vale a pena morar na Asa Sul?</h2>
@@ -211,6 +233,9 @@ export default function AsaSulPage() {
                 </p>
                 <div className="region-cta-actions">
                   <Link href="/#simulador">Avaliar meu imóvel</Link>
+                  <Link href="/#administracao">Administração imobiliária</Link>
+                  <Link href="/regioes/asa-norte">Asa Norte</Link>
+                  <Link href="/regioes/lago-sul">Lago Sul</Link>
                   <Link href="/#contato">Falar com especialista</Link>
                 </div>
               </section>

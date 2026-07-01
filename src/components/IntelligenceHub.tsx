@@ -14,6 +14,8 @@ const quickLinks = [
   { label: "Asa Sul", href: "/regioes/asa-sul", icon: Trees },
   { label: "Asa Norte", href: "/regioes/asa-norte", icon: Landmark },
   { label: "Lago Sul", href: "/regioes/lago-sul", icon: Waves },
+  { label: "Lago Norte", href: "/regioes/lago-norte", icon: Waves },
+  { label: "Sobradinho", href: "/regioes/sobradinho", icon: Landmark },
   { label: "Consórcio", href: "/#consorcio", icon: Calculator },
   { label: "Indique e Ganhe", href: "/#programa-indicacao", icon: Gift },
 ];
@@ -50,6 +52,22 @@ const featureCards = [
     description: "Compare caminhos para comprar imóvel em Brasília com uma ferramenta direta, sem formulário obrigatório no início.",
     image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
     icon: Calculator,
+  },
+  {
+    title: "Lago Norte com natureza e acesso",
+    eyebrow: "Guia regional",
+    href: "/regioes/lago-norte",
+    description: "Qualidade de vida, Lago Paranoá, comércio, mobilidade e mercado imobiliário em uma região residencial consolidada.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Waves,
+  },
+  {
+    title: "Sobradinho em nova fase",
+    eyebrow: "Guia regional",
+    href: "/regioes/sobradinho",
+    description: "História, infraestrutura, expansão próxima à BR-020, novos empreendimentos e oportunidades de valorização.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Landmark,
   },
 ];
 
