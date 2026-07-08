@@ -5,6 +5,7 @@ import {
   Gift,
   Landmark,
   MapPinned,
+  Train,
   Trees,
   Waves,
 } from "lucide-react";
@@ -16,6 +17,8 @@ const quickLinks = [
   { label: "Lago Sul", href: "/regioes/lago-sul", icon: Waves },
   { label: "Lago Norte", href: "/regioes/lago-norte", icon: Waves },
   { label: "Sobradinho", href: "/regioes/sobradinho", icon: Landmark },
+  { label: "Guará", href: "/regioes/guara", icon: Train },
+  { label: "Taguatinga", href: "/regioes/taguatinga", icon: Building2 },
   { label: "Consórcio", href: "/#consorcio", icon: Calculator },
   { label: "Indique e Ganhe", href: "/#programa-indicacao", icon: Gift },
 ];
@@ -68,6 +71,22 @@ const featureCards = [
     description: "História, infraestrutura, expansão próxima à BR-020, novos empreendimentos e oportunidades de valorização.",
     image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
     icon: Landmark,
+  },
+  {
+    title: "Guará completo e bem localizado",
+    eyebrow: "Guia regional",
+    href: "/regioes/guara",
+    description: "Metrô, comércio consolidado, Feira do Guará, lazer, infraestrutura e mercado imobiliário aquecido.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Train,
+  },
+  {
+    title: "Taguatinga como polo econômico",
+    eyebrow: "Guia regional",
+    href: "/regioes/taguatinga",
+    description: "Comércio forte, mobilidade, serviços, educação, verticalização e oportunidades para morar ou investir.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Building2,
   },
 ];
 
