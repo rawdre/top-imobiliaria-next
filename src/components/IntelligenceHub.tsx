@@ -19,6 +19,8 @@ const quickLinks = [
   { label: "Sobradinho", href: "/regioes/sobradinho", icon: Landmark },
   { label: "Guará", href: "/regioes/guara", icon: Train },
   { label: "Taguatinga", href: "/regioes/taguatinga", icon: Building2 },
+  { label: "Planaltina", href: "/regioes/planaltina", icon: Landmark },
+  { label: "Vicente Pires", href: "/regioes/vicente-pires", icon: Trees },
   { label: "Consórcio", href: "/#consorcio", icon: Calculator },
   { label: "Indique e Ganhe", href: "/#programa-indicacao", icon: Gift },
 ];
@@ -87,6 +89,22 @@ const featureCards = [
     description: "Comércio forte, mobilidade, serviços, educação, verticalização e oportunidades para morar ou investir.",
     image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
     icon: Building2,
+  },
+  {
+    title: "Planaltina histórica e em expansão",
+    eyebrow: "Guia regional",
+    href: "/regioes/planaltina",
+    description: "Patrimônio cultural, Pedra Fundamental, comércio ativo, desenvolvimento urbano e oportunidades imobiliárias.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Landmark,
+  },
+  {
+    title: "Vicente Pires em valorização",
+    eyebrow: "Guia regional",
+    href: "/regioes/vicente-pires",
+    description: "Condomínios, casas amplas, infraestrutura em modernização, localização estratégica e mercado dinâmico.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Trees,
   },
 ];
 
