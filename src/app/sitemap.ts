@@ -87,6 +87,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.83,
     },
     {
+      url: `${SITE_URL}/regioes/sudoeste`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.84,
+    },
+    {
+      url: `${SITE_URL}/regioes/noroeste`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/artigos/como-escolher-imobiliaria-administrar-imovel-brasilia`,
       lastModified: now,
       changeFrequency: "monthly",
