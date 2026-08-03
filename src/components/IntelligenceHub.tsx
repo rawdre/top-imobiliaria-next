@@ -23,6 +23,8 @@ const quickLinks = [
   { label: "Vicente Pires", href: "/regioes/vicente-pires", icon: Trees },
   { label: "Sudoeste", href: "/regioes/sudoeste", icon: Building2 },
   { label: "Noroeste", href: "/regioes/noroeste", icon: Trees },
+  { label: "Jardim Botânico", href: "/regioes/jardim-botanico", icon: Trees },
+  { label: "Park Way", href: "/regioes/park-way", icon: Landmark },
   { label: "Consórcio", href: "/#consorcio", icon: Calculator },
   { label: "Indique e Ganhe", href: "/#programa-indicacao", icon: Gift },
 ];
@@ -123,6 +125,22 @@ const featureCards = [
     description: "Urbanismo planejado, Parque Burle Marx, alto padrão, sustentabilidade e valorização imobiliária.",
     image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
     icon: Trees,
+  },
+  {
+    title: "Jardim Botânico em expansão",
+    eyebrow: "Guia regional",
+    href: "/regioes/jardim-botanico",
+    description: "Natureza, condomínios, qualidade de vida, infraestrutura em crescimento e forte potencial de valorização.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Trees,
+  },
+  {
+    title: "Park Way exclusivo e arborizado",
+    eyebrow: "Guia regional",
+    href: "/regioes/park-way",
+    description: "Grandes terrenos, baixa densidade, privacidade, natureza e mercado imobiliário de alto padrão.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Landmark,
   },
 ];
 

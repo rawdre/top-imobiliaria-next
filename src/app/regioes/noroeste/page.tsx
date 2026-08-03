@@ -242,6 +242,8 @@ export default function NoroestePage() {
                   <Link href="/#administracao">Administração imobiliária</Link>
                   <Link href="/regioes/sudoeste">Sudoeste</Link>
                   <Link href="/regioes/asa-norte">Asa Norte</Link>
+                  <Link href="/regioes/jardim-botanico">Jardim Botânico</Link>
+                  <Link href="/regioes/park-way">Park Way</Link>
                 </div>
               </section>
             </article>

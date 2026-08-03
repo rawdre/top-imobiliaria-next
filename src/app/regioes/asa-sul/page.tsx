@@ -236,6 +236,8 @@ export default function AsaSulPage() {
                   <Link href="/#administracao">Administração imobiliária</Link>
                   <Link href="/regioes/asa-norte">Asa Norte</Link>
                   <Link href="/regioes/lago-sul">Lago Sul</Link>
+                  <Link href="/regioes/jardim-botanico">Jardim Botânico</Link>
+                  <Link href="/regioes/park-way">Park Way</Link>
                   <Link href="/#contato">Falar com especialista</Link>
                 </div>
               </section>

@@ -235,6 +235,8 @@ export default function PlanaltinaPage() {
                   <Link href="/#administracao">Administração imobiliária</Link>
                   <Link href="/regioes/sobradinho">Sobradinho</Link>
                   <Link href="/regioes/vicente-pires">Vicente Pires</Link>
+                  <Link href="/regioes/jardim-botanico">Jardim Botânico</Link>
+                  <Link href="/regioes/park-way">Park Way</Link>
                 </div>
               </section>
             </article>

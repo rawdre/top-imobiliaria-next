@@ -234,6 +234,8 @@ export default function GuaraPage() {
                   <Link href="/#administracao">Administração imobiliária</Link>
                   <Link href="/regioes/asa-sul">Asa Sul</Link>
                   <Link href="/regioes/taguatinga">Taguatinga</Link>
+                  <Link href="/regioes/jardim-botanico">Jardim Botânico</Link>
+                  <Link href="/regioes/park-way">Park Way</Link>
                 </div>
               </section>
             </article>

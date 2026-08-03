@@ -242,6 +242,8 @@ export default function LagoSulPage() {
                   <Link href="/#administracao">Administração imobiliária</Link>
                   <Link href="/regioes/lago-norte">Lago Norte</Link>
                   <Link href="/regioes/asa-sul">Asa Sul</Link>
+                  <Link href="/regioes/jardim-botanico">Jardim Botânico</Link>
+                  <Link href="/regioes/park-way">Park Way</Link>
                   <Link href="/#contato">Falar com especialista</Link>
                 </div>
               </section>

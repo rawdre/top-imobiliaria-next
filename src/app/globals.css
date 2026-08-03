@@ -921,6 +921,66 @@
   margin-top: 14px;
 }
 
+.region-image-card {
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+  margin: 30px 0 0;
+  overflow: hidden;
+}
+
+.region-image-card img {
+  aspect-ratio: 16 / 7;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.region-image-card figcaption {
+  color: #566074;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  padding: 14px 18px;
+}
+
+.region-indicator-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.region-indicator-grid > div {
+  background: #f7f9fc;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.region-indicator-grid strong,
+.region-indicator-grid span {
+  display: block;
+}
+
+.region-indicator-grid strong {
+  color: #1b2a4a;
+  font-family: var(--font-jakarta);
+  font-size: 0.92rem;
+  margin-bottom: 6px;
+}
+
+.region-indicator-grid span {
+  color: #566074;
+  line-height: 1.55;
+}
+
+.region-inline-actions a {
+  background: #f7f9fc;
+  border: 1px solid #dbe3ef;
+  color: #1b2a4a;
+}
+
 .region-decision-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -956,7 +1016,8 @@
   }
 
   .region-highlight-grid,
-  .region-decision-grid {
+  .region-decision-grid,
+  .region-indicator-grid {
     grid-template-columns: 1fr;
   }
 

@@ -233,6 +233,8 @@ export default function VicentePiresPage() {
                   <Link href="/#administracao">Administração imobiliária</Link>
                   <Link href="/regioes/guara">Guará</Link>
                   <Link href="/regioes/taguatinga">Taguatinga</Link>
+                  <Link href="/regioes/jardim-botanico">Jardim Botânico</Link>
+                  <Link href="/regioes/park-way">Park Way</Link>
                 </div>
               </section>
             </article>
