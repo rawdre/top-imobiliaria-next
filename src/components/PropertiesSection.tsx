@@ -6,6 +6,7 @@ import { supabase, type Property } from "@/lib/supabase";
 import Image from "next/image";
 import { waLink } from "@/lib/contact";
 import { getPropertyAbsoluteUrl, getPropertyPath } from "@/lib/property-urls";
+import { track } from "@/lib/analytics";
 import { Bath, BedDouble, CalendarDays, Heart, Home, KeyRound, Landmark, MapPin, MessageCircle, Ruler, Search, Share2 } from "lucide-react";
 
 // Gallery entries are mixed-shape in Supabase: legacy rows store strings,
@@ -56,6 +57,7 @@ export function PropertyCard({ property, index }: { property: Property; index: n
           The fav button (zIndex 3) and tag still take their own clicks. */}
       <a
         href={propertyPath}
+        onClick={() => track.propertyCardClick(property.id, propertyPath, property.listing_type)}
         aria-label={`Ver detalhes do imóvel ${property.title || ""}`}
         style={{
           height: 220,
@@ -163,6 +165,7 @@ export function PropertyCard({ property, index }: { property: Property; index: n
         {property.title ? (
           <a
             href={propertyPath}
+            onClick={() => track.propertyCardClick(property.id, propertyPath, property.listing_type)}
             style={{
               display: "block",
               width: "100%",
@@ -319,7 +322,10 @@ export default function PropertiesSection() {
             {(["all", "aluguel", "venda"] as const).map((tab) => (
               <motion.button
                 key={tab}
-                onClick={() => setFilter(tab)}
+                onClick={() => {
+                  setFilter(tab);
+                  track.filterChange(tab);
+                }}
                 whileTap={{ scale: 0.97 }}
                 style={{
                   padding: "10px 24px",

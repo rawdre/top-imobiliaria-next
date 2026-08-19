@@ -11,6 +11,7 @@ import {
 } from "@/lib/property-data";
 import { getPropertyAbsoluteUrl, getPropertyIdFromSlug, getPropertyPath } from "@/lib/property-urls";
 import { waLink } from "@/lib/contact";
+import PropertyViewTracker from "@/components/PropertyViewTracker";
 
 type PropertyPageProps = {
   params: Promise<{
@@ -126,6 +127,12 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
   return (
     <main className="property-page-shell">
+      <PropertyViewTracker
+        propertyId={property.id}
+        slug={getPropertyPath(property)}
+        listingType={property.listing_type}
+        price={property.price ?? undefined}
+      />
       <section className="property-page-hero">
         <div className="property-page-inner">
           <Link href="/#imoveis" className="property-page-back">
@@ -162,7 +169,13 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               <strong className="property-page-price">{price}</strong>
 
               <div className="property-page-actions">
-                <a className="property-page-action primary" href={waLink(whatsAppMessage)} target="_blank" rel="noreferrer">
+                <a
+                  className="property-page-action primary"
+                  href={waLink(whatsAppMessage)}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-track-source="property_detail"
+                >
                   <MessageCircle size={18} />
                   Falar no WhatsApp
                 </a>

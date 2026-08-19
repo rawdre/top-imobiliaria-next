@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
+import AnalyticsRouteTracker from "@/components/AnalyticsRouteTracker";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,6 +36,9 @@ export const metadata: Metadata = {
   keywords:
     "Imobiliária em Águas Claras 34 anos, Melhor imobiliária para vender imóvel em Brasília, Especialista em alto padrão Sudoeste e Noroeste, Consultoria imobiliária personalizada DF, avaliação de imóveis em Águas Claras grátis, simulador consórcio ou financiamento imobiliário",
   authors: [{ name: "Top Imobiliária DF" }],
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -75,6 +81,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col overflow-x-hidden">
         {children}
+        <Suspense fallback={null}>
+          <AnalyticsRouteTracker />
+        </Suspense>
+        <Script src="/assets/top-imobiliaria/analytics.js" strategy="afterInteractive" />
       </body>
     </html>
   );

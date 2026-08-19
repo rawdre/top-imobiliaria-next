@@ -7,10 +7,34 @@ import { getPropertyAbsoluteUrl } from "@/lib/property-urls";
 const SITE_URL = "https://www.topimobiliaria.com";
 const PUBLIC_DIR = join(process.cwd(), "public");
 
+const INDEXABLE_HTML_ROUTES = new Set([
+  "/blog-index.html",
+  "/blog-administracao-completa.html",
+  "/blog-administracao-imovel.html",
+  "/blog-administracao-tranquilidade.html",
+  "/blog-aluguel-aguas-claras.html",
+  "/blog-avaliar-imovel.html",
+  "/blog-colocar-alugar.html",
+  "/blog-colocar-vender.html",
+  "/blog-como-alugar-rapido.html",
+  "/blog-como-definir-aluguel.html",
+  "/blog-documentos-locacao.html",
+  "/blog-escolher-inquilino.html",
+  "/blog-especialista-locacao.html",
+  "/blog-imobiliaria-aguas-claras.html",
+  "/blog-quanto-cobrar-aluguel.html",
+  "/blog-quanto-cobrar-aluguel-2.html",
+  "/blog-quanto-vale-imovel.html",
+  "/blog-vender-ou-alugar.html",
+  "/contato.html",
+  "/sobre.html",
+]);
+
 function getPublicHtmlRoutes(): string[] {
   return readdirSync(PUBLIC_DIR, { withFileTypes: true })
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => `/${entry.name}`)
+    .filter((route) => INDEXABLE_HTML_ROUTES.has(route))
     .sort((left, right) => left.localeCompare(right, "pt-BR"));
 }
 
@@ -31,6 +55,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.95,
+    },
+    {
+      url: `${SITE_URL}/regioes/aguas-claras`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/regioes/cruzeiro`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.83,
     },
     {
       url: `${SITE_URL}/regioes/asa-norte`,

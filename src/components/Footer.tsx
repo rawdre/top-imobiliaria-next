@@ -230,8 +230,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Top Imobiliária DF. Todos os direitos reservados. CJ:15806
           </p>
           <div className="topimob-footer-legal-links" style={{ display: "flex", gap: 16 }}>
-            <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Política de Privacidade</a>
-            <a href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Termos de Uso</a>
+            <Link href="/privacidade" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Política de Privacidade</Link>
+            <Link href="/termos" style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Termos de Uso</Link>
           </div>
         </div>
       </div>

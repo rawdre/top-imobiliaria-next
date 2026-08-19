@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { waLink } from "@/lib/contact";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { track } from "@/lib/analytics";
 
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
@@ -21,6 +22,7 @@ export default function WhatsAppButton() {
       {visible && (
         <motion.a
           href={WA_URL}
+          onClick={() => track.whatsappClick("floating_button")}
           target="_blank"
           rel="noopener noreferrer"
           initial={{ scale: 0, opacity: 0 }}

@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 
 const quickLinks = [
-  { label: "Águas Claras", href: "/blog-imoveis-aguas-claras.html", icon: Building2 },
+  { label: "Águas Claras", href: "/regioes/aguas-claras", icon: Building2 },
+  { label: "Cruzeiro", href: "/regioes/cruzeiro", icon: Landmark },
   { label: "Asa Sul", href: "/regioes/asa-sul", icon: Trees },
   { label: "Asa Norte", href: "/regioes/asa-norte", icon: Landmark },
   { label: "Lago Sul", href: "/regioes/lago-sul", icon: Waves },
@@ -30,6 +31,22 @@ const quickLinks = [
 ];
 
 const featureCards = [
+  {
+    title: "Águas Claras em profundidade",
+    eyebrow: "Guia regional",
+    href: "/regioes/aguas-claras",
+    description: "Planejamento urbano, metrô, parques, dados de população, infraestrutura e mercado imobiliário em uma das regiões mais dinâmicas do DF.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Building2,
+  },
+  {
+    title: "Cruzeiro: história e centralidade",
+    eyebrow: "Guia regional",
+    href: "/regioes/cruzeiro",
+    description: "Cruzeiro Velho, Cruzeiro Novo, patrimônio, cultura, infraestrutura e possibilidades de renovação em uma região central.",
+    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    icon: Landmark,
+  },
   {
     title: "Morar na Asa Sul",
     eyebrow: "Guia regional",
@@ -146,7 +163,7 @@ const featureCards = [
 
 export default function IntelligenceHub() {
   return (
-    <section className="intelligence-hub" aria-labelledby="intelligence-hub-title">
+    <section id="hub-inteligencia" className="intelligence-hub" aria-labelledby="intelligence-hub-title">
       <div className="intelligence-hub-inner">
         <div className="hub-heading">
           <div className="hub-kicker">

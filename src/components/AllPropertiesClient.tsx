@@ -16,6 +16,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { supabase, type Property } from "@/lib/supabase";
 import { PropertyCard } from "@/components/PropertiesSection";
+import { track } from "@/lib/analytics";
 
 type ListingFilter = "todos" | "aluguel" | "venda";
 type SortMode = "destaques" | "recentes";
@@ -108,6 +109,11 @@ export default function AllPropertiesClient() {
       else params.set("pagina", String(nextPagina));
 
       const queryString = params.toString();
+      track.propertySearch("filters", {
+        listing_type: nextTipo,
+        sort_mode: nextOrdem,
+        region_selected: nextRegiao === "all" ? "all" : "selected",
+      });
       router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
     },
     [listingFilter, page, pathname, router, searchParams, selectedRegion, sortMode],
