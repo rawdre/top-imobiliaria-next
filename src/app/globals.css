@@ -840,7 +840,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  margin: -84px 0 34px;
+  margin: 0 0 34px;
 }
 
 .region-breadcrumb {
@@ -1173,7 +1173,6 @@
     grid-template-columns: 1fr;
   }
 
-  .region-highlight-grid,
   .region-stat-grid {
     margin-top: -68px;
   }
