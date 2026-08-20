@@ -487,6 +487,30 @@
 
           <div class="field-full form-submit-row">
             <button type="submit" class="btn btn-primary">Criar imóvel</button>
+          <section class="admin-form-card">
+            <div class="admin-form-card-header">
+              <div>
+                <h2>Vídeos</h2>
+                <p>Adicione, visualize e organize vários vídeos associados a este imóvel.</p>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="field-full">
+                <label for="videoFiles">Enviar vídeos do imóvel</label>
+                <input id="videoFiles" name="videoFiles" type="file" accept="video/mp4,video/webm,video/quicktime" multiple>
+                <p class="helper">Envio direto: MP4, WebM ou MOV de até 6 MB por arquivo. Para vídeos maiores, use YouTube ou Vimeo.</p>
+              </div>
+              <div class="field-full">
+                <label for="videoLink">Adicionar vídeo por link</label>
+                <div class="video-link-row">
+                  <input id="videoLink" type="url" placeholder="https://youtube.com/... ou https://vimeo.com/...">
+                  <button id="addVideoLink" type="button" class="btn btn-secondary">Adicionar vídeo</button>
+                </div>
+              </div>
+              <div id="videoPreview" class="video-admin-list field-full"></div>
+            </div>
+          </section>
+
           </div>
         </form>
       </section>

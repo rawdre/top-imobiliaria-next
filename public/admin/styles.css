@@ -133,3 +133,44 @@ td strong{color:var(--navy)}
 @media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-2{grid-template-columns:1fr}.form-grid-5,.form-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){.admin-shell{grid-template-columns:1fr}.admin-sidebar{position:relative;height:auto}.form-grid-6,.amenities-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:768px){.admin-main{padding:20px}.form-grid,.form-grid-4,.form-grid-5,.form-grid-6{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr}.admin-topbar{flex-direction:column;align-items:flex-start}.amenities-grid,.amenities-grid-4{grid-template-columns:1fr}.field-span-2,.field-span-3,.field-span-4{grid-column:auto}.inline-input,.description-helper,.form-submit-row,.inline-checks{flex-direction:column;align-items:stretch}.form-submit-row .btn,.btn-inline{width:100%}}
+
+.video-link-row { display: flex; gap: 10px; align-items: center; }
+.video-link-row input { flex: 1; }
+.video-admin-list { display: grid; gap: 10px; margin-top: 8px; }
+.video-admin-item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #dfe4ed;
+  border-radius: 8px;
+  background: #f8f9fc;
+}
+.video-admin-preview {
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #1b2a4a;
+  color: #fff;
+}
+.video-admin-info { min-width: 0; display: grid; gap: 3px; }
+.video-admin-info strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.video-admin-info small { color: #697386; }
+.video-admin-actions { display: flex; gap: 6px; }
+.video-admin-actions button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d5dbe6;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+.video-admin-actions button:last-child { color: #c62828; font-size: 20px; }
+.video-admin-actions button:disabled { opacity: .35; cursor: default; }
+@media (max-width: 640px) {
+  .video-link-row { align-items: stretch; flex-direction: column; }
+  .video-admin-item { grid-template-columns: 52px minmax(0, 1fr); }
+  .video-admin-actions { grid-column: 1 / -1; justify-content: flex-end; }
+}

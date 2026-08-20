@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Bath, BedDouble, CalendarDays, Car, Home, MapPin, MessageCircle, Ruler, Share2 } from "lucide-react";
@@ -12,6 +11,8 @@ import {
 import { getPropertyAbsoluteUrl, getPropertyIdFromSlug, getPropertyPath } from "@/lib/property-urls";
 import { waLink } from "@/lib/contact";
 import PropertyViewTracker from "@/components/PropertyViewTracker";
+import PropertyMediaGallery from "@/components/PropertyMediaGallery";
+import { normalizePropertyVideos } from "@/lib/property-media";
 
 type PropertyPageProps = {
   params: Promise<{
@@ -27,34 +28,6 @@ function formatCurrency(value: number, isRent: boolean): string {
   });
 
   return isRent ? `${formatted}/mês` : formatted;
-}
-
-function getVideoEmbedUrl(url?: string): string | null {
-  if (!url) return null;
-
-  try {
-    const parsed = new URL(url);
-    const host = parsed.hostname.replace(/^www\./, "");
-
-    if (host === "youtu.be") {
-      const id = parsed.pathname.replace("/", "");
-      return id ? `https://www.youtube.com/embed/${id}` : null;
-    }
-
-    if (host.endsWith("youtube.com")) {
-      const id = parsed.searchParams.get("v") || parsed.pathname.split("/").filter(Boolean).pop();
-      return id ? `https://www.youtube.com/embed/${id}` : null;
-    }
-
-    if (host.endsWith("vimeo.com")) {
-      const id = parsed.pathname.split("/").filter(Boolean).pop();
-      return id ? `https://player.vimeo.com/video/${id}` : null;
-    }
-
-    return url;
-  } catch {
-    return null;
-  }
 }
 
 function buildDescription(property: PropertyWithMeta): string {
@@ -108,11 +81,9 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
   if (!property) notFound();
 
   const gallery = getGalleryItems(property);
-  const cover = gallery[0]?.url || null;
   const isRent = property.listing_type === "aluguel";
   const price = formatCurrency(property.price || 0, isRent);
-  const videoUrl = getVideoEmbedUrl(property.property_meta.youtube_url);
-  const video360Url = getVideoEmbedUrl(property.property_meta.video_360_url);
+  const videos = normalizePropertyVideos(property.videos, property.title, property.property_meta);
   const shareUrl = getPropertyAbsoluteUrl(property);
   const whatsAppMessage = `Olá! Vi este imóvel no site da Top Imobiliária e tenho interesse: ${property.title} - ${shareUrl}`;
 
@@ -141,20 +112,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
           <div className="property-page-grid">
             <div className="property-page-media">
-              {cover ? (
-                <Image
-                  src={cover}
-                  alt={gallery[0]?.name || property.title}
-                  width={1180}
-                  height={760}
-                  priority
-                  className="property-page-cover"
-                />
-              ) : (
-                <div className="property-page-cover property-page-cover-empty">
-                  <Home size={58} />
-                </div>
-              )}
+              <PropertyMediaGallery photos={gallery} videos={videos} title={property.title} />
             </div>
 
             <div className="property-page-summary">
@@ -204,37 +162,6 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 }.`}
             </p>
 
-            {(videoUrl || video360Url) && (
-              <div className="property-page-videos">
-                {videoUrl && (
-                  <div className="property-page-video-card">
-                    <h3>Vídeo do imóvel</h3>
-                    <iframe src={videoUrl} title={`Vídeo - ${property.title}`} allowFullScreen />
-                  </div>
-                )}
-                {video360Url && (
-                  <div className="property-page-video-card">
-                    <h3>Tour 360°</h3>
-                    <iframe src={video360Url} title={`Tour 360 - ${property.title}`} allowFullScreen />
-                  </div>
-                )}
-              </div>
-            )}
-
-            {gallery.length > 1 && (
-              <div className="property-page-gallery">
-                {gallery.slice(1).map((image) => (
-                  <Image
-                    key={image.url}
-                    src={image.url}
-                    alt={image.name}
-                    width={520}
-                    height={360}
-                    className="property-page-gallery-image"
-                  />
-                ))}
-              </div>
-            )}
           </article>
 
           <aside className="property-page-facts">

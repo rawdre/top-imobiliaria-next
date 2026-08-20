@@ -4,6 +4,8 @@ function getPropertyIdFromUrl() {
 }
 
 let galleryState = [];
+let videoState = [];
+let removedVideoPaths = [];
 
 function getGalleryItemId(prefix = 'gallery') {
   if (window.crypto?.randomUUID) {
@@ -73,6 +75,90 @@ function removeGalleryItem(itemId) {
   }
 
   galleryState = galleryState.filter((entry) => entry.id !== itemId);
+function normalizeVideoItem(video, index = 0) {
+  return {
+    id: video.id || getGalleryItemId('video'),
+    name: video.name || `Vídeo ${index + 1}`,
+    path: video.path || '',
+    url: video.url || '',
+    source: video.source === 'upload' ? 'upload' : 'link',
+    file: video.file || null,
+  };
+}
+
+function collectVideoPayload() {
+  return videoState.filter((item) => !item.file && item.url).map(({ id, name, path, url, source }) => ({
+    id, name, path, url, source,
+  }));
+}
+
+function renderVideoPreview() {
+  const container = document.getElementById('videoPreview');
+  if (!container) return;
+  container.innerHTML = videoState.map((video, index) => `
+    <div class="video-admin-item" data-id="${escapeHtml(video.id)}">
+      <div class="video-admin-preview">▶</div>
+      <div class="video-admin-info">
+        <strong>${escapeHtml(video.name)}</strong>
+        <small>${video.source === 'upload' ? 'Arquivo enviado' : 'Link incorporado'} · posição ${index + 1}</small>
+      </div>
+      <div class="video-admin-actions">
+        <button type="button" data-action="move-video-up" ${index === 0 ? 'disabled' : ''} aria-label="Mover vídeo para cima">↑</button>
+        <button type="button" data-action="move-video-down" ${index === videoState.length - 1 ? 'disabled' : ''} aria-label="Mover vídeo para baixo">↓</button>
+        <button type="button" data-action="remove-video" aria-label="Remover vídeo">×</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function moveVideo(itemId, direction) {
+  const index = videoState.findIndex((item) => item.id === itemId);
+  const target = index + direction;
+  if (index < 0 || target < 0 || target >= videoState.length) return;
+  [videoState[index], videoState[target]] = [videoState[target], videoState[index]];
+  renderVideoPreview();
+}
+
+function removeVideo(itemId) {
+  const item = videoState.find((video) => video.id === itemId);
+  if (item?.path) removedVideoPaths.push(item.path);
+  if (item?.file && item.url.startsWith('blob:')) URL.revokeObjectURL(item.url);
+  videoState = videoState.filter((video) => video.id !== itemId);
+  renderVideoPreview();
+}
+
+function addVideoLink() {
+  const input = document.getElementById('videoLink');
+  const value = input?.value?.trim();
+  if (!value) return;
+  try {
+    const url = new URL(value);
+    if (!['http:', 'https:'].includes(url.protocol)) throw new Error();
+    videoState.push(normalizeVideoItem({
+      id: getGalleryItemId('link'),
+      name: `Vídeo ${videoState.length + 1}`,
+      url: url.href,
+      source: 'link',
+    }, videoState.length));
+    input.value = '';
+    renderVideoPreview();
+  } catch {
+    showFormMessage('Informe um link válido do YouTube, Vimeo ou de um vídeo HTTPS.');
+  }
+}
+
+async function syncPendingVideos(propertyId) {
+  const pending = videoState.filter((item) => item.file);
+  if (!pending.length) return;
+  const uploaded = await uploadPropertyVideos(propertyId, pending);
+  const uploadedById = new Map(uploaded.map((item) => [item.id, item]));
+  videoState = videoState.map((item, index) => {
+    if (!item.file) return item;
+    if (item.url.startsWith('blob:')) URL.revokeObjectURL(item.url);
+    return normalizeVideoItem(uploadedById.get(item.id), index);
+  });
+  renderVideoPreview();
+}
   renderGalleryPreview();
 }
 
@@ -196,6 +282,7 @@ function collectFormPayload() {
     description: getTextValue('description'),
     gradient: getTextValue('gradient'),
     gallery: collectGalleryPayload(),
+    videos: collectVideoPayload(),
     is_active: meta.property_status === 'ativo',
     is_featured: getCheckboxValue('is_featured'),
   };
@@ -271,6 +358,14 @@ function fillForm(property, meta) {
 
   galleryState = (Array.isArray(property.gallery) ? property.gallery : [])
     .map((image, index) => normalizeGalleryItem(image, index));
+  const storedVideos = Array.isArray(property.videos) ? property.videos : [];
+  const legacyVideos = storedVideos.length ? [] : [
+    propertyMeta.youtube_url ? { name: 'Vídeo do imóvel', url: propertyMeta.youtube_url, source: 'link' } : null,
+    propertyMeta.video_360_url ? { name: 'Tour 360°', url: propertyMeta.video_360_url, source: 'link' } : null,
+  ].filter(Boolean);
+  videoState = [...storedVideos, ...legacyVideos].map((video, index) => normalizeVideoItem(video, index));
+  removedVideoPaths = [];
+  renderVideoPreview();
   renderGalleryPreview();
 }
 
@@ -422,6 +517,38 @@ function bindFormInteractions() {
     renderGalleryPreview();
     input.value = '';
   });
+  document.getElementById('videoFiles')?.addEventListener('change', (event) => {
+    const input = event.target;
+    const files = Array.from(input.files || []);
+    const invalid = files.find((file) => !file.type.startsWith('video/'));
+    if (invalid) {
+      showFormMessage(`${invalid.name} não é um arquivo de vídeo válido.`);
+      input.value = '';
+      return;
+    }
+    videoState.push(...files.map((file, index) => normalizeVideoItem({
+      id: getGalleryItemId('pending-video'),
+      name: file.name,
+      url: URL.createObjectURL(file),
+      source: 'upload',
+      file,
+    }, videoState.length + index)));
+    renderVideoPreview();
+    input.value = '';
+  });
+
+  document.getElementById('addVideoLink')?.addEventListener('click', addVideoLink);
+  document.getElementById('videoLink')?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') { event.preventDefault(); addVideoLink(); }
+  });
+  document.getElementById('videoPreview')?.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-action]');
+    const itemId = button?.closest('.video-admin-item')?.dataset.id;
+    if (!button || !itemId) return;
+    if (button.dataset.action === 'remove-video') removeVideo(itemId);
+    if (button.dataset.action === 'move-video-up') moveVideo(itemId, -1);
+    if (button.dataset.action === 'move-video-down') moveVideo(itemId, 1);
+  });
 
   const grossField = getField('gross_price');
   const discountField = getField('punctuality_discount');
@@ -509,13 +636,20 @@ async function bootstrapPropertyForm() {
       }
 
       if (isEditMode) {
-        const updated = await updateProperty(propertyId, payload);
+        await syncPendingVideos(propertyId);
+        const finalPayload = { ...payload, videos: collectVideoPayload() };
+        const updated = await updateProperty(propertyId, finalPayload);
+        await removePropertyVideos(removedVideoPaths);
+        removedVideoPaths = [];
         await savePropertyMeta(propertyId, metaPayload, updated);
         showFormMessage('Imóvel atualizado com sucesso.', 'success');
         fillForm(updated, metaPayload);
       } else {
         const created = await createProperty(payload);
-        await savePropertyMeta(created.id, metaPayload, created);
+        await syncPendingVideos(created.id);
+        const finalPayload = { ...payload, videos: collectVideoPayload() };
+        const completed = await updateProperty(created.id, finalPayload);
+        await savePropertyMeta(created.id, metaPayload, completed);
         showFormMessage('Imóvel criado com sucesso.', 'success');
         setTimeout(() => {
           window.location.href = `./edit-property.html?id=${encodeURIComponent(created.id)}`;

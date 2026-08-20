@@ -3,6 +3,8 @@ const SUPABASE_URL = SUPABASE_CONFIG.url || 'YOUR_SUPABASE_URL';
 const SUPABASE_ANON_KEY = SUPABASE_CONFIG.anonKey || 'YOUR_SUPABASE_ANON_KEY';
 const PROPERTY_IMAGE_BUCKET = SUPABASE_CONFIG.propertyImageBucket || 'property-images';
 const PROPERTY_META_PREFIX = 'property-meta';
+const PROPERTY_VIDEO_BUCKET = SUPABASE_CONFIG.propertyVideoBucket || 'property-videos';
+const MAX_STANDARD_VIDEO_SIZE = 6 * 1024 * 1024;
 
 let supabaseClient = null;
 
@@ -332,6 +334,61 @@ async function uploadPropertyImages(files) {
   return uploads;
 }
 
+async function uploadPropertyVideos(propertyId, items) {
+  const pending = (items || []).filter((item) => item.file);
+  if (!pending.length) return [];
+
+  const client = getSupabaseClient();
+  const uploads = [];
+  for (const item of pending) {
+    if (item.file.size > MAX_STANDARD_VIDEO_SIZE) {
+      throw new Error(`O vídeo ${item.file.name} ultrapassa 6 MB. Para arquivos maiores, use um link do YouTube ou Vimeo.`);
+    }
+
+    const extension = item.file.name.split('.').pop()?.toLowerCase() || 'mp4';
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${extension}`;
+    const filePath = `properties/${propertyId}/${fileName}`;
+    const { error } = await client.storage
+      .from(PROPERTY_VIDEO_BUCKET)
+      .upload(filePath, item.file, { upsert: false, contentType: item.file.type });
+    if (error) throw error;
+
+    const { data } = client.storage.from(PROPERTY_VIDEO_BUCKET).getPublicUrl(filePath);
+    uploads.push({
+      id: item.id,
+      name: item.file.name,
+      path: filePath,
+      url: data.publicUrl,
+      source: 'upload',
+    });
+  }
+  return uploads;
+}
+
+async function removePropertyVideos(paths) {
+  const uniquePaths = [...new Set((paths || []).filter(Boolean))];
+  if (!uniquePaths.length) return;
+  const { error } = await getSupabaseClient().storage
+    .from(PROPERTY_VIDEO_BUCKET)
+    .remove(uniquePaths);
+  if (error) throw error;
+}
+
+function normalizeVideoPayload(videos) {
+  return (Array.isArray(videos) ? videos : []).flatMap((video, index) => {
+    try {
+      const url = new URL(String(video.url || '').trim());
+      if (!['http:', 'https:'].includes(url.protocol)) return [];
+      return [{
+        id: String(video.id || `video-${index + 1}`),
+        name: String(video.name || `Vídeo ${index + 1}`),
+        url: url.href,
+        source: video.source === 'upload' ? 'upload' : 'link',
+        ...(video.path ? { path: String(video.path) } : {}),
+      }];
+    } catch { return []; }
+  });
+}
 function normalizePropertyPayload(rawPayload) {
   return {
     title: rawPayload.title?.trim() || '',
@@ -349,6 +406,7 @@ function normalizePropertyPayload(rawPayload) {
     address: rawPayload.address?.trim() || '',
     neighborhood: rawPayload.neighborhood?.trim() || '',
     condominium_name: rawPayload.condominium_name?.trim() || null,
+    videos: normalizeVideoPayload(rawPayload.videos),
     description: rawPayload.description?.trim() || null,
     gradient: rawPayload.gradient?.trim() || null,
     gallery: Array.isArray(rawPayload.gallery) ? rawPayload.gallery : [],
@@ -392,6 +450,16 @@ async function deleteProperty(id) {
   const client = getSupabaseClient();
   const property = await fetchPropertyById(id);
 
+  const videos = Array.isArray(property.videos) ? property.videos : [];
+  const videoPaths = videos.map((video) => video?.path).filter(Boolean);
+  if (videoPaths.length) {
+    const { error: videoStorageError } = await client.storage
+      .from(PROPERTY_VIDEO_BUCKET)
+      .remove(videoPaths);
+    if (videoStorageError) {
+      console.warn('Falha ao remover vídeos do Storage:', videoStorageError.message);
+    }
+  }
   const gallery = Array.isArray(property.gallery) ? property.gallery : [];
   const paths = gallery
     .map((image) => image?.path)

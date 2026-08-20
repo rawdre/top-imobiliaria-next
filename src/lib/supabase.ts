@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import type { PropertyVideo } from "@/lib/property-media";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
@@ -29,6 +30,7 @@ export type Property = {
   // Mixed-shape: newer rows store {url, name, path} objects, legacy rows store
   // plain string URLs. Consumers should normalize via galleryFirstUrl().
   gallery: Array<string | { url?: string; name?: string; path?: string } | null>;
+  videos?: PropertyVideo[] | null;
   gradient?: string | null;
   is_featured: boolean;
   is_active: boolean;
