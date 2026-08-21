@@ -75,6 +75,9 @@ function removeGalleryItem(itemId) {
   }
 
   galleryState = galleryState.filter((entry) => entry.id !== itemId);
+  renderGalleryPreview();
+}
+
 function normalizeVideoItem(video, index = 0) {
   return {
     id: video.id || getGalleryItemId('video'),
@@ -158,8 +161,6 @@ async function syncPendingVideos(propertyId) {
     return normalizeVideoItem(uploadedById.get(item.id), index);
   });
   renderVideoPreview();
-}
-  renderGalleryPreview();
 }
 
 function getField(name) {
