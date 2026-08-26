@@ -12,6 +12,7 @@ import {
 
 const quickLinks = [
   { label: "Águas Claras", href: "/regioes/aguas-claras", icon: Building2 },
+  { label: "Ceilândia", href: "/regioes/ceilandia", icon: Building2 },
   { label: "Cruzeiro", href: "/regioes/cruzeiro", icon: Landmark },
   { label: "Asa Sul", href: "/regioes/asa-sul", icon: Trees },
   { label: "Asa Norte", href: "/regioes/asa-norte", icon: Landmark },
