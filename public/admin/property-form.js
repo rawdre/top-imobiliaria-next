@@ -1,6 +1,6 @@
 function getPropertyIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('id');
+  return params.get('id') || params.get('propertyId') || params.get('property_id');
 }
 
 let galleryState = [];
@@ -592,38 +592,29 @@ function bindFormInteractions() {
   });
 }
 
+function disablePropertyForm(form) {
+  form.querySelectorAll('input, select, textarea, button').forEach((field) => {
+    field.disabled = true;
+  });
+}
+
 async function bootstrapPropertyForm() {
   await requireSession();
   bindFormInteractions();
 
   const isEditMode = document.body.dataset.mode === 'edit';
   const propertyId = getPropertyIdFromUrl();
-
-  if (isEditMode) {
-    if (!propertyId) {
-      showFormMessage('ID do imóvel não informado para edição.');
-      return;
-    }
-
-    try {
-      const property = await fetchPropertyById(propertyId);
-      const meta = await fetchPropertyMeta(propertyId, property);
-      fillForm(property, meta);
-    } catch (error) {
-      showFormMessage(error.message || 'Não foi possível carregar o imóvel.');
-      return;
-    }
-  } else {
-    setRadioValue('show_agio', 'nao-informar');
-    setRadioValue('accepts_financing', 'nao-informar');
-    setRadioValue('accepts_fgts', 'nao-informar');
-  }
-
   const form = document.getElementById('propertyForm');
   const submitButton = form.querySelector('button[type="submit"]');
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    if (isEditMode && !propertyId) {
+      showFormMessage('Este link de edição está incompleto. Volte para a lista de imóveis e clique em Editar novamente. Nenhuma alteração foi salva.');
+      return;
+    }
+
     submitButton.disabled = true;
     submitButton.textContent = isEditMode ? 'Salvando...' : 'Criando...';
 
@@ -665,6 +656,29 @@ async function bootstrapPropertyForm() {
       submitButton.textContent = isEditMode ? 'Salvar imóvel' : 'Criar imóvel';
     }
   });
+
+  if (isEditMode) {
+    if (!propertyId) {
+      showFormMessage('Este link de edição está incompleto. Volte para a lista de imóveis e clique em Editar novamente. Nenhuma alteração foi salva.');
+      disablePropertyForm(form);
+      return;
+    }
+
+    try {
+      const property = await fetchPropertyById(propertyId);
+      const meta = await fetchPropertyMeta(propertyId, property);
+      fillForm(property, meta);
+    } catch (error) {
+      showFormMessage(error.message || 'Não foi possível carregar o imóvel.');
+      disablePropertyForm(form);
+      return;
+    }
+  } else {
+    setRadioValue('show_agio', 'nao-informar');
+    setRadioValue('accepts_financing', 'nao-informar');
+    setRadioValue('accepts_fgts', 'nao-informar');
+  }
+
 }
 
 document.addEventListener('DOMContentLoaded', bootstrapPropertyForm);

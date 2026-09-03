@@ -762,6 +762,7 @@ function getBedroomAdjustment(quartos) {
 function getRentBasePerSquareMeter(bairro) {
   const rentBase = {
     // ÁGUAS CLARAS - 0.5% of property value (April 2026)
+    'aguas-claras': 40,  // General average for Águas Claras
     'areal': 42,  // ~R$7,800/m² × 0.5%
     'arniqueiras': 40,  // ~R$7,500/m² × 0.5%
     'ade': 45,  // ~R$8,200/m² × 0.5%
@@ -825,6 +826,7 @@ function getRentBasePerSquareMeter(bairro) {
 function getSaleBasePerSquareMeter(bairro) {
   const saleBase = {
     // ÁGUAS CLARAS - Updated April 2026
+    'aguas-claras': 7500,
     'areal': 7800,
     'arniqueiras': 7500,
     'ade': 8200,
