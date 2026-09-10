@@ -26,6 +26,7 @@ const quickLinks = [
   { label: "Planaltina", href: "/regioes/planaltina", icon: Landmark },
   { label: "Vicente Pires", href: "/regioes/vicente-pires", icon: Trees },
   { label: "Sudoeste", href: "/regioes/sudoeste", icon: Building2 },
+  { label: "Octogonal", href: "/regioes/octogonal", icon: Building2 },
   { label: "Noroeste", href: "/regioes/noroeste", icon: Trees },
   { label: "Jardim Botânico", href: "/regioes/jardim-botanico", icon: Trees },
   { label: "Park Way", href: "/regioes/park-way", icon: Landmark },
@@ -168,6 +169,14 @@ const featureCards = [
     description: "Setor recente do Plano Piloto: história, Parque Burle Marx, área tombada, PPCUB e um mercado imobiliário novo e verticalizado.",
     image: "/assets/top-imobiliaria/regions/noroeste.jpg",
     icon: Trees,
+  },
+  {
+    title: "Octogonal: central e condominial",
+    eyebrow: "Guia regional",
+    href: "/regioes/octogonal",
+    description: "Oito conjuntos em condomínios entre o Plano Piloto e o eixo oeste: história, Parque da Cidade, Terraço Shopping, a obra da EPIG e um mercado verticalizado e escasso.",
+    image: "/assets/top-imobiliaria/regions/octogonal.jpg",
+    icon: Building2,
   },
   {
     title: "Jardim Botânico em expansão",

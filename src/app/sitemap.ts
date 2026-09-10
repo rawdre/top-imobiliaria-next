@@ -141,6 +141,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/regioes/octogonal`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.84,
+    },
+    {
       url: `${SITE_URL}/regioes/jardim-botanico`,
       lastModified: now,
       changeFrequency: "monthly",

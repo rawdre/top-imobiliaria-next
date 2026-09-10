@@ -796,6 +796,10 @@
 .region-page--noroeste .region-hero {
   background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.56)), url("/assets/top-imobiliaria/regions/noroeste.jpg") center/cover no-repeat;
 }
+
+.region-page--octogonal .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.56)), url("/assets/top-imobiliaria/regions/octogonal.jpg") center/cover no-repeat;
+}
 .region-kicker {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.78rem;
