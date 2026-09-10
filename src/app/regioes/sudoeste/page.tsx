@@ -271,7 +271,7 @@ export default function SudoestePage() {
           </div>
         </section>
 
-        <p className="region-image-credit">Imagem ilustrativa da região do Sudoeste, Brasília.</p>
+        <p className="region-image-credit">Vista de uma via residencial do Sudoeste, Brasília.</p>
         <section className="region-content">
           <div className="region-inner">
             <div className="region-stat-grid" aria-label="Sudoeste em números">

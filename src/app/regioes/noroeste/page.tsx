@@ -249,7 +249,7 @@ export default function NoroestePage() {
           </div>
         </section>
 
-        <p className="region-image-credit">Imagem ilustrativa da região do Noroeste, Brasília.</p>
+        <p className="region-image-credit">Vista aérea do Noroeste, Brasília.</p>
         <section className="region-content">
           <div className="region-inner">
             <div className="region-stat-grid" aria-label="Noroeste em números">
