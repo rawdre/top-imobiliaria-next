@@ -28,6 +28,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/regioes/nucleo-bandeirante",
   },
+  openGraph: {
+    title: "Núcleo Bandeirante (DF): Cidade Livre e mercado imobiliário | Top Imobiliária",
+    description: "Conheça a história da Cidade Livre, dos candangos, a cultura e o mercado imobiliário do Núcleo Bandeirante.",
+    url: "/regioes/nucleo-bandeirante",
+    type: "article",
+    locale: "pt_BR",
+    images: [{ url: "/assets/top-imobiliaria/regions/nucleo-bandeirante.jpg", width: 1600, height: 1067, alt: "Capela no Núcleo Bandeirante, Distrito Federal" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/assets/top-imobiliaria/regions/nucleo-bandeirante.jpg"] },
   keywords:
     "Núcleo Bandeirante DF, imóveis no Núcleo Bandeirante, morar no Núcleo Bandeirante, Cidade Livre, candangos, história do Núcleo Bandeirante, Museu Vivo da Memória Candanga, mercado imobiliário Núcleo Bandeirante",
 };
@@ -273,7 +282,7 @@ export default function NucleoBandeirantePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Header />
-      <main className="region-page">
+      <main className="region-page region-page--nucleo-bandeirante">
         <section className="region-hero">
           <div className="region-inner">
             <div className="region-kicker">Regiões do Distrito Federal</div>
@@ -294,6 +303,7 @@ export default function NucleoBandeirantePage() {
           </div>
         </section>
 
+        <p className="region-image-credit">Foto: Josue Marinho, via Wikimedia Commons (CC BY 3.0).</p>
         <section className="region-content">
           <div className="region-inner">
             <div className="region-stat-grid" aria-label="Núcleo Bandeirante em números">

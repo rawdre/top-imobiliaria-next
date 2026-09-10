@@ -773,6 +773,29 @@
   color: #ffffff;
 }
 
+.region-page--ceilandia .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.58)), url("/assets/top-imobiliaria/regions/ceilandia.jpg") center/cover no-repeat;
+}
+
+.region-page--sobradinho .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.54)), url("/assets/top-imobiliaria/regions/sobradinho.jpg") center/cover no-repeat;
+}
+
+.region-page--samambaia .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.54)), url("/assets/top-imobiliaria/regions/samambaia.jpg") center/cover no-repeat;
+}
+
+.region-page--nucleo-bandeirante .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.54)), url("/assets/top-imobiliaria/regions/nucleo-bandeirante.jpg") center/cover no-repeat;
+}
+
+.region-page--sudoeste .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.56)), url("/assets/top-imobiliaria/regions/sudoeste.jpg") center/cover no-repeat;
+}
+
+.region-page--noroeste .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.56)), url("/assets/top-imobiliaria/regions/noroeste.jpg") center/cover no-repeat;
+}
 .region-kicker {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.78rem;
@@ -830,6 +853,14 @@
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.24);
   color: #ffffff;
+}
+
+.region-image-credit {
+  background: #f6f8fb;
+  color: #5f6b82;
+  font-size: 0.72rem;
+  margin: 0;
+  padding: 8px max(24px, calc((100% - 1120px) / 2));
 }
 
 .region-content {

@@ -43,6 +43,13 @@ const featureCards = [
     icon: Building2,
   },
   {
+    title: "Ceilândia: cultura e transformação",
+    eyebrow: "Guia regional",
+    href: "/regioes/ceilandia",
+    description: "História, cultura, mobilidade, comércio e mercado imobiliário na maior região administrativa do Distrito Federal.",
+    image: "/assets/top-imobiliaria/regions/ceilandia.jpg",
+    icon: Building2,
+  },  {
     title: "Cruzeiro: história e centralidade",
     eyebrow: "Guia regional",
     href: "/regioes/cruzeiro",
@@ -95,7 +102,7 @@ const featureCards = [
     eyebrow: "Guia regional",
     href: "/regioes/sobradinho",
     description: "História, natureza, memória dos pioneiros, a transformação da BR-020 e os novos vetores de expansão do Norte do DF.",
-    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    image: "/assets/top-imobiliaria/regions/sobradinho.jpg",
     icon: Landmark,
   },
   {
@@ -103,7 +110,7 @@ const featureCards = [
     eyebrow: "Guia regional",
     href: "/regioes/samambaia",
     description: "Uma das maiores regiões do DF: história, metrô, população jovem, educação, saúde, mobilidade e mercado imobiliário em plena verticalização.",
-    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    image: "/assets/top-imobiliaria/regions/samambaia.jpg",
     icon: Train,
   },
   {
@@ -111,7 +118,7 @@ const featureCards = [
     eyebrow: "Guia regional",
     href: "/regioes/nucleo-bandeirante",
     description: "A história da Cidade Livre, os candangos, a memória viva de Brasília, o comércio tradicional e a proximidade do Plano Piloto.",
-    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    image: "/assets/top-imobiliaria/regions/nucleo-bandeirante.jpg",
     icon: Landmark,
   },
   {
@@ -147,19 +154,19 @@ const featureCards = [
     icon: Trees,
   },
   {
-    title: "Sudoeste valorizado e estratégico",
+    title: "Sudoeste: consolidado e central",
     eyebrow: "Guia regional",
     href: "/regioes/sudoeste",
-    description: "Parque da Cidade, localização central, comércio completo, qualidade de vida e mercado imobiliário sólido.",
-    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    description: "História, dados da PDAD-A 2024, área tombada, comércio local, parques, a obra da EPIG e um mercado verticalizado e maduro.",
+    image: "/assets/top-imobiliaria/regions/sudoeste.jpg",
     icon: Building2,
   },
   {
-    title: "Noroeste moderno e sustentável",
+    title: "Noroeste: planejado e em consolidação",
     eyebrow: "Guia regional",
     href: "/regioes/noroeste",
-    description: "Urbanismo planejado, Parque Burle Marx, alto padrão, sustentabilidade e valorização imobiliária.",
-    image: "/assets/top-imobiliaria/hero-aguas-claras-day.jpg",
+    description: "Setor recente do Plano Piloto: história, Parque Burle Marx, área tombada, PPCUB e um mercado imobiliário novo e verticalizado.",
+    image: "/assets/top-imobiliaria/regions/noroeste.jpg",
     icon: Trees,
   },
   {

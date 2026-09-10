@@ -29,6 +29,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/regioes/ceilandia",
   },
+  openGraph: {
+    title: "Ceilândia (DF): história, cultura e mercado imobiliário | Top Imobiliária",
+    description: "Conheça a história, cultura, mobilidade, qualidade de vida e oportunidades imobiliárias em Ceilândia.",
+    url: "/regioes/ceilandia",
+    type: "article",
+    locale: "pt_BR",
+    images: [{ url: "/assets/top-imobiliaria/regions/ceilandia.jpg", width: 1600, height: 1067, alt: "Vista urbana de Ceilândia, Distrito Federal" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/assets/top-imobiliaria/regions/ceilandia.jpg"] },
   keywords:
     "Ceilândia DF, imóveis em Ceilândia, morar em Ceilândia, história de Ceilândia, Caixa d'Água Ceilândia, Feira Central de Ceilândia, mercado imobiliário Ceilândia, apartamentos Ceilândia",
 };
@@ -213,7 +222,7 @@ export default function CeilandiaPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Header />
-      <main className="region-page">
+      <main className="region-page region-page--ceilandia">
         <section className="region-hero">
           <div className="region-inner">
             <div className="region-kicker">Regiões do Distrito Federal</div>
@@ -233,6 +242,7 @@ export default function CeilandiaPage() {
           </div>
         </section>
 
+        <p className="region-image-credit">Foto: Agência Brasília, via Wikimedia Commons (CC BY 2.0).</p>
         <section className="region-content">
           <div className="region-inner">
             <div className="region-stat-grid" aria-label="Ceilândia em números">

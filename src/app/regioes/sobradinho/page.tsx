@@ -28,6 +28,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/regioes/sobradinho",
   },
+  openGraph: {
+    title: "Sobradinho (DF): história, natureza e mercado imobiliário | Top Imobiliária",
+    description: "Conheça Sobradinho: história, natureza, mobilidade, BR-020 e oportunidades para morar ou investir.",
+    url: "/regioes/sobradinho",
+    type: "article",
+    locale: "pt_BR",
+    images: [{ url: "/assets/top-imobiliaria/regions/sobradinho.jpg", width: 1600, height: 1067, alt: "Paisagem de Sobradinho, Distrito Federal" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/assets/top-imobiliaria/regions/sobradinho.jpg"] },
   keywords:
     "Sobradinho DF, imóveis em Sobradinho, morar em Sobradinho, Saída Norte, BR-020 Sobradinho, Sobradinho II, mercado imobiliário Sobradinho, história de Sobradinho",
 };
@@ -291,7 +300,7 @@ export default function SobradinhoPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Header />
-      <main className="region-page">
+      <main className="region-page region-page--sobradinho">
         <section className="region-hero">
           <div className="region-inner">
             <div className="region-kicker">Regiões do Distrito Federal</div>
@@ -312,6 +321,7 @@ export default function SobradinhoPage() {
           </div>
         </section>
 
+        <p className="region-image-credit">Foto: Caio Vicente, via Wikimedia Commons (CC BY-SA 4.0).</p>
         <section className="region-content">
           <div className="region-inner">
             <div className="region-stat-grid" aria-label="Sobradinho em números">

@@ -34,6 +34,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/regioes/samambaia",
   },
+  openGraph: {
+    title: "Samambaia (DF): metrô, moradia e mercado imobiliário | Top Imobiliária",
+    description: "Conheça Samambaia: crescimento, metrô, qualidade de vida, comércio e oportunidades imobiliárias.",
+    url: "/regioes/samambaia",
+    type: "article",
+    locale: "pt_BR",
+    images: [{ url: "/assets/top-imobiliaria/regions/samambaia.jpg", width: 1600, height: 1067, alt: "Marco urbano de Samambaia, Distrito Federal" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/assets/top-imobiliaria/regions/samambaia.jpg"] },
   keywords:
     "Samambaia DF, imóveis em Samambaia, morar em Samambaia, metrô Samambaia, história de Samambaia, Parque Três Meninas, mercado imobiliário Samambaia, apartamentos Samambaia",
 };
@@ -355,7 +364,7 @@ export default function SamambaiaPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Header />
-      <main className="region-page">
+      <main className="region-page region-page--samambaia">
         <section className="region-hero">
           <div className="region-inner">
             <div className="region-kicker">Regiões do Distrito Federal</div>
@@ -376,6 +385,7 @@ export default function SamambaiaPage() {
           </div>
         </section>
 
+        <p className="region-image-credit">Foto: Agência Brasília, via Wikimedia Commons (CC BY 2.0).</p>
         <section className="region-content">
           <div className="region-inner">
             <div className="region-stat-grid" aria-label="Samambaia em números">
