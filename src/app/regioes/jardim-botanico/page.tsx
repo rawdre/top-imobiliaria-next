@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 const SITE_URL = "https://www.topimobiliaria.com";
 const PAGE_URL = `${SITE_URL}/regioes/jardim-botanico`;
@@ -34,6 +35,17 @@ export const metadata: Metadata = {
   keywords:
     "Jardim Botânico DF, imóveis no Jardim Botânico, morar no Jardim Botânico, investir no Jardim Botânico, mercado imobiliário Jardim Botânico, condomínios Jardim Botânico",
 };
+
+// Fonte: PDAD 2021 (Codeplan/IPEDF) — relatório regional do Jardim Botânico.
+// RA XXVII criada pela Lei nº 3.435/2004; alta renda e escolaridade.
+const stats: RegionStat[] = [
+  { value: "53.045", label: "Habitantes (PDAD 2021)" },
+  { value: "34,6", label: "Idade média (anos)" },
+  { value: "21.237", label: "Domicílios ocupados" },
+  { value: "292 km²", label: "Área territorial" },
+  { value: "RA XXVII", label: "Região Administrativa desde 2004" },
+  { value: "2,5", label: "Moradores por domicílio" },
+];
 
 const highlights = [
   {
@@ -236,6 +248,12 @@ export default function JardimBotanicoPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Jardim Botânico em números"
+              note="Fonte: PDAD 2021 (Codeplan/IPEDF). Região de alta renda formada por condomínios junto ao Jardim Botânico de Brasília."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

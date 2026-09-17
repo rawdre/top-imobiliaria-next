@@ -906,6 +906,21 @@
   overflow: hidden;
 }
 
+.region-stats-wrap {
+  margin: -84px 0 34px;
+}
+
+.region-stats-wrap .region-stat-grid {
+  margin: 0;
+}
+
+.region-stat-note {
+  color: #566074;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin: 12px 0 0;
+}
+
 .region-stat-grid > div {
   background: #1b2a4a;
   min-height: 112px;
@@ -1210,6 +1225,14 @@
 
   .region-stat-grid {
     margin-top: -68px;
+  }
+
+  .region-stats-wrap {
+    margin-top: -68px;
+  }
+
+  .region-stats-wrap .region-stat-grid {
+    margin-top: 0;
   }
 
   .region-article {

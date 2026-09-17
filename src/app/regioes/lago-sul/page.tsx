@@ -15,6 +15,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 export const metadata: Metadata = {
   title: "Lago Sul: qualidade de vida e mercado imobiliário | Top Imobiliária",
@@ -26,6 +27,17 @@ export const metadata: Metadata = {
   keywords:
     "Lago Sul Brasília, imóveis no Lago Sul, casas no Lago Sul, morar no Lago Sul, investir no Lago Sul, mercado imobiliário Lago Sul, alto padrão Brasília",
 };
+
+// Fonte: PDAD-A 2024 (IPEDF/Codeplan) — relatório regional do Lago Sul.
+// População urbana; área via IDE/DF Geoportal 2024. RA XVI pela Lei nº 643/1994.
+const stats: RegionStat[] = [
+  { value: "27.213", label: "Habitantes (PDAD-A 2024)" },
+  { value: "44,6", label: "Idade média (anos)" },
+  { value: "9.364", label: "Domicílios ocupados" },
+  { value: "76 km²", label: "Área territorial" },
+  { value: "1960", label: "Desmembrada do Plano Piloto" },
+  { value: "RA XVI", label: "Região Administrativa desde 1994" },
+];
 
 const highlights = [
   {
@@ -132,6 +144,12 @@ export default function LagoSulPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Lago Sul em números"
+              note="Fonte: PDAD-A 2024 (IPEDF/Codeplan). População urbana; área territorial via IDE/DF Geoportal 2024."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

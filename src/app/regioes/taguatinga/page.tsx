@@ -17,6 +17,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 export const metadata: Metadata = {
   title: "Taguatinga DF: desenvolvimento e mercado imobiliário | Top Imobiliária",
@@ -28,6 +29,17 @@ export const metadata: Metadata = {
   keywords:
     "Taguatinga DF, imóveis em Taguatinga, morar em Taguatinga, investir em Taguatinga, mercado imobiliário Taguatinga, apartamentos Taguatinga",
 };
+
+// Fonte: PDAD-A 2024 (IPEDF/Codeplan) — relatório regional de Taguatinga.
+// População urbana; área via IDE/DF Geoportal 2024. RA III pela Lei nº 4.545/1964.
+const stats: RegionStat[] = [
+  { value: "201.332", label: "Habitantes (PDAD-A 2024)" },
+  { value: "37,3", label: "Idade média (anos)" },
+  { value: "87.048", label: "Domicílios ocupados" },
+  { value: "63 km²", label: "Área territorial" },
+  { value: "1958", label: "Fundada em 5 de junho" },
+  { value: "RA III", label: "Uma das primeiras RAs (1964)" },
+];
 
 const highlights = [
   {
@@ -157,6 +169,12 @@ export default function TaguatingaPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Taguatinga em números"
+              note="Fonte: PDAD-A 2024 (IPEDF/Codeplan). População urbana; área territorial via IDE/DF Geoportal 2024."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

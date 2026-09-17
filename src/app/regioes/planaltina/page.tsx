@@ -16,6 +16,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 export const metadata: Metadata = {
   title: "Planaltina DF: história e mercado imobiliário | Top Imobiliária",
@@ -27,6 +28,17 @@ export const metadata: Metadata = {
   keywords:
     "Planaltina DF, imóveis em Planaltina, morar em Planaltina, investir em Planaltina, mercado imobiliário Planaltina, casas Planaltina DF",
 };
+
+// Fonte: PDAD-A 2024 (IPEDF/Codeplan) — relatório regional de Planaltina.
+// População urbana; área via IDE/DF Geoportal 2024. RA VI pela Lei nº 4.545/1964.
+const stats: RegionStat[] = [
+  { value: "121.856", label: "Habitantes (PDAD-A 2024)" },
+  { value: "33,5", label: "Idade média (anos)" },
+  { value: "49.261", label: "Domicílios ocupados" },
+  { value: "1.509 km²", label: "Maior RA em área do DF" },
+  { value: "1859", label: "Cidade mais antiga do DF" },
+  { value: "RA VI", label: "Região Administrativa desde 1964" },
+];
 
 const highlights = [
   {
@@ -156,6 +168,12 @@ export default function PlanaltinaPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Planaltina em números"
+              note="Fonte: PDAD-A 2024 (IPEDF/Codeplan). População urbana; área territorial via IDE/DF Geoportal 2024."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

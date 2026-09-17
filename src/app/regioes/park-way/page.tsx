@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 const SITE_URL = "https://www.topimobiliaria.com";
 const PAGE_URL = `${SITE_URL}/regioes/park-way`;
@@ -34,6 +35,17 @@ export const metadata: Metadata = {
   keywords:
     "Park Way DF, imóveis no Park Way, morar no Park Way, investir no Park Way, mercado imobiliário Park Way, casas no Park Way",
 };
+
+// Fonte: PDAD 2021 (Codeplan/IPEDF) — relatório regional do Park Way (SMPW).
+// Baixa densidade; grandes lotes. RA XXIV criada pela Lei nº 3.255/2003.
+const stats: RegionStat[] = [
+  { value: "23.081", label: "Habitantes (PDAD 2021)" },
+  { value: "38,7", label: "Idade média (anos)" },
+  { value: "6.098", label: "Domicílios ocupados" },
+  { value: "118 km²", label: "Área territorial" },
+  { value: "1961", label: "Origem do SMPW" },
+  { value: "RA XXIV", label: "Região Administrativa desde 2003" },
+];
 
 const highlights = [
   {
@@ -235,6 +247,12 @@ export default function ParkWayPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Park Way em números"
+              note="Fonte: PDAD 2021 (Codeplan/IPEDF). Região de baixa densidade do Setor de Mansões Park Way (SMPW)."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

@@ -17,6 +17,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 export const metadata: Metadata = {
   title: "Guará DF: qualidade de vida e mercado imobiliário | Top Imobiliária",
@@ -28,6 +29,17 @@ export const metadata: Metadata = {
   keywords:
     "Guará DF, imóveis no Guará, morar no Guará, investir no Guará, mercado imobiliário Guará, apartamentos Guará, casas Guará",
 };
+
+// Fonte: PDAD-A 2024 (IPEDF/Codeplan) — relatório regional do Guará.
+// População urbana; área via IDE/DF Geoportal 2024. RA X pela Lei nº 49/1989.
+const stats: RegionStat[] = [
+  { value: "127.952", label: "Habitantes (PDAD-A 2024)" },
+  { value: "38,1", label: "Idade média (anos)" },
+  { value: "56.305", label: "Domicílios ocupados" },
+  { value: "25 km²", label: "Área territorial" },
+  { value: "1967", label: "Fundado em 5 de maio" },
+  { value: "RA X", label: "Região Administrativa desde 1989" },
+];
 
 const highlights = [
   {
@@ -157,6 +169,12 @@ export default function GuaraPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Guará em números"
+              note="Fonte: PDAD-A 2024 (IPEDF/Codeplan). População urbana; área territorial via IDE/DF Geoportal 2024."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

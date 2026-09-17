@@ -16,6 +16,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 export const metadata: Metadata = {
   title: "Lago Norte: qualidade de vida e mercado imobiliário | Top Imobiliária",
@@ -27,6 +28,17 @@ export const metadata: Metadata = {
   keywords:
     "Lago Norte Brasília, imóveis no Lago Norte, morar no Lago Norte, investir no Lago Norte, mercado imobiliário Lago Norte, casas Lago Norte",
 };
+
+// Fonte: PDAD-A 2024 (IPEDF/Codeplan) — relatório regional do Lago Norte.
+// População urbana; área via IDE/DF Geoportal 2024. RA XVIII pela Lei nº 641/1994.
+const stats: RegionStat[] = [
+  { value: "43.817", label: "Habitantes (PDAD-A 2024)" },
+  { value: "39,8", label: "Idade média (anos)" },
+  { value: "18.398", label: "Domicílios ocupados" },
+  { value: "75,5 km²", label: "Área territorial" },
+  { value: "1960", label: "Ocupação da Península Norte" },
+  { value: "RA XVIII", label: "Região Administrativa desde 1994" },
+];
 
 const highlights = [
   {
@@ -152,6 +164,12 @@ export default function LagoNortePage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Lago Norte em números"
+              note="Fonte: PDAD-A 2024 (IPEDF/Codeplan). População urbana; área territorial via IDE/DF Geoportal 2024."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>

@@ -16,6 +16,7 @@ import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteAssistant from "@/components/SiteAssistant";
+import RegionStats, { type RegionStat } from "@/components/RegionStats";
 
 export const metadata: Metadata = {
   title: "Vicente Pires DF: desenvolvimento e mercado imobiliário | Top Imobiliária",
@@ -27,6 +28,17 @@ export const metadata: Metadata = {
   keywords:
     "Vicente Pires DF, imóveis em Vicente Pires, morar em Vicente Pires, investir em Vicente Pires, mercado imobiliário Vicente Pires, casas Vicente Pires",
 };
+
+// Fonte: PDAD 2021 (Codeplan/IPEDF) — relatório regional de Vicente Pires.
+// Ex-zona rural desmembrada de Taguatinga; RA XXX criada pela Lei nº 4.327/2009.
+const stats: RegionStat[] = [
+  { value: "78.561", label: "Habitantes (PDAD 2021)" },
+  { value: "34,8", label: "Idade média (anos)" },
+  { value: "25.292", label: "Domicílios ocupados" },
+  { value: "43 km²", label: "Área territorial" },
+  { value: "RA XXX", label: "Região Administrativa desde 2009" },
+  { value: "3,11", label: "Moradores por domicílio" },
+];
 
 const highlights = [
   {
@@ -155,6 +167,12 @@ export default function VicentePiresPage() {
 
         <section className="region-content">
           <div className="region-inner">
+            <RegionStats
+              stats={stats}
+              ariaLabel="Vicente Pires em números"
+              note="Fonte: PDAD 2021 (Codeplan/IPEDF). Ex-área rural desmembrada de Taguatinga, em rápida urbanização."
+            />
+
             <div className="region-highlight-grid">
               {highlights.map((item) => (
                 <article className="region-highlight" key={item.title}>
