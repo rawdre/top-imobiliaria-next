@@ -39,24 +39,11 @@ export const metadata: Metadata = {
 // indicadores separadamente para a Asa Sul, portanto este é o recorte oficial.
 const stats: RegionStat[] = [
   { value: "207.996", label: "Habitantes (Plano Piloto · RA I)" },
+  { value: "40,5", label: "Idade média (anos)" },
   { value: "107.730", label: "Domicílios ocupados" },
-  { value: "1,93", label: "Moradores por domicílio" },
-  { value: "40,5 anos", label: "Idade média" },
   { value: "72,2%", label: "Apartamentos" },
-  { value: "54,2%", label: "Imóveis próprios quitados" },
-  { value: "93%", label: "Imóveis próprios com escritura" },
-  { value: "74,3%", label: "Ensino superior completo (25+ anos)" },
-  { value: "76,4%", label: "Pessoas com plano de saúde" },
-  { value: "92,4%", label: "Acesso à internet nos últimos 3 meses" },
-  { value: "98,2%", label: "Ruas arborizadas" },
-  { value: "88,3%", label: "Domicílios próximos a parques ou praças" },
-  { value: "78%", label: "Ciclovias ou ciclofaixas" },
-  { value: "93,4%", label: "Pontos de ônibus nas proximidades" },
-  { value: "99,7%", label: "Vias principais pavimentadas" },
-  { value: "98%", label: "Abastecimento de água" },
-  { value: "94,7%", label: "Rede de esgoto" },
-  { value: "98,1%", label: "Energia elétrica" },
-  { value: "97,5%", label: "Coleta direta de lixo" },
+  { value: "1960", label: "Inaugurada com Brasília" },
+  { value: "RA I", label: "Plano Piloto" },
 ];
 
 const highlights = [
