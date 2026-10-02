@@ -20,6 +20,7 @@ const quickLinks = [
   { label: "Lago Norte", href: "/regioes/lago-norte", icon: Waves },
   { label: "Sobradinho", href: "/regioes/sobradinho", icon: Landmark },
   { label: "Samambaia", href: "/regioes/samambaia", icon: Train },
+  { label: "Gama", href: "/regioes/gama", icon: Landmark },
   { label: "Núcleo Bandeirante", href: "/regioes/nucleo-bandeirante", icon: Landmark },
   { label: "Guará", href: "/regioes/guara", icon: Train },
   { label: "Taguatinga", href: "/regioes/taguatinga", icon: Building2 },
@@ -113,6 +114,14 @@ const featureCards = [
     description: "Uma das maiores regiões do DF: história, metrô, população jovem, educação, saúde, mobilidade e mercado imobiliário em plena verticalização.",
     image: "/assets/top-imobiliaria/regions/samambaia.jpg",
     icon: Train,
+  },
+  {
+    title: "Gama: tradição e vida própria",
+    eyebrow: "Guia regional",
+    href: "/regioes/gama",
+    description: "História, UnB, comércio, parques, mobilidade e mercado imobiliário de uma das cidades mais tradicionais do DF.",
+    image: "/assets/top-imobiliaria/regions/gama.jpg",
+    icon: Landmark,
   },
   {
     title: "Núcleo Bandeirante e a Cidade Livre",

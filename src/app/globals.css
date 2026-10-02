@@ -785,6 +785,10 @@
   background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.54)), url("/assets/top-imobiliaria/regions/samambaia.jpg") center/cover no-repeat;
 }
 
+.region-page--gama .region-hero {
+  background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.54)), url("/assets/top-imobiliaria/regions/gama.jpg") center/cover no-repeat;
+}
+
 .region-page--nucleo-bandeirante .region-hero {
   background: linear-gradient(110deg, rgba(15, 26, 46, 0.92), rgba(15, 26, 46, 0.54)), url("/assets/top-imobiliaria/regions/nucleo-bandeirante.jpg") center/cover no-repeat;
 }
