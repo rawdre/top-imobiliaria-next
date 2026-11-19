@@ -303,20 +303,64 @@ async function savePropertyMeta(id, metaPayload, property = {}) {
   return normalized;
 }
 
+// Uploaded files get a unique name and are never overwritten, so browsers can keep them for a year.
+const MEDIA_CACHE_SECONDS = String(60 * 60 * 24 * 365);
+const PHOTO_MAX_SIDE = 1600;
+const PHOTO_QUALITY = 0.82;
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+}
+
+// Shrink a photo before upload: longest side max 1600px, re-encoded as WebP (JPEG fallback).
+// Falls back to the original file if the browser cannot decode it (e.g. HEIC) or if the result is not smaller.
+async function shrinkPhoto(file) {
+  if (!file.type.startsWith('image/') || file.type === 'image/gif' || file.type === 'image/svg+xml') {
+    return file;
+  }
+  try {
+    const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    const scale = Math.min(1, PHOTO_MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close?.();
+
+    let blob = await canvasToBlob(canvas, 'image/webp', PHOTO_QUALITY);
+    if (!blob || blob.type !== 'image/webp') {
+      blob = await canvasToBlob(canvas, 'image/jpeg', PHOTO_QUALITY);
+    }
+    if (!blob || (blob.size >= file.size && scale === 1)) return file;
+
+    const extension = blob.type === 'image/webp' ? 'webp' : 'jpg';
+    const baseName = file.name.replace(/\.[^.]+$/, '') || 'foto';
+    return new File([blob], `${baseName}.${extension}`, { type: blob.type });
+  } catch (error) {
+    console.warn('Não foi possível reduzir a foto, enviando original:', file.name, error);
+    return file;
+  }
+}
+
 async function uploadPropertyImages(files) {
   if (!files || !files.length) return [];
 
   const client = getSupabaseClient();
   const uploads = [];
 
-  for (const file of files) {
+  for (const originalFile of files) {
+    const file = await shrinkPhoto(originalFile);
     const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg';
     const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${extension}`;
     const filePath = `properties/${fileName}`;
 
     const { error } = await client.storage
       .from(PROPERTY_IMAGE_BUCKET)
-      .upload(filePath, file, { upsert: false });
+      .upload(filePath, file, {
+        upsert: false,
+        contentType: file.type || undefined,
+        cacheControl: MEDIA_CACHE_SECONDS,
+      });
 
     if (error) throw error;
 
@@ -350,7 +394,11 @@ async function uploadPropertyVideos(propertyId, items) {
     const filePath = `properties/${propertyId}/${fileName}`;
     const { error } = await client.storage
       .from(PROPERTY_VIDEO_BUCKET)
-      .upload(filePath, item.file, { upsert: false, contentType: item.file.type });
+      .upload(filePath, item.file, {
+        upsert: false,
+        contentType: item.file.type,
+        cacheControl: MEDIA_CACHE_SECONDS,
+      });
     if (error) throw error;
 
     const { data } = client.storage.from(PROPERTY_VIDEO_BUCKET).getPublicUrl(filePath);
