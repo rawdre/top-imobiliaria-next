@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // Serve photos straight from Supabase. The Vercel optimizer quota ran out
+    // (402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED) and blanked every uncached photo.
+    unoptimized: true,
     // Allow next/image to load property photos from the Top Imobiliaria Supabase bucket.
     remotePatterns: [
       {
